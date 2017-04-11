@@ -24,10 +24,10 @@ if(isset($_SERVER['HTTP_REFERER'])) {
 }
 
 if(isset($_GET['host']) && $_GET['host'] !== '' && preg_match("/punchpass/i", $_GET['host'])){
-  $host= 'punchpass.com';
+  $host= 'punchpass.net';
 }
 
-if (!preg_match("/punchpass\.com/i", $host)) {
+if (!preg_match("/punchpass\.net/i", $host)) {
   debug('wrong host');
   exit();
 }
