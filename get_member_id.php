@@ -25,7 +25,7 @@ $SQL = <<<QUERY_END
 SELECT TOP 1
 MemberID
 FROM davism.tblSDFWAMembers
-WHERE LCASE(fldEMail) LIKE '%{{email}}%'
+WHERE LOWER(fldEMail) LIKE '%{{email}}%'
 ;
 QUERY_END;
 
