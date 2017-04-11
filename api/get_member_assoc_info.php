@@ -87,7 +87,7 @@ $row_count = mssql_num_rows($result);
 if($row_count == 1){
   $Row = mssql_fetch_assoc($result);
   $output = json_decode('{}');
-  $output->successs = 'true';
+  $output->success = 'true';
   $output->message = 'results found';
   $output->host = $host;
   $output->last_name = $Row['fldLastName'];
@@ -116,7 +116,7 @@ if($row_count == 1){
   echo json_encode($output, JSON_PRETTY_PRINT);
 }else{
   $output = json_decode('{}');
-  $output->successs = 'false';
+  $output->success = 'false';
   $output->message = 'no results found';
   $output->host = $host;
   if(isset($member_id)){

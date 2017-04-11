@@ -41,14 +41,14 @@ $row_count = mssql_num_rows($result);
 if($row_count == 1){
   $Row = mssql_fetch_assoc($result);
   $output = json_decode('{}');
-  $output->successs = 'true';
+  $output->success = 'true';
   $output->message = 'results found';
   $output->referer = $referer;
   $output->email = $email;
   $output->member_id = substr("0000" . $Row['MemberID'], -4);
 }else{
   $output = json_decode('{}');
-  $output->successs = 'false';
+  $output->success = 'false';
   $output->message = 'no results found';
   $output->referer = $referer;
   $output->email= $email;

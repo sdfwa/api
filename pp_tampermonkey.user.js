@@ -6,7 +6,7 @@
 // @require       https://raw.github.com/ccampbell/mousetrap/master/plugins/global-bind/mousetrap-global-bind.min.js
 // @require       https://code.jquery.com/ui/1.11.2/jquery-ui.js
 // @run-at        document-end
-// @version       1.0
+// @version       1.01
 // @description   Addons to Punchpass
 // @include       https://app.punchpass.net
 // @updateURL     https://shop.briankranson.com/pp_tampermonkey.user.js
@@ -15,14 +15,18 @@ console.log('Started Punchpass enhancements');
 
 (function(unsafe) {
   'use strict';
-
+  unsafe.sdfwa = unsafe.sdfwa || {};
+  var s = unsafe.sdfwa;
+  s.tmp = {};
+  $ = unsafe.jQuery;
+  
   var contentEval = function contentEval(source, execute) {
     // Check for function input.
     if ('function' == typeof source && execute) {
       // Execute this function with no arguments, by adding parentheses.
       // One set around the function, required for valid syntax, and a
       // second empty set calls the surrounded function.
-      source = '(' + source + ')();'
+      source = '(' + source + ')();';
     }
     // Create a script node holding this  source code.
     var script = unsafe.document.createElement('script');
@@ -30,7 +34,7 @@ console.log('Started Punchpass enhancements');
     script.textContent = source;
     // Insert the script node into the page, so it will run
     document.body.appendChild(script);
-  }
+  };
 
   var currentURL = unsafe.location.toString();
 
@@ -41,10 +45,10 @@ console.log('Started Punchpass enhancements');
       var regex = new RegExp(pattern);
       if (currentURL.match(regex)) {
         return true;
-      };
+      }
     }
-  }
-  
+  };
+
   var keepTrying = function keepTrying(func, callback, sleep, maxAttempts) {
     if (typeof(sleep) == 'undefined') {
       sleep = 100;
@@ -62,70 +66,97 @@ console.log('Started Punchpass enhancements');
         if (typeof maxAttempts !== 'undefined') {
           if (totalAttempts > maxAttempts) {
             clearInterval(timer);
-            console.log('Reached maximum number of attepts.  Going to stop checking.')
+            console.log('Reached maximum number of attepts.  Going to stop checking.');
           }
         }
       }
     }, sleep);
-  }
-  
+  };
+
   var when = function when(test, run, sleep, maxAttempts) {
     var args = Array.prototype.slice.call(arguments, 2);
     keepTrying(test, function() {
         run.apply(null, args);
       },
       sleep, maxAttempts);
-  }
+  };
 
-  //Natural sort function
-  var alphaNumSort = function alphaNumSort(a, b) {
-    function chunkify(t) {
-      var tz = new Array();
-      var x = 0,
-        y = -1,
-        n = 0,
-        i, j;
-
-      while (i = (j = t.charAt(x++)).charCodeAt(0)) {
-        var m = (i == 46 || (i >= 48 && i <= 57));
-        if (m !== n) {
-          tz[++y] = "";
-          n = m;
-        }
-        tz[y] += j;
-      }
-      return tz;
-    }
-
-    var aa = chunkify(a);
-    var bb = chunkify(b);
-
-    for (x = 0; aa[x] && bb[x]; x++) {
-      if (aa[x] !== bb[x]) {
-        var c = Number(aa[x]),
-          d = Number(bb[x]);
-        if (c == aa[x] && d == bb[x]) {
-          return c - d;
-        } else return (aa[x] > bb[x]) ? 1 : -1;
-      }
-    }
-    return aa.length - bb.length;
-  }
-
-  jQuery.fn.bindFirst = function(name, fn) {
+  $.fn.bindFirst = function(name, fn) {
     // bind as you normally would
     // don't want to miss out on any jQuery magic
     this.on(name, fn);
     // Thanks to a comment by @Martin, adding support for
     // namespaced events too.
     this.each(function() {
-      var handlers = jQuery._data(this, 'events')[name.split('.')[0]];
+      var handlers = $._data(this, 'events')[name.split('.')[0]];
       // console.log(handlers);
       // take out the handler we just inserted from the end
       var handler = handlers.pop();
       // move it at the beginning
       handlers.splice(0, 0, handler);
     });
+  };
+  
+  /* start update user 
+  {
+"successs": "true",
+"message": "results found",
+"host": "punchpass.net",
+"last_name": "Kranson",
+"first_name": "Brian",
+"middle_initial": null,
+"name_prefix": null,
+"name_suffix": null,
+"spouse": null,
+"address": "4055 Falcon St #204",
+"city": "San Diego",
+"state": "CA",
+"zip_code": "92103",
+"phone": "(858)353-2152",
+"year": 2017,
+"share": null,
+"email": "bkranson@gmail.com",
+"mail": "Web",
+"date_joined": "Nov  1 2016 12:00:00:000AM",
+"date_carded": "Nov 22 2016 12:00:00:000AM",
+"comments": null,
+"life_member": 0,
+"date": null,
+"email2": null,
+"phone2": null,
+"member_id": "5455"
+}
+  */
+  if(currentURLMatches(['https://app.punchpass.net/customers/\d+/edit'])){
+    console.log('start update user');
+    s.tmp.email = $('#customer_email').val();
+    $.getJSON('https://shop.briankranson.com/api/get_member_assoc_info.php?email=' + s.tmp.email).done(function(data){
+      if(data.success === 'true' && s.tmp.email.toLowerCase() === data.email.toLowerCase() && /^\d{4}$/.test(data.member_id) && parseInt(data.year) >= (new Date()).getFullYear()){
+        // add dashes to 10 digit phone number
+        s.tmp.phone = ('0000000000' + data.phone.replace(/(\ |\.|\-|\(|\))/g, '')).substr(-10);
+        s.tmp.phone = s.tmp.phone.slice(0,3)+"-"+s.tmp.phone.slice(3,6)+"-"+s.tmp.phone.slice(6);
+        s.tmp.last_name = data.last_name + ' {' + data.member_id + '}';
+        if($('#customer_first_name').val() != data.first_name ||
+          $('#customer_last_name').val() != s.tmp.last_name ||
+          $('#customer_phone').val() != s.tmp.phone ||
+          $('#customer_street_address').val() != data.address ||
+          $('#customer_city').val() != data.city ||
+          $('#customer_state').val() != data.state ||
+          $('#customer_zip_code').val() != data.zip_code ||
+        ){
+          $('#customer_first_name').val(data.first_name);
+          $('#customer_last_name').val(s.tmp.last_name);
+          $('#customer_phone').val(s.tmp.phone);
+          $('#customer_street_address').val(data.address);
+          $('#customer_city').val(data.city);
+          $('#customer_state').val(data.state);
+          $('#customer_zip_code').val(data.zip_code);
+          $('#customer_notes').val($('#customer_notes').val() + ($('#customer_notes').val() === '' ? '' : '\n') + (new Date()).toISOString());
+          $('input[value="Update Customer"]')[0].click();
+        }
+      }
+    });
   }
+  /* end update user */
 
 })(unsafeWindow);
