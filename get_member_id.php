@@ -2,7 +2,7 @@
 require('./functions.php');
 
 if(isset($_GET['email']) && $_GET['email'] !== ''){
-  $email= $_GET['email'];
+  $email= strtolower($_GET['email']);
 }
 
 if(!isset($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
@@ -25,7 +25,7 @@ $SQL = <<<QUERY_END
 SELECT TOP 1
 MemberID
 FROM davism.tblSDFWAMembers
-WHERE fldEMail LIKE '%{{email}}%'
+WHERE LCASE(fldEMail) LIKE '%{{email}}%'
 ;
 QUERY_END;
 
@@ -44,7 +44,7 @@ if($row_count == 1){
   $output->successs = 'true';
   $output->message = 'results found';
   $output->referer = $referer;
-  $output->email = $email];
+  $output->email = $email;
   $output->member_id = substr("0000" . $Row['MemberID'], -4);
 }else{
   $output = json_decode('{}');
