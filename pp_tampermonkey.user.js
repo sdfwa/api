@@ -8,7 +8,7 @@
 // @run-at        document-end
 // @version       1.01
 // @description   Addons to Punchpass
-// @include       https://app.punchpass.net
+// @include       https://app.punchpass.net*
 // @updateURL     https://shop.briankranson.com/pp_tampermonkey.user.js
 // ==/UserScript==
 console.log('Started Punchpass enhancements');
@@ -19,7 +19,7 @@ console.log('Started Punchpass enhancements');
   var s = unsafe.sdfwa;
   s.tmp = {};
   $ = unsafe.jQuery;
-  
+
   var contentEval = function contentEval(source, execute) {
     // Check for function input.
     if ('function' == typeof source && execute) {
@@ -96,53 +96,33 @@ console.log('Started Punchpass enhancements');
       handlers.splice(0, 0, handler);
     });
   };
-  
-  /* start update user 
-  {
-"successs": "true",
-"message": "results found",
-"host": "punchpass.net",
-"last_name": "Kranson",
-"first_name": "Brian",
-"middle_initial": null,
-"name_prefix": null,
-"name_suffix": null,
-"spouse": null,
-"address": "4055 Falcon St #204",
-"city": "San Diego",
-"state": "CA",
-"zip_code": "92103",
-"phone": "(858)353-2152",
-"year": 2017,
-"share": null,
-"email": "bkranson@gmail.com",
-"mail": "Web",
-"date_joined": "Nov  1 2016 12:00:00:000AM",
-"date_carded": "Nov 22 2016 12:00:00:000AM",
-"comments": null,
-"life_member": 0,
-"date": null,
-"email2": null,
-"phone2": null,
-"member_id": "5455"
-}
-  */
-  if(currentURLMatches(['https://app.punchpass.net/customers/\d+/edit'])){
+
+  /* start next url */
+  s.tmp.next_url = unsafe.localStorage.getItem('next_url') || '';
+  if(s.tmp.next_url !== ''){
+    unsafe.localStorage.removeItem('next_url');
+    unsafe.document.location = s.tmp.next_url;
+  }
+  /* end next url */
+
+  /* start update user */
+  // jQuery('.customers tbody a[href*="/customers"]').each(function(){jQuery(this).attr('href', (jQuery(this).attr('href') + '/edit'));});
+  if(currentURLMatches(['app.punchpass.net\/customers\/([0-9]+)\/edit'])){
     console.log('start update user');
     s.tmp.email = $('#customer_email').val();
     $.getJSON('https://shop.briankranson.com/api/get_member_assoc_info.php?email=' + s.tmp.email).done(function(data){
-      if(data.success === 'true' && s.tmp.email.toLowerCase() === data.email.toLowerCase() && /^\d{4}$/.test(data.member_id) && parseInt(data.year) >= (new Date()).getFullYear()){
+      if(data.success === 'true' && s.tmp.email.toLowerCase().trim() === data.email.toLowerCase().trim() && /^\d{4}$/.test(data.member_id) && parseInt(data.year) >= (new Date()).getFullYear()){
         // add dashes to 10 digit phone number
         s.tmp.phone = ('0000000000' + data.phone.replace(/(\ |\.|\-|\(|\))/g, '')).substr(-10);
         s.tmp.phone = s.tmp.phone.slice(0,3)+"-"+s.tmp.phone.slice(3,6)+"-"+s.tmp.phone.slice(6);
-        s.tmp.last_name = data.last_name + ' {' + data.member_id + '}';
+        s.tmp.last_name = data.last_name + ' (' + data.member_id + ')';
         if($('#customer_first_name').val() != data.first_name ||
           $('#customer_last_name').val() != s.tmp.last_name ||
           $('#customer_phone').val() != s.tmp.phone ||
           $('#customer_street_address').val() != data.address ||
           $('#customer_city').val() != data.city ||
           $('#customer_state').val() != data.state ||
-          $('#customer_zip_code').val() != data.zip_code ||
+          $('#customer_zip_code').val() != data.zip_code
         ){
           $('#customer_first_name').val(data.first_name);
           $('#customer_last_name').val(s.tmp.last_name);
@@ -152,6 +132,8 @@ console.log('Started Punchpass enhancements');
           $('#customer_state').val(data.state);
           $('#customer_zip_code').val(data.zip_code);
           $('#customer_notes').val($('#customer_notes').val() + ($('#customer_notes').val() === '' ? '' : '\n') + (new Date()).toISOString());
+          // unsafe.localStorage.setItem('next_url', 'https://app.punchpass.net/customers');
+          unsafe.localStorage.setItem('next_url', currentURL);
           $('input[value="Update Customer"]')[0].click();
         }
       }
