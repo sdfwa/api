@@ -23,5 +23,6 @@ $RECYCLE.BIN/
 
 # Config Files
 *_config*.php
+*github*.php
 
 # End of https://www.gitignore.io/api/windows
