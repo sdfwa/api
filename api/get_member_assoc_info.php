@@ -1,5 +1,5 @@
 <?php
-require('./functions.php');
+require('../functions.php');
 
 if(isset($_GET['member_id']) && $_GET['member_id'] !== ''){
   $member_id = $_GET['member_id'];
@@ -18,10 +18,18 @@ if(isset($member_id) && isset($email)){
   debug('both member id and email');
   exit();
 }
-$referer = '';
-
+$host = '';
 if(isset($_SERVER['HTTP_REFERER'])) {
-    $referer = $_SERVER['HTTP_REFERER'];
+  $host = parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST);
+}
+
+if(isset($_GET['host']) && $_GET['host'] !== '' && preg_match("/punchpass/i", $_GET['host'])){
+  $host= 'punchpass.com';
+}
+
+if (!preg_match("/punchpass\.com/i", $host)) {
+  debug('wrong host');
+  exit();
 }
 
 $con = mssql_connect($MSSQLServer, $MSSQLUser, $MSSQLPass) or die("Could not connect to database: ".mssql_get_last_message()); 

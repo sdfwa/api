@@ -1,5 +1,5 @@
 <?php
-require('./functions.php');
+require('../functions.php');
 $user_id = '';
 $password = '';
 if($GLOBALS['debug'] === true && isset($_GET['user_id']) && $_GET['user_id'] !== '' && isset($_GET['password']) && $_GET['password'] !== ''){

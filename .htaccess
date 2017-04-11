@@ -1,4 +1,5 @@
 Order allow,deny
-<FilesMatch "_config">
+Allow from all
+<FilesMatch "_config|.git|git_">
   Deny from all
 </FilesMatch>

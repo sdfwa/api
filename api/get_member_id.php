@@ -1,5 +1,5 @@
 <?php
-require('./functions.php');
+require('../functions.php');
 
 if(isset($_GET['email']) && $_GET['email'] !== ''){
   $email= strtolower($_GET['email']);

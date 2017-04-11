@@ -1,5 +1,5 @@
 <?php
-require('./functions.php');
+require('../functions.php');
 
 if(isset($_GET['member_id']) && $_GET['member_id'] !== ''){
   $member_id = $_GET['member_id'];
