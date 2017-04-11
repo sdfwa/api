@@ -1,5 +1,5 @@
 <?php
-require('./_config.php');
+require($_SERVER["DOCUMENT_ROOT"] . '/_config.php');
 function debug($t, $u=null){
   if($GLOBALS['debug'] == true && isset($t)){
     echo '/*' . PHP_EOL;
