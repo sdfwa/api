@@ -89,7 +89,7 @@ if($row_count == 1){
   $output = json_decode('{}');
   $output->successs = 'true';
   $output->message = 'results found';
-  $output->referer = $referer;
+  $output->host = $host;
   $output->last_name = $Row['fldLastName'];
   $output->first_name = $Row['fldFirstName'];
   $output->middle_initial = $Row['fldMiddleInit'];
@@ -118,7 +118,7 @@ if($row_count == 1){
   $output = json_decode('{}');
   $output->successs = 'false';
   $output->message = 'no results found';
-  $output->referer = $referer;
+  $output->host = $host;
   if(isset($member_id)){
     $output->member_id = $member_id;
   }
