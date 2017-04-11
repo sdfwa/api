@@ -104,13 +104,39 @@ console.log('Started Punchpass enhancements');
     unsafe.document.location = s.tmp.next_url;
   }
   /* end next url */
+  /* start update all users */
+  s.tmp.all_user_status = unsafe.localStorage.getItem('all_user_status') || 'do_nothing';
+  if(currentURLMatches(['app.punchpass.net\/customers$'])){
+    jQuery('.customers th[aria-label^="Last Name:"]').css('width', '200px');
+    // window.localStorage.setItem('all_user_status', 'all_urls_to_local_storage');
+    // window.localStorage.removeItem('all_user_status'); window.localStorage.removeItem('urls');
+    if(s.tmp.all_user_status === 'all_urls_to_local_storage'){
+        s.tmp.urls = [];
+        jQuery('.customers tbody a[href*="/customers"]').each(function(){
+          s.tmp.urls.push('https://app.punchpass.net' + jQuery(this).attr('href') + '/edit');
+        });
+        unsafe.localStorage.setItem('all_user_status', 'loop_urls');
+        unsafe.localStorage.setItem('urls', JSON.stringify(s.tmp.urls));
+        unsafe.document.location = currentURL;
+    }else if(s.tmp.all_user_status === 'loop_urls'){
+        s.tmp.urls = JSON.parse(unsafe.localStorage.getItem('urls'));
+        s.tmp.url = s.tmp.urls.pop();
+        unsafe.localStorage.setItem('urls', JSON.stringify(s.tmp.urls));
+        unsafe.document.location = s.tmp.url;
+    }
+  }
+  /* end update all users */
 
   /* start update user */
-  // jQuery('.customers tbody a[href*="/customers"]').each(function(){jQuery(this).attr('href', (jQuery(this).attr('href') + '/edit'));});
   if(currentURLMatches(['app.punchpass.net\/customers\/([0-9]+)\/edit'])){
     console.log('start update user');
+    if(s.tmp.all_user_status !== 'do_nothing'){
+      setTimeout(function(){
+        document.location = 'https://app.punchpass.net\/customers';
+      }, 2000);
+    }
     s.tmp.email = $('#customer_email').val();
-    $.getJSON('https://shop.briankranson.com/api/get_member_assoc_info.php?email=' + s.tmp.email).done(function(data){
+    $.getJSON('https://shop.briankranson.com/api/get_member_assoc_info.php?email=' + s.tmp.email).done(function(data){debugger;
       if(data.success === 'true' && s.tmp.email.toLowerCase().trim() === data.email.toLowerCase().trim() && /^\d{4}$/.test(data.member_id) && parseInt(data.year) >= (new Date()).getFullYear()){
         // add dashes to 10 digit phone number
         s.tmp.phone = ('0000000000' + data.phone.replace(/(\ |\.|\-|\(|\))/g, '')).substr(-10);
@@ -132,8 +158,8 @@ console.log('Started Punchpass enhancements');
           $('#customer_state').val(data.state);
           $('#customer_zip_code').val(data.zip_code);
           $('#customer_notes').val($('#customer_notes').val() + ($('#customer_notes').val() === '' ? '' : '\n') + (new Date()).toISOString());
-          // unsafe.localStorage.setItem('next_url', 'https://app.punchpass.net/customers');
-          unsafe.localStorage.setItem('next_url', currentURL);
+          unsafe.localStorage.setItem('next_url', 'https://app.punchpass.net/customers');
+          // unsafe.localStorage.setItem('next_url', currentURL);
           $('input[value="Update Customer"]')[0].click();
         }
       }
