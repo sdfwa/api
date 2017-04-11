@@ -1,5 +1,4 @@
-Apache
-<Files "*_config*.php">
-     Order allow,deny
-     Deny from all
-</Files>
+Order allow,deny
+<FilesMatch "_config">
+  Deny from all
+</FilesMatch>
