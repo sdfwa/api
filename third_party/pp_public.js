@@ -183,7 +183,7 @@
       s.tmp.body += '\
         <h4>\
           <i class="fa fa-square-o"></i>&nbsp;\
-          5) Pass the Shop Safety Exam during taken during the Shop Safety Training.\
+          5) Pass the Shop Safety Exam taken during the Shop Safety Training.\
         </h4>\
       ';
 
