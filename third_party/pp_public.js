@@ -165,7 +165,7 @@
       s.tmp.body += '\
         <h4>\
           <i class="fa fa-square-o"></i>&nbsp;\
-          2) Pick either a Silver or Gold Membershop Punchcard.  <a href="http://www.sdfwa.org/shop-memberships/" target="_blank">More Info</a>\
+          2) Pick either a Silver or Gold Membershop Punchcard from the Purchase A Pass Section. (Skip this step if you are a founder).</a>\
         </h4>\
       ';
       s.tmp.body += '\
