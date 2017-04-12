@@ -186,8 +186,9 @@
           5) Pass the Shop Safety Exam taken during the Shop Safety Training.\
         </h4>\
       ';
-
-      s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
+      /\/member\/?$/.test(s.url){
+        s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body}); 
+      }
     /* end modal code */
   }
 }(window, 'sdfwa'))
