@@ -1,11 +1,11 @@
-<?php
-$seconds_to_cache = 5 * 60; // 5 minutes
-$ts = gmdate("D, d M Y H:i:s", time() + $seconds_to_cache) . " GMT";
-header("Expires: $ts");
-header("Pragma: cache");
-header("Cache-Control: max-age=$seconds_to_cache");
-header('Content-Type: application/javascript');
-?>
+// <?php
+// $seconds_to_cache = 5 * 60; // 5 minutes
+// $ts = gmdate("D, d M Y H:i:s", time() + $seconds_to_cache) . " GMT";
+// header("Expires: $ts");
+// header("Pragma: cache");
+// header("Cache-Control: max-age=$seconds_to_cache");
+// header('Content-Type: application/javascript');
+// ?>
 (function(w, n, s) {
   "use strict";
   w[n] = w[n] || {};
@@ -121,5 +121,72 @@ header('Content-Type: application/javascript');
     }
     localStorage.setItem('sdfwa', JSON.stringify(s.local));  
     /* end update user info */
+    
+    /* start modal code */
+      s.showModal = function(data){
+        data = data || {};
+        data.body = data.body || 'Modal Body';
+        data.text = data.text || 'Modal Text';
+        $('#sdfwaModal').remove();
+        $('#sdfwaModalBtn').remove();
+        var modal_html = '\
+          <a id="sdfwaModalBtn" href="#sdfwaModal" role="button" class="btn hidden" data-toggle="modal">Show Modal</a>\
+          <div id="sdfwaModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="sdfwaModalLabel" aria-hidden="true" style="width : 80%; margin-left : -40%;">\
+            <div class="modal-header">\
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\
+              <h3 id="sdfwaModalLabel">{{modal_title}}</h3>\
+            </div>\
+            <div class="modal-body">\
+              {{modal_body}}\
+            </div>\
+            <div class="modal-footer">\
+              <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>\
+            </div>\
+          </div>\
+        ';
+        modal_html = modal_html.replace('{{modal_title}}', data.title);
+        modal_html = modal_html.replace('{{modal_body}}', data.body);
+        $('.container').append($(modal_html));
+        $('#sdfwaModalBtn').click();
+      }
+      s.tmp.body = '\
+        <h5>\
+          A good place to start this is to make sure you understand that this is your Shop!  It is "of, by and for" our Members.  We want you to not only use the Shop but help us make it better.<br><br>\
+          This checklist will help get you in the shop as soon as possible.  And once you complete the list, we will update our records so you don\'t have to see this popup again.  Please be patient with us while get our records in order.<br><br>\
+          All of us will need to go through a basic Shop Safety Training program.  This training is essential to insure that we offer everyone a safe environment, that everyone knows how to operate each piece of equipment safely and to satisfy our insurance provider.\
+      ';
+      s.tmp.body += '\
+        <h4>\
+          <i class="fa fa-square-o"></i>&nbsp;\
+          1) Jump over to <a href="https://asoft10232.accrisoft.com/sdfwa/forms/sdfwa-membership-application-jan-sept/" target="_blank">sdfwa membership</a> site and get a $30 General Membership.\
+        </h4>\
+      ';
+      s.tmp.body += '\
+        <h4>\
+          <i class="fa fa-square-o"></i>&nbsp;\
+          2) Pick either a Silver or Gold Membershop Punchcard.  <a href="http://www.sdfwa.org/shop-memberships/" target="_blank">More Info</a>\
+        </h4>\
+      ';
+      s.tmp.body += '\
+        <h4>\
+          <i class="fa fa-square-o"></i>&nbsp;\
+          3) Download and read our Member Shop Safety Manual {link coming soon}\
+        </h4>\
+      ';
+      s.tmp.body += '\
+        <h4>\
+          <i class="fa fa-square-o"></i>&nbsp;\
+          4) Register for a Shop Safety Training via the calendar.  If you are in the military and E5 or below, please reach out to <a href"mailto:shopit@sdfwa.org?Subject=Military%20Discount" target="_top">shopit@sdfwa.org</a> about a discount\
+        </h4>\
+      ';
+      s.tmp.body += '\
+        <h4>\
+          <i class="fa fa-square-o"></i>&nbsp;\
+          5) Pass the Shop Safety Exam during taken during the Shop Safety Training.\
+        </h4>\
+      ';
+
+      s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
+    /* end modal code */
   }
 }(window, 'sdfwa'))
