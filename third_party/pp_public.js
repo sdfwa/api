@@ -1,5 +1,9 @@
 <?php
-header('Access-Control-Max-Age: 300');    // cache for 5 minutes
+$seconds_to_cache = 5 * 60; // 5 minutes
+$ts = gmdate("D, d M Y H:i:s", time() + $seconds_to_cache) . " GMT";
+header("Expires: $ts");
+header("Pragma: cache");
+header("Cache-Control: max-age=$seconds_to_cache");
 header('Content-Type: application/javascript');
 ?>
 (function(w, n, s) {
