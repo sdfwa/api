@@ -1,3 +1,7 @@
+<?php
+header('Access-Control-Max-Age: 300');    // cache for 5 minutes
+header('Content-Type: application/javascript');
+?>
 (function(w, n, s) {
   "use strict";
   w[n] = w[n] || {};
