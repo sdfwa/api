@@ -91,6 +91,8 @@
         if(/@/.test(s.local.email) && $('#member_email').val() === ''){
           $('#member_email').val(s.local.email);
           $('#member_password').focus();
+        }else{
+          $('#member_email').focus();
         }
         break;
       case /\/classes\//.test(s.url):
