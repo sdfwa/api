@@ -6,6 +6,15 @@
 // header("Cache-Control: max-age=$seconds_to_cache");
 // header('Content-Type: application/javascript');
 ?>
+if(typeof jQuery === 'undefined'){
+  (function(s,d,f,w,a){
+    a = s.getElementsByTagName('body')[0];
+    if (s.getElementById(f)) {return;}
+    w = s.createElement(d); w.id = f;
+    w.src = "https://code.jquery.com/jquery-1.12.0.min.js";
+    a.parentNode.insertBefore(w, a);
+    }(document,'script','sdfwa-jquery')); 
+}
 
 (function(w, n, s) {
   "use strict";
