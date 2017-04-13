@@ -10,6 +10,7 @@
 ?>
 
 */
+alert('start')
 if(typeof jQuery === 'undefined'){
   (function(s,d,f,w,a){
     a = s.getElementsByTagName('body')[0];
