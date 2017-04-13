@@ -1,11 +1,11 @@
-<?php
+//<?php
 // $seconds_to_cache = 5 * 60; // 5 minutes
 // $ts = gmdate("D, d M Y H:i:s", time() + $seconds_to_cache) . " GMT";
 // header("Expires: $ts");
 // header("Pragma: cache");
 // header("Cache-Control: max-age=$seconds_to_cache");
 // header('Content-Type: application/javascript');
-?>
+//?>
 if(typeof jQuery === 'undefined'){
   (function(s,d,f,w,a){
     a = s.getElementsByTagName('body')[0];
@@ -45,6 +45,15 @@ if(typeof jQuery === 'undefined'){
 
       // other browser
       return false;
+  }
+  s.getDate = function(){
+    var a = new Date();
+    var b = ('0000'+a.getFullYear()).slice(-4);
+    b += "-";
+    b += ('00'+(a.getMonth()+1)).slice(-2);
+    b += "-";
+    b += ('00'+a.getDate()).slice(-2);
+    return b;
   }
   s.local = JSON.parse(localStorage.getItem('sdfwa') || '{}');
   /* start helper functions */
@@ -186,59 +195,62 @@ if(typeof jQuery === 'undefined'){
         $('.container').append($(modal_html));
         $('#sdfwaModalBtn').click();
       }
-      s.tmp.body = '\
-        <h5>\
-          A good place to start is to make sure you understand that this is your Shop!  It is "of, by and for" our Members.  We want you to not only use the Shop but help us make it better.<br><br>\
-          This checklist will help get you in the shop as soon as possible.  And once you complete the list, we will update our records so you don\'t have to see this popup again.  Please be patient with us while we get our records in order.<br><br>\
-          All of us will need to go through a basic Shop Safety Training program.  This training is essential to insure that we offer everyone a safe environment, that everyone knows how to operate each piece of equipment safely and to satisfy our insurance provider.\
-      ';
-      s.tmp.body += '\
-        <h4>\
-          <i class="fa fa-square-o"></i>&nbsp;\
-          1) Jump over to <a href="https://asoft10232.accrisoft.com/sdfwa/forms/sdfwa-membership-application-jan-sept/" target="_blank">sdfwa membership</a> site and get a $30 General Membership.\
-        </h4>\
-      ';
-      s.tmp.body += '\
-        <h4>\
-          <i class="fa fa-square-o"></i>&nbsp;\
-          2) Pick either a Silver or Gold Membershop Punchcard from the Purchase A Pass Section. (Skip this step if you are a founder).</a>\
-        </h4>\
-      ';
-      s.tmp.body += '\
-        <h4>\
-          <i class="fa fa-square-o"></i>&nbsp;\
-          3) Download and read our Member Shop Safety Manual {link coming soon}\
-        </h4>\
-      ';
-      s.tmp.body += '\
-        <h4>\
-          <i class="fa fa-square-o"></i>&nbsp;\
-          4) Register for a Shop Safety Training via the calendar.  If you are in the military and E5 or below, please reach out to <a href"mailto:shopit@sdfwa.org?Subject=Military%20Discount" target="_top">shopit@sdfwa.org</a> about a discount\
-        </h4>\
-      ';
-      s.tmp.body += '\
-        <h4>\
-          <i class="fa fa-square-o"></i>&nbsp;\
-          5) Pass the Shop Safety Exam taken during the Shop Safety Training.\
-        </h4>\
-      ';
       if(/\/member\/?$/.test(s.url)){
-        
-        if(s.detectIE !== false){
-          (function($, s){
-            setTimeout(function(){
-              s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
-              $('.sdfwaModalClose').click(function(){
-                $('#sdfwaModal').hide();
-                $('.modal-backdrop').hide();
-                $('#sdfwaModal').remove();
-                $('#sdfwaModalBtn').remove();
-              });
-            }, 500);
-          }($, s))
-        }else{
-          s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
-        }
+        $.getJSON('https://shop.sdfwa.org/api/get_member_id.php?email='+(s.local.email || '')).done(function(data){
+        if(data.success === 'true'){
+            s.local.shop_expire = data.shop_expire;
+            s.local.member_id = data.member_id;
+            if(data.shop_expire < s.getDate()){
+              s.tmp.body = '\
+                <h5>\
+                  A good place to start is to make sure you understand that this is your Shop!  It is "of, by and for" our Members.  We want you to not only use the Shop but help us make it better.<br><br>\
+                  This checklist will help get you in the shop as soon as possible.  And once you complete the list, we will update our records so you don\'t have to see this popup again.  Please be patient with us while we get our records in order.<br><br>\
+                  All of us will need to go through a basic Shop Safety Training program.  This training is essential to insure that we offer everyone a safe environment, that everyone knows how to operate each piece of equipment safely and to satisfy our insurance provider.\
+              ';
+              s.tmp.body += '\
+                <h4>\
+                  1) Jump over to <a href="https://asoft10232.accrisoft.com/sdfwa/forms/sdfwa-membership-application-jan-sept/" target="_blank">sdfwa membership</a> site and get a $30 Assoc Membership (Skip step if you\'re already an Assoc Member).\
+                </h4>\
+              ';
+              s.tmp.body += '\
+                <h4>\
+                  2) Pick either a Silver or Gold Membershop Punchcard from the Purchase A Pass Section. (Skip this step if you are a founder).</a>\
+                </h4>\
+              ';
+              s.tmp.body += '\
+                <h4>\
+                  3) Download and read our Member Shop Safety Manual {link coming soon}\
+                </h4>\
+              ';
+              s.tmp.body += '\
+                <h4>\
+                  4) Register for a Shop Safety Training via the calendar.\
+                </h4>\
+              ';
+              // If you are in the military and E5 or below, please reach out to <a href"mailto:shopit@sdfwa.org?Subject=Military%20Discount" target="_top">shopit@sdfwa.org</a> about a discount
+              s.tmp.body += '\
+                <h4>\
+                  5) Pass the Shop Safety Exam taken during the Shop Safety Training.\
+                </h4>\
+              ';
+              if(s.detectIE !== false){
+                (function($, s){
+                  setTimeout(function(){
+                    s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
+                    $('.sdfwaModalClose').click(function(){
+                      $('#sdfwaModal').hide();
+                      $('.modal-backdrop').hide();
+                      $('#sdfwaModal').remove();
+                      $('#sdfwaModalBtn').remove();
+                    });
+                  }, 500);
+                }($, s))
+              }else{
+                  s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
+              } 
+            }
+          }
+        });
         $('a:contains("Home")').text('Home - Checklist');
       }
     /* end modal code */

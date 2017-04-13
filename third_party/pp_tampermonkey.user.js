@@ -105,6 +105,16 @@ console.log('Started Punchpass enhancements');
           return p;
       }, []);
   };
+  
+  var getDate = function(){
+    var a = new Date();
+    var b = ('0000'+a.getFullYear()).slice(-4);
+    b += "-";
+    b += ('00'+(a.getMonth()+1)).slice(-2);
+    b += "-";
+    b += ('00'+a.getDate()).slice(-2);
+    return b;
+  }
 
   /* start next url */
   s.tmp.next_url = unsafe.localStorage.getItem('next_url') || '';
