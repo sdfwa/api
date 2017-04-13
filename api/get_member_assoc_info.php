@@ -101,7 +101,8 @@ if($row_count == 1){
   $output->state = trim($Row['fldState']);
   $output->zip_code = trim($Row['fldZipCode']);
   $output->phone = trim($Row['fldPhone']);
-  $output->year = trim($Row['fldYr']);
+  $output->assoc_expire_year = trim($Row['fldYr']);
+  $output->shop_expire_date = $Row['fldShopExpire'];
   $output->share = trim($Row['fldShare']);
   $output->email = trim($Row['fldEMail']);
   $output->mail = trim($Row['fldMail']);
