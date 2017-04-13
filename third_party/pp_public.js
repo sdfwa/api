@@ -1,12 +1,15 @@
+/*
+
 <?php
-// $seconds_to_cache = 5 * 60; // 5 minutes
-// $ts = gmdate("D, d M Y H:i:s", time() + $seconds_to_cache) . " GMT";
-// header("Expires: $ts");
-// header("Pragma: cache");
-// header("Cache-Control: max-age=$seconds_to_cache");
-// header('Content-Type: application/javascript');
+  $seconds_to_cache = 5 * 60; // 5 minutes
+  $ts = gmdate("D, d M Y H:i:s", time() + $seconds_to_cache) . " GMT";
+  header("Expires: $ts");
+  header("Pragma: cache");
+  header("Cache-Control: max-age=$seconds_to_cache");
+  header('Content-Type: application/javascript');
 ?>
 
+*/
 if(typeof jQuery === 'undefined'){
   (function(s,d,f,w,a){
     a = s.getElementsByTagName('body')[0];
@@ -178,7 +181,7 @@ if(typeof jQuery === 'undefined'){
         $('#sdfwaModalBtn').remove();
         var modal_html = '\
           <a id="sdfwaModalBtn" href="#sdfwaModal" role="button" class="btn hidden" data-toggle="modal">Show Modal</a>\
-          <div id="sdfwaModal" class="modal'+(s.detectIE()===false ? ' hide fade"':'"')+' tabindex="-1" role="dialog" aria-labelledby="sdfwaModalLabel" aria-hidden="true" style="width : 80%; margin-left : -40%;">\
+          <div id="sdfwaModal" class="modal'+(s.detectIE()===false ? ' hide fade"':'"')+' tabindex="-1" role="dialog" aria-labelledby="sdfwaModalLabel" aria-hidden="true" style="">\
             <div class="modal-header">\
               <button type="button" class="close sdfwaModalClose" data-dismiss="modal" aria-hidden="true">×</button>\
               <h3 id="sdfwaModalLabel">{{modal_title}}</h3>\
@@ -195,6 +198,10 @@ if(typeof jQuery === 'undefined'){
         modal_html = modal_html.replace('{{modal_body}}', data.body);
         $('.container').append($(modal_html));
         $('#sdfwaModalBtn').click();
+        $('#sdfwaModal').css({
+          "width":function(){return ($(this).parent().width()*.99);},
+          "margin-left":function(){return -($(this).width() / 2);}
+        });
       }
       if(/\/member\/?$/.test(s.url)){
         $.getJSON('https://shop.sdfwa.org/api/get_member_id.php?email='+(s.local.email || '')).done(function(data){
