@@ -162,6 +162,8 @@ if(typeof jQuery === 'undefined'){
         data = data || {};
         data.body = data.body || 'Modal Body';
         data.text = data.text || 'Modal Text';
+        $('#sdfwaModal').hide();
+        $('.modal-backdrop').hide();
         $('#sdfwaModal').remove();
         $('#sdfwaModalBtn').remove();
         var modal_html = '\
@@ -222,10 +224,14 @@ if(typeof jQuery === 'undefined'){
       ';
       if(/\/member\/?$/.test(s.url)){
         s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
-        $('#sdfwaModalClose').click(function(){
-          $('#sdfwaModal').remove();
-          $('#sdfwaModalBtn').remove();
-        });
+        if(s.detectIE !== false){
+          $('#sdfwaModalClose').click(function(){
+            $('#sdfwaModal').hide();
+            $('.modal-backdrop').hide();
+            $('#sdfwaModal').remove();
+            $('#sdfwaModalBtn').remove();
+          });
+        }
         $('a:contains("Home")').text('Home - Checklist');
       }
     /* end modal code */
