@@ -46,8 +46,8 @@ if($row_count == 1){
   $output->referer = $referer;
   $output->email = $email;
   $output->member_id = substr("0000" . $Row['MemberID'], -4);
-  $output->assoc_expire_year = trim($Row['fldYr']);
-  $output->shop_expire_date = $Row['fldShopExpire'];
+  $output->year = trim($Row['fldYr']);
+  $output->shop_expire = $Row['fldShopExpire'];
 }else{
   $output = json_decode('{}');
   $output->success = 'false';
