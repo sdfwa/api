@@ -199,8 +199,10 @@ if(typeof jQuery === 'undefined'){
         $('.container').append($(modal_html));
         $('#sdfwaModalBtn').click();
         $('#sdfwaModal').css({
-          "width":function(){return ($(this).parent().width()*.99);},
-          "margin-left":function(){return -($(this).width() / 2);}
+            "width":"90%", 
+            "left":"5%",
+            "margin-left":"auto",
+            "margin-right":"auto"
         });
       }
       if(/\/member\/?$/.test(s.url)){
