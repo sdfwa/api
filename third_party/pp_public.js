@@ -214,7 +214,7 @@ if(typeof jQuery === 'undefined'){
         modal_html = modal_html.replace('{{modal_body}}', data.body);
         $('.container').append($(modal_html));
         $('#sdfwaModalBtn').click();
-        if(s.sizeInt > 2){alert('small')
+        if(s.sizeInt > 2){alert(s.sizeName)
           $('#sdfwaModal').css({
               "width":"90%", 
               "left":"5%",
