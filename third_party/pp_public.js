@@ -175,7 +175,7 @@ if(typeof jQuery === 'undefined'){
               {{modal_body}}\
             </div>\
             <div class="modal-footer">\
-              <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>\
+              <button id="sdfwaModalClose" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>\
             </div>\
           </div>\
         ';
@@ -222,6 +222,10 @@ if(typeof jQuery === 'undefined'){
       ';
       if(/\/member\/?$/.test(s.url)){
         s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
+        $('#sdfwaModalClose').click(function(){
+          $('#sdfwaModal').remove();
+          $('#sdfwaModalBtn').remove();
+        });
         $('a:contains("Home")').text('Home - Checklist');
       }
     /* end modal code */
