@@ -214,7 +214,7 @@ if(typeof jQuery === 'undefined'){
         modal_html = modal_html.replace('{{modal_body}}', data.body);
         $('.container').append($(modal_html));
         $('#sdfwaModalBtn').click();
-        if(s.sizeInt > 2){
+        if(s.sizeInt > 2){alert('small')
           $('#sdfwaModal').css({
               "width":"90%", 
               "left":"5%",
@@ -225,10 +225,10 @@ if(typeof jQuery === 'undefined'){
       }
       if(/\/member\/?$/.test(s.url)){
         $.getJSON('https://shop.sdfwa.org/api/get_member_id.php?email='+(s.local.email || '')).done(function(data){
-        if(data.success === 'true'){
+        if(data.success === 'true'){alert('true')
             s.local.shop_expire = data.shop_expire;
             s.local.member_id = data.member_id;
-            if((data.shop_expire || '1970-01-01') < s.getDate()){
+            if((data.shop_expire || '1970-01-01') < s.getDate()){alert('expired')
               s.tmp.body = '\
                 <h5>\
                   A good place to start is to make sure you understand that this is your Shop!  It is "of, by and for" our Members.  We want you to not only use the Shop but help us make it better.<br><br>\
