@@ -59,6 +59,22 @@ if(typeof jQuery === 'undefined'){
     b += ('00'+a.getDate()).slice(-2);
     return b;
   }
+  if ($(window).width() < 768) {
+      s.sizeName = 'xs';
+      s.sizeInt = 0;
+  }
+  else if ($(window).width() >= 768 &&  $(window).width() <= 992) {
+      s.sizeName = 'sm';
+      s.sizeInt = 1;
+  }
+  else if ($(window).width() > 992 &&  $(window).width() <= 1200) {
+      s.sizeName = 'md';
+      s.sizeInt = 2;
+  }
+  else  {
+      s.sizeName = 'lg';
+      s.sizeInt = 3;
+  }
   s.local = JSON.parse(localStorage.getItem('sdfwa') || '{}');
   /* start helper functions */
   // Cookies
@@ -198,16 +214,14 @@ if(typeof jQuery === 'undefined'){
         modal_html = modal_html.replace('{{modal_body}}', data.body);
         $('.container').append($(modal_html));
         $('#sdfwaModalBtn').click();
-        $('#sdfwaModal').css({
-            "width":"90%", 
-            "left":"5%",
-            "margin-left":"auto",
-            "margin-right":"auto",
-            "height":"60%", 
-            "top":"20%",
-            "margin-top":"auto",
-            "margin-bottom":"auto"
-        });
+        if(s.sizeInt > 2){
+          $('#sdfwaModal').css({
+              "width":"90%", 
+              "left":"5%",
+              "margin-left":"auto",
+              "margin-right":"auto",
+          }); 
+        }
       }
       if(/\/member\/?$/.test(s.url)){
         $.getJSON('https://shop.sdfwa.org/api/get_member_id.php?email='+(s.local.email || '')).done(function(data){
