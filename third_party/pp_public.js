@@ -202,7 +202,11 @@ if(typeof jQuery === 'undefined'){
             "width":"90%", 
             "left":"5%",
             "margin-left":"auto",
-            "margin-right":"auto"
+            "margin-right":"auto",
+            "height":"90%", 
+            "top":"5%",
+            "margin-top":"auto",
+            "margin-bottom":"auto"
         });
       }
       if(/\/member\/?$/.test(s.url)){
