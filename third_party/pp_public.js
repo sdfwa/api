@@ -223,15 +223,21 @@ if(typeof jQuery === 'undefined'){
         </h4>\
       ';
       if(/\/member\/?$/.test(s.url)){
-        s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
+        
         if(s.detectIE !== false){
-          $('.sdfwaModalClose').click(function(){
-            $('#sdfwaModal').hide();
-            $('.modal-backdrop').hide();
-            $('#sdfwaModal').remove();
-            $('#sdfwaModalBtn').remove();
-          });
+          (function($, s){
+            setTimeout(function(){
+              s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
+              $('.sdfwaModalClose').click(function(){
+                $('#sdfwaModal').hide();
+                $('.modal-backdrop').hide();
+                $('#sdfwaModal').remove();
+                $('#sdfwaModalBtn').remove();
+              });
+            }, 1000);
+          }($, s))
         }
+        s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
         $('a:contains("Home")').text('Home - Checklist');
       }
     /* end modal code */
