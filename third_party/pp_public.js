@@ -188,7 +188,7 @@ if(typeof jQuery === 'undefined'){
       }
       s.tmp.body = '\
         <h5>\
-          A good place to start this is to make sure you understand that this is your Shop!  It is "of, by and for" our Members.  We want you to not only use the Shop but help us make it better.<br><br>\
+          A good place to start is to make sure you understand that this is your Shop!  It is "of, by and for" our Members.  We want you to not only use the Shop but help us make it better.<br><br>\
           This checklist will help get you in the shop as soon as possible.  And once you complete the list, we will update our records so you don\'t have to see this popup again.  Please be patient with us while get our records in order.<br><br>\
           All of us will need to go through a basic Shop Safety Training program.  This training is essential to insure that we offer everyone a safe environment, that everyone knows how to operate each piece of equipment safely and to satisfy our insurance provider.\
       ';
