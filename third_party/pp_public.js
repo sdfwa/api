@@ -203,8 +203,8 @@ if(typeof jQuery === 'undefined'){
             "left":"5%",
             "margin-left":"auto",
             "margin-right":"auto",
-            "height":"90%", 
-            "top":"5%",
+            "height":"60%", 
+            "top":"20%",
             "margin-top":"auto",
             "margin-bottom":"auto"
         });
