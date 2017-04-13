@@ -201,7 +201,7 @@ if(typeof jQuery === 'undefined'){
         if(data.success === 'true'){
             s.local.shop_expire = data.shop_expire;
             s.local.member_id = data.member_id;
-            if(data.shop_expire < s.getDate()){
+            if((data.shop_expire || '1970-01-01') < s.getDate()){
               s.tmp.body = '\
                 <h5>\
                   A good place to start is to make sure you understand that this is your Shop!  It is "of, by and for" our Members.  We want you to not only use the Shop but help us make it better.<br><br>\
