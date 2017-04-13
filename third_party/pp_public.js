@@ -170,14 +170,14 @@ if(typeof jQuery === 'undefined'){
           <a id="sdfwaModalBtn" href="#sdfwaModal" role="button" class="btn hidden" data-toggle="modal">Show Modal</a>\
           <div id="sdfwaModal" class="modal'+(s.detectIE()===false ? ' hide fade"':'"')+' tabindex="-1" role="dialog" aria-labelledby="sdfwaModalLabel" aria-hidden="true" style="width : 80%; margin-left : -40%;">\
             <div class="modal-header">\
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\
+              <button type="button" class="close sdfwaModalClose" data-dismiss="modal" aria-hidden="true">×</button>\
               <h3 id="sdfwaModalLabel">{{modal_title}}</h3>\
             </div>\
             <div class="modal-body">\
               {{modal_body}}\
             </div>\
             <div class="modal-footer">\
-              <button id="sdfwaModalClose" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>\
+              <button class="btn sdfwaModalClose" data-dismiss="modal" aria-hidden="true">Close</button>\
             </div>\
           </div>\
         ';
@@ -225,7 +225,7 @@ if(typeof jQuery === 'undefined'){
       if(/\/member\/?$/.test(s.url)){
         s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
         if(s.detectIE !== false){
-          $('#sdfwaModalClose').click(function(){
+          $('.sdfwaModalClose').click(function(){
             $('#sdfwaModal').hide();
             $('.modal-backdrop').hide();
             $('#sdfwaModal').remove();
