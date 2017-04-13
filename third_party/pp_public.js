@@ -234,7 +234,7 @@ if(typeof jQuery === 'undefined'){
                 $('#sdfwaModal').remove();
                 $('#sdfwaModalBtn').remove();
               });
-            }, 1000);
+            }, 500);
           }($, s))
         }else{
           s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
