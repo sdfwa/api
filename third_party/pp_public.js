@@ -141,7 +141,7 @@ if(typeof jQuery === 'undefined'){
         $('#sdfwaModalBtn').remove();
         var modal_html = '\
           <a id="sdfwaModalBtn" href="#sdfwaModal" role="button" class="btn hidden" data-toggle="modal">Show Modal</a>\
-          <div id="sdfwaModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="sdfwaModalLabel" aria-hidden="true" style="width : 80%; margin-left : -40%;">\
+          <div id="sdfwaModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="sdfwaModalLabel" aria-hidden="true" style="width : 80%; margin-left : -40%;">\
             <div class="modal-header">\
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>\
               <h3 id="sdfwaModalLabel">{{modal_title}}</h3>\
