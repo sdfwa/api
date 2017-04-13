@@ -248,11 +248,11 @@ if(typeof jQuery === 'undefined'){
                 }($, s))
               }else{
                   s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
-              } 
+              }
+              $('a:contains("Home")').text('Home - Checklist');              
             }
           }
         });
-        $('a:contains("Home")').text('Home - Checklist');
       }
     /* end modal code */
   }
