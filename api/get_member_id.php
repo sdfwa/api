@@ -29,7 +29,7 @@ function isShopCurrent($d){
 
 function isGoldMember($d){
   if(!isset($d) || !is_array($d)){return false;}
-  if(isShopCurrent() && trim(strtolower($d['fldShopType'])) === 'gold'){
+  if(isShopCurrent($d) && trim(strtolower($d['fldShopType'])) === 'gold'){
     return true;
   }else{
     return false;
@@ -38,7 +38,7 @@ function isGoldMember($d){
 
 function isSilverMember($d){
   if(!isset($d) || !is_array($d)){return false;}
-  if(isShopCurrent() && trim(strtolower($d['fldShopType'])) === 'silver'){
+  if(isShopCurrent($d) && trim(strtolower($d['fldShopType'])) === 'silver'){
     return true;
   }else{
     return false;
