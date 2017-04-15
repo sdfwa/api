@@ -257,9 +257,9 @@ if(typeof jQuery === 'undefined'){
         }
         
       }
-      s.hidePurchaseButtons();
     }
-      /* end hide purchase buttons */
+    s.hidePurchaseButtons();
+    /* end hide purchase buttons */
     /* start modal code */
       s.showModal = function(data){
         data = data || {};
