@@ -216,6 +216,19 @@ if(typeof jQuery === 'undefined'){
         if(data.success === 'true'){
             s.local.shop_expire = data.shop_expire;
             s.local.member_id = data.member_id;
+            s.local.success = data.success;
+            s.local.message = data.message;
+            s.local.referer = data.referer;
+            s.local.year = data.year;
+            s.local.shop_type = data.shop_type;
+            s.local.military_rank = data.military_rank;
+            s.local.isSDFWACurrent = data.isSDFWACurrent;
+            s.local.isShopCurrent = data.isShopCurrent;
+            s.local.isGoldMember = data.isGoldMember;
+            s.local.isSilverMember = data.isSilverMember;
+            s.local.isShopFounder = data.isShopFounder;
+            s.local.isMilitaryDiscount = data.isMilitaryDiscount;
+            s.local.isInitCurrent = data.isInitCurrent;
             if((data.shop_expire || '1970-01-01') < s.getDate()){
               s.tmp.body = '\
                 <h5>\
