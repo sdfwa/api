@@ -106,5 +106,8 @@ if($row_count == 1){
   $output->email= $email;
 }
 echo json_encode($output, JSON_PRETTY_PRINT);
+if(isDebug()){
+  echo print_r($Row);
+}
 
 mssql_close($con);
