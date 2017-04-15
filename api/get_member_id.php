@@ -45,6 +45,29 @@ function isSilverMember($d){
   }
 }
 
+function isFounder($d){
+  // currently just a yes / no, but could be 0-999, 1000-10,000,000
+  if(!isset($d) || !is_array($d)){return false;}
+  if(trim(strtolower($d['fldShopType'])) === 'yes'){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+function isMilitaryDiscount()
+  if(!isset($d) || !is_array($d)){return false;}
+  if(trim(strtolower($d['fldMilitaryRank'])) === 'e1'
+  || trim(strtolower($d['fldMilitaryRank'])) === 'e2'
+  || trim(strtolower($d['fldMilitaryRank'])) === 'e3'
+  || trim(strtolower($d['fldMilitaryRank'])) === 'e4'
+  || trim(strtolower($d['fldMilitaryRank'])) === 'e5'){
+    return true;
+  }else{
+    return false;
+  }
+}
+
 if(isset($_GET['email']) && $_GET['email'] !== ''){
   $email= strtolower($_GET['email']);
 }
