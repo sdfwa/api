@@ -115,11 +115,12 @@ if($row_count == 1){
   $output->year = trim($Row['fldYr']);
   $output->shop_expire = $Row['fldShopExpire'];
   $output->shop_type = $Row['fldShopType'];
+  $output->military_rank = $Row['fldMilitaryRank']; 
   $output->isSDFWACurrent = isSDFWACurrent($Row);
   $output->isShopCurrent = isShopCurrent($Row);
   $output->isGoldMember = isGoldMember($Row);
   $output->isSilverMember = isSilverMember($Row);
-  $output->isMilitaryDiscount = $Row['fldMilitaryRank'];  
+  $output->isMilitaryDiscount = isSilverMember($Row);
 }else{
   $output = json_decode('{}');
   $output->success = 'false';
