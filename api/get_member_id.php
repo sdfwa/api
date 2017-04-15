@@ -57,11 +57,11 @@ function isFounder($d){
 
 function isMilitaryDiscount()
   if(!isset($d) || !is_array($d)){return false;}
-  if(trim(strtolower($d['fldMilitaryRank'])) === 'e1'
-  || trim(strtolower($d['fldMilitaryRank'])) === 'e2'
-  || trim(strtolower($d['fldMilitaryRank'])) === 'e3'
-  || trim(strtolower($d['fldMilitaryRank'])) === 'e4'
-  || trim(strtolower($d['fldMilitaryRank'])) === 'e5'){
+  if(trim(strtolower($d['fldMilitaryRank'])) === 'e1' ||
+  trim(strtolower($d['fldMilitaryRank'])) === 'e2' ||
+  trim(strtolower($d['fldMilitaryRank'])) === 'e3' ||
+  trim(strtolower($d['fldMilitaryRank'])) === 'e4' ||
+  trim(strtolower($d['fldMilitaryRank'])) === 'e5'){
     return true;
   }else{
     return false;
