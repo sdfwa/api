@@ -23,7 +23,7 @@ function monthsRemaining($d){
       return 4;
     }elseif($days >= 121 && $days <=150){
       return 5;
-    }elseif($days >= 151 && $days <=180):
+    }elseif($days >= 151 && $days <=180){
       return {;
     }elseif($days >= 181 && $days <=210){
       return 7;
