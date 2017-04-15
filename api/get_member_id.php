@@ -172,6 +172,8 @@ if($row_count == 1){
   $output->isMilitaryDiscount = isMilitaryDiscount($Row);
   $output->isInitCurrent = isInitCurrent($Row);
   $output->months_remaining = monthsRemaining($Row);
+  $output->currentDate = currentDate($Row);
+  $output->currentYear = currentYear($Row);
 }else{
   $output = json_decode('{}');
   $output->success = 'false';
