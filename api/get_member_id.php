@@ -20,7 +20,7 @@ function isSDFWACurrent($d){
 
 function isShopCurrent($d){
   if(!isset($d) || !is_array($d)){return false;}
-  if($d['fldShopExpire'] > currentDate()){
+  if($d['fldShopExpire'] >= currentDate()){
     return true;
   }else{
     return false;
