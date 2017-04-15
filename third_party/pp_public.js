@@ -125,12 +125,12 @@ if(typeof jQuery === 'undefined'){
       case /\/classes/.test(s.url):
         s.remove_elements.push('a.btn-public.bump:contains("Create Account")');
         s.remove_elements.push('a.btn-public.bump:contains("Purchase A Pass Online")');
-        s.remove_elements.push('.bottom-gap');
+        s.delay_remove_elements.push('.bottom-gap');
         break;
       case /\/calendar/.test(s.url):
         s.remove_elements.push('a.btn-public.bump:contains("Create Account")');
         s.remove_elements.push('a.btn-public.bump:contains("Purchase A Pass Online")');
-        s.remove_elements.push('.bottom-gap');
+        s.delay_remove_elements.push('.bottom-gap');
         break;
       case /\/2729\/member/.test(s.url):
         s.delay_remove_elements.push('.gap-bottomtop');
@@ -144,8 +144,8 @@ if(typeof jQuery === 'undefined'){
       $(s.remove_elements[i]).addClass('hidden');
     }
     setTimeout(function(){
-      for(var i=0; i<sdfwa.remove_elements.length; i++){
-        $(sdfwa.remove_elements[i]).addClass('hidden');
+      for(var i=0; i<sdfwa.delay_remove_elements.length; i++){
+        $(sdfwa.delay_remove_elements[i]).addClass('hidden');
       }
     }, 500);
     /* end hide elements */
