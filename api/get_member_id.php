@@ -55,7 +55,7 @@ function isFounder($d){
   }
 }
 
-function isMilitaryDiscount(){
+function isMilitaryDiscount($d){
   if(!isset($d) || !is_array($d)){return false;}
   if(trim(strtolower($d['fldMilitaryRank'])) === 'e1' ||
   trim(strtolower($d['fldMilitaryRank'])) === 'e2' ||
@@ -120,7 +120,7 @@ if($row_count == 1){
   $output->isShopCurrent = isShopCurrent($Row);
   $output->isGoldMember = isGoldMember($Row);
   $output->isSilverMember = isSilverMember($Row);
-  $output->isMilitaryDiscount = isSilverMember($Row);
+  $output->isMilitaryDiscount = isMilitaryDiscount($Row);
 }else{
   $output = json_decode('{}');
   $output->success = 'false';
