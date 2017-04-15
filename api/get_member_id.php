@@ -10,7 +10,17 @@ function currentYear(){
 }
 
 function isSDFWACurrent($d){
-  if(d === '99' || $d >= currentYear()){
+  if(!isset($d) || !is_array($d)){return false;}
+  if($d['fldYr'] === '99' || $d['fldYr'] >= currentYear()){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+function isShopCurrent($d){
+  if(!isset($d) || !is_array($d)){return false;}
+  if($d['fldShopExpire'] > currentDate()){
     return true;
   }else{
     return false;
@@ -66,7 +76,8 @@ if($row_count == 1){
   $output->member_id = substr("0000" . $Row['MemberID'], -4);
   $output->year = trim($Row['fldYr']);
   $output->shop_expire = $Row['fldShopExpire'];
-  $output->isSDFWACurrent = isSDFWACurrent($output->year);
+  $output->isSDFWACurrent = isSDFWACurrent($Row);
+  $output->isShopCurrent = isShopCurrent($Row);
 }else{
   $output = json_decode('{}');
   $output->success = 'false';
