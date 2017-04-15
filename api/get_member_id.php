@@ -66,7 +66,7 @@ if($row_count == 1){
   $output->member_id = substr("0000" . $Row['MemberID'], -4);
   $output->year = trim($Row['fldYr']);
   $output->shop_expire = $Row['fldShopExpire'];
-  $output->isSDFWACurrent = isSDFWACurrent();
+  $output->isSDFWACurrent = isSDFWACurrent($output->year);
 }else{
   $output = json_decode('{}');
   $output->success = 'false';
