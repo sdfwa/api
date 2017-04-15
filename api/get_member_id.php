@@ -29,7 +29,7 @@ function isShopCurrent($d){
 
 function isGoldMember($d){
   if(!isset($d) || !is_array($d)){return false;}
-  if(isShopCurrent($d) && trim(strtolower($d['fldShopType'])) === 'gold'){
+  if(isShopCurrent($d ) && trim(strtolower($d['fldShopType'])) === 'gold'){
     return true;
   }else{
     return false;
@@ -93,6 +93,7 @@ if($row_count == 1){
   $output->member_id = substr("0000" . $Row['MemberID'], -4);
   $output->year = trim($Row['fldYr']);
   $output->shop_expire = $Row['fldShopExpire'];
+  $output->shop_type = $Row['fldShopType'];
   $output->isSDFWACurrent = isSDFWACurrent($Row);
   $output->isShopCurrent = isShopCurrent($Row);
   $output->isGoldMember = isGoldMember($Row);
