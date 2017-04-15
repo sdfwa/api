@@ -138,6 +138,13 @@ if($row_count == 1){
   $output->message = 'no results found';
   $output->referer = $referer;
   $output->email= $email;
+  $output->isSDFWACurrent = false;
+  $output->isShopCurrent = false;
+  $output->isGoldMember = false;
+  $output->isSilverMember = false;
+  $output->isShopFounder = false;
+  $output->isMilitaryDiscount = false;
+  $output->isInitCurrent = false;
 }
 echo json_encode($output, JSON_PRETTY_PRINT);
 if(isDebug()){
