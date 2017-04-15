@@ -1,5 +1,21 @@
 <?php
 require('../functions.php');
+date_default_timezone_set('America/Los_Angeles');
+
+function currentDate(){
+  return date('Y-m-d');
+}
+function currentYear(){
+  return date('Y');
+}
+function isSDFWACurrent(d){
+  if(d === '99' || d >= currentYear()){
+    return true;
+  }else{
+    return false;
+  }
+}
+
 
 if(isset($_GET['email']) && $_GET['email'] !== ''){
   $email= strtolower($_GET['email']);
@@ -11,7 +27,6 @@ if(!isset($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
 }
 
 $referer = '';
-
 if(isset($_SERVER['HTTP_REFERER'])) {
     $referer = $_SERVER['HTTP_REFERER'];
 }
@@ -50,6 +65,7 @@ if($row_count == 1){
   $output->member_id = substr("0000" . $Row['MemberID'], -4);
   $output->year = trim($Row['fldYr']);
   $output->shop_expire = $Row['fldShopExpire'];
+  4output->isSDFWACurrent = isSDFWACurrent();
 }else{
   $output = json_decode('{}');
   $output->success = 'false';
