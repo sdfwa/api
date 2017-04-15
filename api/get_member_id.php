@@ -1,6 +1,6 @@
 <?php
 require('../functions.php');
-date_default_timezone_set('America/Los_Angeles');
+// date_default_timezone_set('America/Los_Angeles');
 
 function currentDate(){
   return date('Y-m-d');
