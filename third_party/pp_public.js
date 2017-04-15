@@ -109,6 +109,7 @@ if(typeof jQuery === 'undefined'){
   if(s.enable){
     /* start hide elements */
     s.remove_elements = [];
+    s.delay_remove_elements = [];
     s.tmp.match_hide_elements = true;
     switch(true) {
       case /\/sign_in/.test(s.url):
@@ -132,7 +133,7 @@ if(typeof jQuery === 'undefined'){
         s.remove_elements.push('.bottom-gap');
         break;
       case /\/2729\/member/.test(s.url):
-        s.remove_elements.push('.gap-bottomtop');
+        s.delay_remove_elements.push('.gap-bottomtop');
         s.remove_elements.push('.gap:contains("Delete My Account")');
         $('div[id*=flash]:contains("igned in")').siblings('a.close').click();
         break;
@@ -142,6 +143,11 @@ if(typeof jQuery === 'undefined'){
     for(var i=0; i<s.remove_elements.length; i++){
       $(s.remove_elements[i]).addClass('hidden');
     }
+    setTimeout(function(){
+      for(var i=0; i<sdfwa.remove_elements.length; i++){
+        $(sdfwa.remove_elements[i]).addClass('hidden');
+      }
+    }, 500);
     /* end hide elements */
     /* start modify elements */
     s.tmp.match_modify_elements = true;
