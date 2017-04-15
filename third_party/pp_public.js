@@ -231,7 +231,7 @@ if(typeof jQuery === 'undefined'){
             s.local.isInitCurrent = data.isInitCurrent;
             s.local.months_remaining = data.months_remaining;
             localStorage.setItem('sdfwa', JSON.stringify(s.local));
-            if(/\/member\/?$/.test(s.url){
+            if(/\/member\/?$/.test(s.url)){
               if((data.shop_expire || '1970-01-01') < s.getDate()){
                 s.tmp.body = '\
                   <h5>\
