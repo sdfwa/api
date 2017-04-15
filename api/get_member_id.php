@@ -27,6 +27,23 @@ function isShopCurrent($d){
   }
 }
 
+function isGoldMember($d){
+  if(!isset($d) || !is_array($d)){return false;}
+  if(isShopCurrent() && trim(strtolower($d['fldShopType'])) === 'gold'){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+function isSilverMember($d){
+  if(!isset($d) || !is_array($d)){return false;}
+  if(isShopCurrent() && trim(strtolower($d['fldShopType'])) === 'silver'){
+    return true;
+  }else{
+    return false;
+  }
+}
 
 if(isset($_GET['email']) && $_GET['email'] !== ''){
   $email= strtolower($_GET['email']);
@@ -78,6 +95,8 @@ if($row_count == 1){
   $output->shop_expire = $Row['fldShopExpire'];
   $output->isSDFWACurrent = isSDFWACurrent($Row);
   $output->isShopCurrent = isShopCurrent($Row);
+  $output->isGoldMember = isGoldMember($Row);
+  $output->isGoldMember = isSilverMember($Row);
 }else{
   $output = json_decode('{}');
   $output->success = 'false';
