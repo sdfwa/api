@@ -95,7 +95,7 @@ if($row_count == 1){
   $output->isSDFWACurrent = isSDFWACurrent($Row);
   $output->isShopCurrent = isShopCurrent($Row);
   $output->isGoldMember = isGoldMember($Row);
-  $output->isGoldMember = isSilverMember($Row);
+  $output->isSilverMember = isSilverMember($Row);
 }else{
   $output = json_decode('{}');
   $output->success = 'false';
