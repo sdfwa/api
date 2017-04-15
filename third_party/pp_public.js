@@ -175,7 +175,7 @@ if(typeof jQuery === 'undefined'){
     /* end update user info */
     
     /* start hide purchase buttons */
-    s.hidePurchaseButtons(){
+    s.hidePurchaseButtons = function(){
       if(/\/purchase\/?$/.test(s.url)){
           $('a[href*="21781"]').parent().addClass('hidden'); // Gold + Init + SDFWA
           $('a[href*="21782"]').parent().addClass('hidden'); // Silver + Init + SDFWA
