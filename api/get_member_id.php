@@ -55,7 +55,7 @@ function isFounder($d){
   }
 }
 
-function isMilitaryDiscount()
+function isMilitaryDiscount(){
   if(!isset($d) || !is_array($d)){return false;}
   if(trim(strtolower($d['fldMilitaryRank'])) === 'e1' ||
   trim(strtolower($d['fldMilitaryRank'])) === 'e2' ||
