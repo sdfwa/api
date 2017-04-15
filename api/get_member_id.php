@@ -45,7 +45,7 @@ function isSilverMember($d){
   }
 }
 
-function isFounder($d){
+function isShopFounder($d){
   // currently just a yes / no, but could be 0-999, 1000-10,000,000
   if(!isset($d) || !is_array($d)){return false;}
   if(trim(strtolower($d['fldShopType'])) === 'yes'){
@@ -58,10 +58,19 @@ function isFounder($d){
 function isMilitaryDiscount($d){
   if(!isset($d) || !is_array($d)){return false;}
   if(trim(strtolower($d['fldMilitaryRank'])) === 'e1' ||
-  trim(strtolower($d['fldMilitaryRank'])) === 'e2' ||
-  trim(strtolower($d['fldMilitaryRank'])) === 'e3' ||
-  trim(strtolower($d['fldMilitaryRank'])) === 'e4' ||
-  trim(strtolower($d['fldMilitaryRank'])) === 'e5'){
+    trim(strtolower($d['fldMilitaryRank'])) === 'e2' ||
+    trim(strtolower($d['fldMilitaryRank'])) === 'e3' ||
+    trim(strtolower($d['fldMilitaryRank'])) === 'e4' ||
+    trim(strtolower($d['fldMilitaryRank'])) === 'e5'){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+function isInitCurrent($d){
+  if(!isset($d) || !is_array($d)){return false;}
+  if(isShopCurrent($d) || isShopFounder($d) || isMilitaryDiscount($d)){
     return true;
   }else{
     return false;
@@ -120,6 +129,7 @@ if($row_count == 1){
   $output->isShopCurrent = isShopCurrent($Row);
   $output->isGoldMember = isGoldMember($Row);
   $output->isSilverMember = isSilverMember($Row);
+  $output->isShopFounder = isShopFounder($Row);
   $output->isMilitaryDiscount = isMilitaryDiscount($Row);
 }else{
   $output = json_decode('{}');
