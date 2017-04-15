@@ -66,9 +66,7 @@ mssql_select_db('SDFWA')
 
 $SQL = <<<QUERY_END
 SELECT TOP 1
-MemberID
-, fldYr
-, fldShopExpire
+*
 FROM davism.tblSDFWAMembers
 WHERE LOWER(fldEMail) LIKE '%{{email}}%'
 ;
