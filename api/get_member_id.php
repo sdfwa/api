@@ -48,7 +48,7 @@ function isSilverMember($d){
 function isShopFounder($d){
   // currently just a yes / no, but could be 0-999, 1000-10,000,000
   if(!isset($d) || !is_array($d)){return false;}
-  if(trim(strtolower($d['fldShopType'])) === 'yes'){
+  if(trim(strtolower($d['fldShopFounder'])) === 'yes'){
     return true;
   }else{
     return false;
