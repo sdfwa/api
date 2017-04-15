@@ -8,8 +8,9 @@ function currentDate(){
 function currentYear(){
   return date('Y');
 }
-function isSDFWACurrent(d){
-  if(d === '99' || d >= currentYear()){
+
+function isSDFWACurrent($d){
+  if(d === '99' || $d >= currentYear()){
     return true;
   }else{
     return false;
