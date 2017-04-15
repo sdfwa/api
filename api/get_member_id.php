@@ -119,6 +119,7 @@ if($row_count == 1){
   $output->isShopCurrent = isShopCurrent($Row);
   $output->isGoldMember = isGoldMember($Row);
   $output->isSilverMember = isSilverMember($Row);
+  $output->isMilitaryDiscount = $Row['fldMilitaryRank'];  
 }else{
   $output = json_decode('{}');
   $output->success = 'false';
