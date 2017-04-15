@@ -211,7 +211,7 @@ if(typeof jQuery === 'undefined'){
           }); 
         }
       }
-      if(/\/member\/?$/.test(s.url)){
+      if(/\/member\/?$/.test(s.url) || /\/purchase\/?$/.test(s.url)){
         $.getJSON('https://shop.sdfwa.org/api/get_member_id.php?email='+(s.local.email || '')).done(function(data){
         if(data.success === 'true'){
             s.local.shop_expire = data.shop_expire;
