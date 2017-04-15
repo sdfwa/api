@@ -11,7 +11,7 @@ function currentYear(){
 
 function monthsRemaining($d){
   if(isShopCurrent($d) && isset($d['fldShopExpire'])){
-    $datadiff = strtotime(currentDate()) - strtotime($d['fldShopExpire']);
+    $datadiff = strtotime($d['fldShopExpire'] - strtotime(currentDate()));
     $days = floor($datediff / (60 * 60 * 24));
     if($days >= 0 && $days <=30){
       return 1;
