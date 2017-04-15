@@ -229,6 +229,7 @@ if(typeof jQuery === 'undefined'){
             s.local.isShopFounder = data.isShopFounder;
             s.local.isMilitaryDiscount = data.isMilitaryDiscount;
             s.local.isInitCurrent = data.isInitCurrent;
+            localStorage.setItem('sdfwa', JSON.stringify(s.local));
             if((data.shop_expire || '1970-01-01') < s.getDate()){
               s.tmp.body = '\
                 <h5>\
