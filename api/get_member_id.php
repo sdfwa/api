@@ -131,6 +131,7 @@ if($row_count == 1){
   $output->isSilverMember = isSilverMember($Row);
   $output->isShopFounder = isShopFounder($Row);
   $output->isMilitaryDiscount = isMilitaryDiscount($Row);
+  $output->isInitCurrent = isInitCurrent($Row);
 }else{
   $output = json_decode('{}');
   $output->success = 'false';
