@@ -11,7 +11,7 @@ function currentYear(){
 
 function monthsRemaining($d){
   if(isShopCurrent($d) && isset($d['fldShopExpire'])){
-    $date1 = new DateTime(($d['fldShopExpire']);
+    $date1 = new DateTime($d['fldShopExpire']);
     $date2 = new DateTime(currentDate());
     $diff = $date2->diff($date1)->format("%a");
     $diff2 = $date1->diff($date2)->format("%a");
