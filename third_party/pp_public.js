@@ -174,6 +174,92 @@ if(typeof jQuery === 'undefined'){
     localStorage.setItem('sdfwa', JSON.stringify(s.local));  
     /* end update user info */
     
+    /* start hide purchase buttons */
+    s.hidePurchaseButtons(){
+      if(/\/purchase\/?$/.test(s.url)){
+          $('a[href*="21781"]').parent().addClass('hidden'); // Gold + Init + SDFWA
+          $('a[href*="21782"]').parent().addClass('hidden'); // Silver + Init + SDFWA
+          $('a[href*="21783"]').parent().addClass('hidden'); // Gold + Init
+          $('a[href*="21784"]').parent().addClass('hidden'); // Silver + Init
+          $('a[href*="21042"]').parent().addClass('hidden'); // Gold
+          $('a[href*="21043"]').parent().addClass('hidden'); // Silver
+          $('a[href*="21785"]').parent().addClass('hidden'); // Gold + SDFWA
+          $('a[href*="21786"]').parent().addClass('hidden'); // Silver + SDFWA
+          $('a[href*="21787"]').parent().addClass('hidden'); // Extra 10 Exp 12 Months
+          $('a[href*="21788"]').parent().addClass('hidden'); // Extra 10 Exp 11 Months
+          $('a[href*="21789"]').parent().addClass('hidden'); // Extra 10 Exp 10 Months
+          $('a[href*="21790"]').parent().addClass('hidden'); // Extra 10 Exp 9 Months
+          $('a[href*="21791"]').parent().addClass('hidden'); // Extra 10 Exp 8 Months
+          $('a[href*="21792"]').parent().addClass('hidden'); // Extra 10 Exp 7 Months
+          $('a[href*="21793"]').parent().addClass('hidden'); // Extra 10 Exp 6 Months
+          $('a[href*="21794"]').parent().addClass('hidden'); // Extra 10 Exp 5 Months
+          $('a[href*="21795"]').parent().addClass('hidden'); // Extra 10 Exp 4 Months
+          $('a[href*="21796"]').parent().addClass('hidden'); // Extra 10 Exp 3 Months
+          $('a[href*="21797"]').parent().addClass('hidden'); // Extra 10 Exp 2 Months
+          $('a[href*="21798"]').parent().addClass('hidden'); // Extra 10 Exp 1 Months
+        if(s.local.isShopCurrent){
+          switch(s.local.months_remaining) {
+              case 1:
+                  $('a[href*="21798"]').parent().removeClass('hidden');
+                  $('a[href*="21042"]').parent().removeClass('hidden'); // Gold
+                  $('a[href*="21043"]').parent().removeClass('hidden'); // Silver
+                  break;
+              case 2:
+                  $('a[href*="21797"]').parent().removeClass('hidden');
+                  $('a[href*="21042"]').parent().removeClass('hidden'); // Gold
+                  $('a[href*="21043"]').parent().removeClass('hidden'); // Silver
+                  break;
+              case 3:
+                  $('a[href*="21796"]').parent().removeClass('hidden');
+                  break;
+              case 4:
+                  $('a[href*="21795"]').parent().removeClass('hidden');
+                  break;
+              case 5:
+                  $('a[href*="21794"]').parent().removeClass('hidden');
+                  break;
+              case 6:
+                  $('a[href*="21793"]').parent().removeClass('hidden');
+                  break;
+              case 7:
+                  $('a[href*="21792"]').parent().removeClass('hidden');
+                  break;
+              case 8:
+                  $('a[href*="21791"]').parent().removeClass('hidden');
+                  break;
+              case 9:
+                  $('a[href*="21790"]').parent().removeClass('hidden');
+                  break;
+              case 10:
+                  $('a[href*="21789"]').parent().removeClass('hidden');
+                  break;
+              case 11:
+                  $('a[href*="21788"]').parent().removeClass('hidden');
+                  break;
+              case 12:
+                  $('a[href*="21787"]').parent().removeClass('hidden');
+                  break;
+              default:
+                  console.log('no match');
+          } 
+        }else if(s.local.isInitCurrent === false && s.local.isSDFWACurrent === false){
+          $('a[href*="21781"]').parent().removeClass('hidden'); // Gold + Init + SDFWA
+          $('a[href*="21782"]').parent().removeClass('hidden'); // Silver + Init + SDFWA 
+        }else if(s.local.isInitCurrent === false){
+          $('a[href*="21783"]').parent().removeClass('hidden'); // Gold + Init
+          $('a[href*="21784"]').parent().removeClass('hidden'); // Silver + Init
+        }else if(s.local.isSDFWACurrent === false){
+          $('a[href*="21785"]').parent().removeClass('hidden'); // Gold + SDFWA
+          $('a[href*="21786"]').parent().removeClass('hidden'); // Silver + SDFWA
+        }else if(s.local.isInitCurrent === true && s.local.isSDFWACurrent === true){
+          $('a[href*="21042"]').parent().removeClass('hidden'); // Gold
+          $('a[href*="21043"]').parent().removeClass('hidden'); // Silver
+        }
+        
+      }
+      s.hidePurchaseButtons();
+    }
+      /* end hide purchase buttons */
     /* start modal code */
       s.showModal = function(data){
         data = data || {};
@@ -282,94 +368,14 @@ if(typeof jQuery === 'undefined'){
                 }
                 $('a:contains("Home")').text('Home - Checklist');              
               }
+            }else{
+              s.hidePurchaseButtons();
             }
           }
         });
       }
     /* end modal code */
     
-    /* start hide purchase buttons */
-    if(/\/purchase\/?$/.test(s.url)){
-        $('a[href*="21781"]').parent().addClass('hidden'); // Gold + Init + SDFWA
-        $('a[href*="21782"]').parent().addClass('hidden'); // Silver + Init + SDFWA
-        $('a[href*="21783"]').parent().addClass('hidden'); // Gold + Init
-        $('a[href*="21784"]').parent().addClass('hidden'); // Silver + Init
-        $('a[href*="21042"]').parent().addClass('hidden'); // Gold
-        $('a[href*="21043"]').parent().addClass('hidden'); // Silver
-        $('a[href*="21785"]').parent().addClass('hidden'); // Gold + SDFWA
-        $('a[href*="21786"]').parent().addClass('hidden'); // Silver + SDFWA
-        $('a[href*="21787"]').parent().addClass('hidden'); // Extra 10 Exp 12 Months
-        $('a[href*="21788"]').parent().addClass('hidden'); // Extra 10 Exp 11 Months
-        $('a[href*="21789"]').parent().addClass('hidden'); // Extra 10 Exp 10 Months
-        $('a[href*="21790"]').parent().addClass('hidden'); // Extra 10 Exp 9 Months
-        $('a[href*="21791"]').parent().addClass('hidden'); // Extra 10 Exp 8 Months
-        $('a[href*="21792"]').parent().addClass('hidden'); // Extra 10 Exp 7 Months
-        $('a[href*="21793"]').parent().addClass('hidden'); // Extra 10 Exp 6 Months
-        $('a[href*="21794"]').parent().addClass('hidden'); // Extra 10 Exp 5 Months
-        $('a[href*="21795"]').parent().addClass('hidden'); // Extra 10 Exp 4 Months
-        $('a[href*="21796"]').parent().addClass('hidden'); // Extra 10 Exp 3 Months
-        $('a[href*="21797"]').parent().addClass('hidden'); // Extra 10 Exp 2 Months
-        $('a[href*="21798"]').parent().addClass('hidden'); // Extra 10 Exp 1 Months
-      if(s.local.isShopCurrent){
-        switch(s.local.months_remaining) {
-            case 1:
-                $('a[href*="21798"]').parent().removeClass('hidden');
-                $('a[href*="21042"]').parent().removeClass('hidden'); // Gold
-                $('a[href*="21043"]').parent().removeClass('hidden'); // Silver
-                break;
-            case 2:
-                $('a[href*="21797"]').parent().removeClass('hidden');
-                $('a[href*="21042"]').parent().removeClass('hidden'); // Gold
-                $('a[href*="21043"]').parent().removeClass('hidden'); // Silver
-                break;
-            case 3:
-                $('a[href*="21796"]').parent().removeClass('hidden');
-                break;
-            case 4:
-                $('a[href*="21795"]').parent().removeClass('hidden');
-                break;
-            case 5:
-                $('a[href*="21794"]').parent().removeClass('hidden');
-                break;
-            case 6:
-                $('a[href*="21793"]').parent().removeClass('hidden');
-                break;
-            case 7:
-                $('a[href*="21792"]').parent().removeClass('hidden');
-                break;
-            case 8:
-                $('a[href*="21791"]').parent().removeClass('hidden');
-                break;
-            case 9:
-                $('a[href*="21790"]').parent().removeClass('hidden');
-                break;
-            case 10:
-                $('a[href*="21789"]').parent().removeClass('hidden');
-                break;
-            case 11:
-                $('a[href*="21788"]').parent().removeClass('hidden');
-                break;
-            case 12:
-                $('a[href*="21787"]').parent().removeClass('hidden');
-                break;
-            default:
-                console.log('no match');
-        } 
-      }else if(s.local.isInitCurrent === false && s.local.isSDFWACurrent === false){
-        $('a[href*="21781"]').parent().removeClass('hidden'); // Gold + Init + SDFWA
-        $('a[href*="21782"]').parent().removeClass('hidden'); // Silver + Init + SDFWA 
-      }else if(s.local.isInitCurrent === false){
-        $('a[href*="21783"]').parent().removeClass('hidden'); // Gold + Init
-        $('a[href*="21784"]').parent().removeClass('hidden'); // Silver + Init
-      }else if(s.local.isSDFWACurrent === false){
-        $('a[href*="21785"]').parent().removeClass('hidden'); // Gold + SDFWA
-        $('a[href*="21786"]').parent().removeClass('hidden'); // Silver + SDFWA
-      }else if(s.local.isInitCurrent === true && s.local.isSDFWACurrent === true){
-        $('a[href*="21042"]').parent().removeClass('hidden'); // Gold
-        $('a[href*="21043"]').parent().removeClass('hidden'); // Silver
-      }
-      
-    }
-    /* end hide purchase buttons */
+
   }
 }(window, 'sdfwa'))
