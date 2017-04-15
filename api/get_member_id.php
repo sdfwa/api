@@ -10,6 +10,7 @@ function currentYear(){
 }
 
 function isSDFWACurrent($d){
+  // 99 is for past presidents otherwise 2016, 2017...
   if(!isset($d) || !is_array($d)){return false;}
   if($d['fldYr'] === '99' || $d['fldYr'] >= currentYear()){
     return true;
@@ -46,7 +47,7 @@ function isSilverMember($d){
 }
 
 function isShopFounder($d){
-  // currently just a yes / no, but could be 0-999, 1000-10,000,000
+  // currently just a yes / no (null), but could be 0-999, 1000-10,000,000
   if(!isset($d) || !is_array($d)){return false;}
   if(trim(strtolower($d['fldShopFounder'])) === 'yes'){
     return true;
@@ -56,6 +57,7 @@ function isShopFounder($d){
 }
 
 function isMilitaryDiscount($d){
+  // currently E1, E2, E3, E4, E5
   if(!isset($d) || !is_array($d)){return false;}
   if(trim(strtolower($d['fldMilitaryRank'])) === 'e1' ||
     trim(strtolower($d['fldMilitaryRank'])) === 'e2' ||
