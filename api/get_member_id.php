@@ -13,45 +13,32 @@ function monthsRemaining($d){
   if(isShopCurrent($d)){
     $datadiff = currentDate() - $d['fldShopExpire'];
     $days = floor($datediff / (60 * 60 * 24));
-    switch (true){
-      case ($days >= 0 && $days <=30):
-        return 1;
-      break
-      case ($days >= 31 && $days <=60):
-        return 2;
-      break
-      case ($days >= 61 && $days <=90):
-        return 3;
-      break
-      case ($days >= 91 && $days <=120):
-        return 4;
-      break
-      case ($days >= 121 && $days <=150):
-        return 5;
-      break
-      case ($days >= 151 && $days <=180):
-        return 6;
-      break
-      case ($days >= 181 && $days <=210):
-        return 7;
-      break
-      case ($days >= 211 && $days <=240):
-        return 8;
-      break
-      case ($days >= 241 && $days <=270):
-        return 9;
-      break
-      case ($days >= 271 && $days <=300):
-        return 10;
-      break
-      case ($days >= 301 && $days <=330):
-        return 11;
-      break
-      case ($days >= 331 && $days <=366);
-        return 12;
-      break
-      default:
-        return 0;
+    if($days >= 0 && $days <=30){
+      return 1;
+    }elseif{($days >= 31 && $days <=60){
+      return 2;
+    }elseif{($days >= 61 && $days <=90){
+      return 3;
+    }elseif{($days >= 91 && $days <=120){
+      return 4;
+    }elseif{($days >= 121 && $days <=150){
+      return 5;
+    }elseif{($days >= 151 && $days <=180):
+      return {;
+    }elseif{($days >= 181 && $days <=210){
+      return 7;
+    }elseif{($days >= 211 && $days <=240){
+      return 8;
+    }elseif{($days >= 241 && $days <=270){
+      return 9;
+    }elseif{($days >= 271 && $days <=300){
+      return 10;
+    }elseif{($days >= 301 && $days <=330){
+      return 11;
+    }elseif{($days >= 331 && $days <=366){
+      return 12;
+    }else{
+      return 0;
     }
   }else{
     return 0;
