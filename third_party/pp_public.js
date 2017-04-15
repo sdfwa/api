@@ -231,55 +231,57 @@ if(typeof jQuery === 'undefined'){
             s.local.isInitCurrent = data.isInitCurrent;
             s.local.months_remaining = data.months_remaining;
             localStorage.setItem('sdfwa', JSON.stringify(s.local));
-            if((data.shop_expire || '1970-01-01') < s.getDate()){
-              s.tmp.body = '\
-                <h5>\
-                  A good place to start is to make sure you understand that this is your Shop!  It is "of, by and for" our Members.  We want you to not only use the Shop but help us make it better.<br><br>\
-                  This checklist will help get you in the shop as soon as possible.  And once you complete the list, we will update our records so you don\'t have to see this popup again.  Please be patient with us while we get our records in order.<br><br>\
-                  All of us will need to go through a basic Shop Safety Training program.  This training is essential to ensure that we offer everyone a safe environment, that everyone knows how to operate each piece of equipment safely and to satisfy our insurance provider.\
-              ';
-              s.tmp.body += '\
-                <h4>\
-                  1) To join the Member Shop, you must be a member of the San Diego Fine Woodworkers Association. Jump over to <a href="https://asoft10232.accrisoft.com/sdfwa/forms/sdfwa-membership-application-jan-sept/" target="_blank">sdfwa membership</a> site and get a $30 Assoc Membership (Skip step if you\'re already an Assoc Member).\
-                </h4>\
-              ';
-              s.tmp.body += '\
-                <h4>\
-                  2) Pick either a Silver or Gold Membershop Punchcard from the Purchase A Pass Section. (Skip this step if you are a founder).</a>\
-                </h4>\
-              ';
-              s.tmp.body += '\
-                <h4>\
-                  3) Download and read our Member Shop Safety Manual {link coming soon}\
-                </h4>\
-              ';
-              s.tmp.body += '\
-                <h4>\
-                  4) Register for a Shop Safety Training via the calendar.\
-                </h4>\
-              ';
-              // If you are in the military and E5 or below, please reach out to <a href"mailto:shopit@sdfwa.org?Subject=Military%20Discount" target="_top">shopit@sdfwa.org</a> about a discount
-              s.tmp.body += '\
-                <h4>\
-                  5) Pass the Shop Safety Exam taken during the Shop Safety Training.\
-                </h4>\
-              ';
-              if(s.detectIE !== false){
-                (function($, s){
-                  setTimeout(function(){
+            if(/\/member\/?$/.test(s.url){
+              if((data.shop_expire || '1970-01-01') < s.getDate()){
+                s.tmp.body = '\
+                  <h5>\
+                    A good place to start is to make sure you understand that this is your Shop!  It is "of, by and for" our Members.  We want you to not only use the Shop but help us make it better.<br><br>\
+                    This checklist will help get you in the shop as soon as possible.  And once you complete the list, we will update our records so you don\'t have to see this popup again.  Please be patient with us while we get our records in order.<br><br>\
+                    All of us will need to go through a basic Shop Safety Training program.  This training is essential to ensure that we offer everyone a safe environment, that everyone knows how to operate each piece of equipment safely and to satisfy our insurance provider.\
+                ';
+                s.tmp.body += '\
+                  <h4>\
+                    1) To join the Member Shop, you must be a member of the San Diego Fine Woodworkers Association. Jump over to <a href="https://asoft10232.accrisoft.com/sdfwa/forms/sdfwa-membership-application-jan-sept/" target="_blank">sdfwa membership</a> site and get a $30 Assoc Membership (Skip step if you\'re already an Assoc Member).\
+                  </h4>\
+                ';
+                s.tmp.body += '\
+                  <h4>\
+                    2) Pick either a Silver or Gold Membershop Punchcard from the Purchase A Pass Section. (Skip this step if you are a founder).</a>\
+                  </h4>\
+                ';
+                s.tmp.body += '\
+                  <h4>\
+                    3) Download and read our Member Shop Safety Manual {link coming soon}\
+                  </h4>\
+                ';
+                s.tmp.body += '\
+                  <h4>\
+                    4) Register for a Shop Safety Training via the calendar.\
+                  </h4>\
+                ';
+                // If you are in the military and E5 or below, please reach out to <a href"mailto:shopit@sdfwa.org?Subject=Military%20Discount" target="_top">shopit@sdfwa.org</a> about a discount
+                s.tmp.body += '\
+                  <h4>\
+                    5) Pass the Shop Safety Exam taken during the Shop Safety Training.\
+                  </h4>\
+                ';
+                if(s.detectIE !== false){
+                  (function($, s){
+                    setTimeout(function(){
+                      s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
+                      $('.sdfwaModalClose').click(function(){
+                        $('#sdfwaModal').hide();
+                        $('.modal-backdrop').hide();
+                        $('#sdfwaModal').remove();
+                        $('#sdfwaModalBtn').remove();
+                      });
+                    }, 500);
+                  }($, s))
+                }else{
                     s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
-                    $('.sdfwaModalClose').click(function(){
-                      $('#sdfwaModal').hide();
-                      $('.modal-backdrop').hide();
-                      $('#sdfwaModal').remove();
-                      $('#sdfwaModalBtn').remove();
-                    });
-                  }, 500);
-                }($, s))
-              }else{
-                  s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
+                }
+                $('a:contains("Home")').text('Home - Checklist');              
               }
-              $('a:contains("Home")').text('Home - Checklist');              
             }
           }
         });
