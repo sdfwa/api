@@ -9,6 +9,56 @@ function currentYear(){
   return date('Y');
 }
 
+function monthsRemaining($d){
+  if(isShopCurrent($d)){
+    $datadiff = currentDate() - $d['fldShopExpire'];
+    $days = floor($datediff / (60 * 60 * 24));
+    switch (true){
+      case ($days >= 0 && $days <=30);
+        return 1;
+      break
+      case ($days >= 31 && $days <=60);
+        return 2;
+      break
+      case ($days >= 61 && $days <=90);
+        return 3;
+      break
+      case ($days >= 91 && $days <=120);
+        return 4;
+      break
+      case ($days >= 121 && $days <=150);
+        return 5;
+      break
+      case ($days >= 151 && $days <=180);
+        return 6;
+      break
+      case ($days >= 181 && $days <=210);
+        return 7;
+      break
+      case ($days >= 211 && $days <=240);
+        return 8;
+      break
+      case ($days >= 241 && $days <=270);
+        return 9;
+      break
+      case ($days >= 271 && $days <=300);
+        return 10;
+      break
+      case ($days >= 301 && $days <=330);
+        return 11;
+      break
+      case ($days >= 331 && $days <=366);
+        return 12;
+      break
+      default:
+        return 0;
+    }
+  }else{
+    return 0;
+  }
+  
+}
+
 function isSDFWACurrent($d){
   // 99 is for past presidents otherwise 2016, 2017...
   if(!isset($d) || !is_array($d)){return false;}
@@ -134,6 +184,7 @@ if($row_count == 1){
   $output->isShopFounder = isShopFounder($Row);
   $output->isMilitaryDiscount = isMilitaryDiscount($Row);
   $output->isInitCurrent = isInitCurrent($Row);
+  $output->months_remaining = monthsRemaining($Row);
 }else{
   $output = json_decode('{}');
   $output->success = 'false';
