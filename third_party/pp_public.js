@@ -313,12 +313,12 @@ if(typeof jQuery === 'undefined'){
             case 1:
                 $('a[href*="21798"]').parent().removeClass('hidden');
                 $('a[href*="21042"]').parent().removeClass('hidden'); // Gold
-                $('a[href*="21043"]').parent().rempveClass('hidden'); // Silver
+                $('a[href*="21043"]').parent().removeClas('hidden'); // Silver
                 break;
             case 2:
                 $('a[href*="21797"]').parent().removeClass('hidden');
                 $('a[href*="21042"]').parent().removeClass('hidden'); // Gold
-                $('a[href*="21043"]').parent().rempveClass('hidden'); // Silver
+                $('a[href*="21043"]').parent().removeClass('hidden'); // Silver
                 break;
             case 3:
                 $('a[href*="21796"]').parent().removeClass('hidden');
