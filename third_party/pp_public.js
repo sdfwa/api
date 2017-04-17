@@ -302,6 +302,7 @@ if(typeof jQuery === 'undefined'){
               "margin-right":"auto",
           }); 
         }
+        $('.modal-body').css('height', Math.round(window.innerHeight * .8)+'px').css('min-height', Math.round(window.innerHeight * .8)+'px');
       }
       if(/\/member\/?$/.test(s.url) || /\/purchase\/?$/.test(s.url)){
         $.getJSON('https://shop.sdfwa.org/api/get_member_id.php?email='+(s.local.email || '')).done(function(data){
@@ -333,12 +334,12 @@ if(typeof jQuery === 'undefined'){
                 ';
                 s.tmp.body += '\
                   <h4>\
-                    1) To join the Member Shop, you must be a member of the San Diego Fine Woodworkers Association. Jump over to <a href="https://asoft10232.accrisoft.com/sdfwa/forms/sdfwa-membership-application-jan-sept/" target="_blank">sdfwa membership</a> site and get a $30 Assoc Membership (Skip step if you\'re already an Assoc Member).\
+                    1) To join the Member Shop, you must be a member of the San Diego Fine Woodworkers Association.\
                   </h4>\
                 ';
                 s.tmp.body += '\
                   <h4>\
-                    2) Pick either a Silver or Gold Membershop Punchcard from the Purchase A Pass Section. (Skip this step if you are a founder).</a>\
+                    2) Pick either a Silver or Gold Membershop from the Purchase A Pass Section.</a>\
                   </h4>\
                 ';
                 s.tmp.body += '\
@@ -351,11 +352,15 @@ if(typeof jQuery === 'undefined'){
                     4) Register for a Shop Safety Training via the calendar.\
                   </h4>\
                 ';
-                // If you are in the military and E5 or below, please reach out to <a href"mailto:shopit@sdfwa.org?Subject=Military%20Discount" target="_top">shopit@sdfwa.org</a> about a discount
                 s.tmp.body += '\
                   <h4>\
                     5) Pass the Shop Safety Exam taken during the Shop Safety Training.\
                   </h4>\
+                ';
+                s.tmp.body += '\
+                  <h5>\
+                    If you are Activie Military with a paygrade E5 and below, click <a id="sdfwa_military_rank" style="cursor: pointer;">here</a> for a discount.\
+                  </h5>\
                 ';
                 if(s.detectIE !== false){
                   (function($, s){
@@ -372,7 +377,28 @@ if(typeof jQuery === 'undefined'){
                 }else{
                     s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
                 }
-                $('a:contains("Home")').text('Home - Checklist');              
+                $('a:contains("Home")').text('Home - Checklist');
+                $('#sdfwa_military_rank').click(function(){
+                  $('.sdfwaModalClose').click();
+                  s.tmp.body='Please select your military paygrade.\
+                    <br>\
+                    <select id="sdfwa_select_rank">\
+                      <option value="Not Selected">Not Selected</option>\
+                      <option value="E1">E1</option>\
+                      <option value="E2">E2</option>\
+                      <option value="E3">E3</option>\
+                      <option value="E4">E4</option>\
+                      <option value="E5">E5</option>\
+                    </select>\
+                    <br>\
+                    <a id="sdfwa_update_military_rank" class="btn" style="cursor: pointer;">Submit</a>\
+                    ';
+                  s.showModal({type:"text",title:"Military Discount",body:s.tmp.body});
+                  $('#sdfwa_update_military_rank').click(function(){
+                  $.getJSON('https://shop.sdfwa.org/api/update_military_info.php?email='+(s.local.email || '')+'military_rank='+$('#sdfwa_select_rank').val())
+                  $('.sdfwaModalClose').click();
+                  });
+                });
               }
             }else{
               s.hidePurchaseButtons();
@@ -381,7 +407,5 @@ if(typeof jQuery === 'undefined'){
         });
       }
     /* end modal code */
-    
-
   }
 }(window, 'sdfwa'))
