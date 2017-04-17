@@ -302,7 +302,7 @@ if(typeof jQuery === 'undefined'){
               "margin-right":"auto",
           }); 
         }
-        $('.modal-body').css('height', Math.round(window.innerHeight * .7)+'px').css('min-height', Math.round(window.innerHeight * .7)+'px');
+        $('.modal-body').css('height', Math.round(window.innerHeight * .65)+'px').css('min-height', Math.round(window.innerHeight * .65)+'px');
       }
       if(/\/member\/?$/.test(s.url) || /\/purchase\/?$/.test(s.url)){
         $.getJSON('https://shop.sdfwa.org/api/get_member_id.php?email='+(s.local.email || '')).done(function(data){
@@ -383,7 +383,7 @@ if(typeof jQuery === 'undefined'){
                   s.tmp.body='Please select your military paygrade.\
                     <br>\
                     <select id="sdfwa_select_rank">\
-                      <option value="Not Selected">Not Selected</option>\
+                      <option value="Not Selected">None</option>\
                       <option value="E1">E1</option>\
                       <option value="E2">E2</option>\
                       <option value="E3">E3</option>\
