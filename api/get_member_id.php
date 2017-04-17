@@ -167,8 +167,8 @@ if($row_count == 1){
   $output->military_rank = $Row['fldMilitaryRank']; 
   $output->isSDFWACurrent = isSDFWACurrent($Row);
   $output->isShopCurrent = isShopCurrent($Row);
-  $output->isGoldMember = isGoldMember($Row);
-  $output->isSilverMember = isSilverMember($Row);
+  // $output->isGoldMember = isGoldMember($Row);
+  // $output->isSilverMember = isSilverMember($Row);
   $output->isShopFounder = isShopFounder($Row);
   $output->isMilitaryDiscount = isMilitaryDiscount($Row);
   $output->isInitCurrent = isInitCurrent($Row);
@@ -183,8 +183,8 @@ if($row_count == 1){
   $output->email= $email;
   $output->isSDFWACurrent = false;
   $output->isShopCurrent = false;
-  $output->isGoldMember = false;
-  $output->isSilverMember = false;
+  // $output->isGoldMember = false;
+  // $output->isSilverMember = false;
   $output->isShopFounder = false;
   $output->isMilitaryDiscount = false;
   $output->isInitCurrent = false;
