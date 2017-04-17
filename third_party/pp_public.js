@@ -179,7 +179,7 @@ if(typeof jQuery === 'undefined'){
     }
     try{
       s.tmp.shop_expire = null;
-      $('h4:contains("Active Passes")').parent().find('.row:contains("Gold")').each(function(){
+      $('h4:contains("Active Passes")').parent().find('.row').filter(function(){return /(gold|silver)/i.test($(this).text());}).each(function(){
         var html = $(this).html();
         var date = new Date(html.split('Expiration Date: ')[1].split('<br>')[0].trim());
         var date_str = date.getFullYear();
@@ -190,8 +190,18 @@ if(typeof jQuery === 'undefined'){
         }
       });
       s.local.shop_expire = s.tmp.shop_expire;
-      if(typeof s.tmp.email !== 'undefined' && s.tmp.email !== '' && s.local.shop_expire !== null){
-        $.getJSON('https://shop.sdfwa.org/api/update_shop_expire.php?email='+(s.local.email || '')+'&shop_expire='+s.local.shop_expire);
+      if(typeof s.local.member_id === 'undefined'){
+        if(/\(/.test(s.local.full_name) === false){
+          s.local.first_name = s.local.full_name.split(' ')[0];
+          s.local.last_name = s.local.full_name.split(' ')[1];  
+        }
+        $.getJSON('https://shop.sdfwa.org/api/add_sdfwa_member.php?email='+(s.local.email || '')+'&first_name='+s.local.first_name+'&last_name='+last_name).done(function(){
+          $.getJSON('https://shop.sdfwa.org/api/update_shop_expire.php?email='+(s.local.email || '')+'&shop_expire='+s.local.shop_expire)
+        });
+      }else{
+        if(typeof s.local.email !== 'undefined' && s.local.email !== '' && s.local.shop_expire !== null){
+          $.getJSON('https://shop.sdfwa.org/api/update_shop_expire.php?email='+(s.local.email || '')+'&shop_expire='+s.local.shop_expire);
+        }
       }
     }catch(e){}
     localStorage.setItem('sdfwa', JSON.stringify(s.local));  
