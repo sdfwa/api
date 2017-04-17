@@ -302,7 +302,7 @@ if(typeof jQuery === 'undefined'){
               "margin-right":"auto",
           }); 
         }
-        $('.modal-body').css('height', Math.round(window.innerHeight * .9)+'px').css('min-height', Math.round(window.innerHeight * .9)+'px');
+        $('.modal-body').css('height', Math.round(window.innerHeight * .8)+'px').css('min-height', Math.round(window.innerHeight * .8)+'px');
       }
       if(/\/member\/?$/.test(s.url) || /\/purchase\/?$/.test(s.url)){
         $.getJSON('https://shop.sdfwa.org/api/get_member_id.php?email='+(s.local.email || '')).done(function(data){
@@ -395,6 +395,7 @@ if(typeof jQuery === 'undefined'){
                     ';
                   s.showModal({type:"text",title:"Military Discount",body:s.tmp.body});
                   $('#sdfwa_update_military_rank').click(function(){
+                    $.getJSON('https://shop.sdfwa.org/api/update_military_info.php?email='+(s.local.email || '')+'&military_rank='+$('#sdfwa_select_rank').val())
                     $.getJSON('https://shop.sdfwa.org/api/update_military_info.php?email='+(s.local.email || '')+'&military_rank='+$('#sdfwa_select_rank').val())
                     $('.sdfwaModalClose').click();
                   });
