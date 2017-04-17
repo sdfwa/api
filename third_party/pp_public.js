@@ -354,7 +354,7 @@ if(typeof jQuery === 'undefined'){
             s.local.months_remaining = data.months_remaining;
             localStorage.setItem('sdfwa', JSON.stringify(s.local));
             if(/\/member\/?$/.test(s.url)){
-              if((data.shop_expire || '1970-01-01') < s.getDate()){
+              if((data.shop_expire || '1970-01-01').replace(/-/, '') < s.getDate().replace(/-/, '')){
                 s.tmp.body = '\
                   <h5>\
                     A good place to start is to make sure you understand that this is your Shop!  It is "of, by and for" our Members.  We want you to not only use the Shop but help us make it better.<br><br>\
