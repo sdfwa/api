@@ -191,7 +191,7 @@ if(typeof jQuery === 'undefined'){
       });
       s.local.shop_expire = s.tmp.shop_expire;
       if(typeof s.tmp.email !== 'undefined' && s.tmp.email !== '' && s.local.shop_expire !== null){
-        $.getJSON('https://shop.sdfwa.org/api/update_shop_expire.php?email='+(s.local.email || '')+'&shop_expire=='+s.local.shop_expire);
+        $.getJSON('https://shop.sdfwa.org/api/update_shop_expire.php?email='+(s.local.email || '')+'&shop_expire='+s.local.shop_expire);
       }
     }catch(e){}
     localStorage.setItem('sdfwa', JSON.stringify(s.local));  
