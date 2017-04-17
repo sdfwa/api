@@ -177,6 +177,23 @@ if(typeof jQuery === 'undefined'){
     if(typeof s.tmp.email !== 'undefined' && s.tmp.email !== ''){
       s.local.email = s.tmp.email;
     }
+    try{
+      s.tmp.shop_expire = null;
+      $('h4:contains("Active Passes")').parent().find('.row:contains("Gold")').each(function(){
+        var html = $(this).html();
+        var date = new Date(html.split('Expiration Date: ')[1].split('<br>')[0].trim());
+        var date_str = date.getFullYear();
+        date_str += ('00'+(date.getMonth()+1)).slice(-2);
+        date_str += ('00'+(date.getDate())).slice(-2);
+        if(date_str > s.tmp.shop_expire){
+          s.tmp.shop_expire = date_str;
+        }
+      });
+      s.local.shop_expire = s.tmp.shop_expire;
+      if(typeof s.tmp.email !== 'undefined' && s.tmp.email !== '' && s.local.shop_expire !== null){
+        $.getJSON('https://shop.sdfwa.org/api/update_shop_expire.php?email='+(s.local.email || '')+'&shop_expire=='+s.local.shop_expire);
+      }
+    }catch(e){}
     localStorage.setItem('sdfwa', JSON.stringify(s.local));  
     /* end update user info */
     
@@ -395,8 +412,7 @@ if(typeof jQuery === 'undefined'){
                     ';
                   s.showModal({type:"text",title:"Military Discount",body:s.tmp.body});
                   $('#sdfwa_update_military_rank').click(function(){
-                    $.getJSON('https://shop.sdfwa.org/api/update_military_info.php?email='+(s.local.email || '')+'&military_rank='+$('#sdfwa_select_rank').val())
-                    $.getJSON('https://shop.sdfwa.org/api/update_military_info.php?email='+(s.local.email || '')+'&military_rank='+$('#sdfwa_select_rank').val())
+                    $.getJSON('https://shop.sdfwa.org/api/update_military_info.php?email='+(s.local.email || '')+'&military_rank='+$('#sdfwa_select_rank').val());
                     $('.sdfwaModalClose').click();
                   });
                 });
