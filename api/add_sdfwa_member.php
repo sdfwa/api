@@ -13,8 +13,16 @@ if(isset($_GET['last_name']) && $_GET['last_name'] !== ''){
   $last_name= strtoupper($_GET['last_name']);
 }
 
-if(!isset($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) || !isset($first_name) || !isset($last_name)){
-  debug('no member email or first name or last name');
+if(isset($_GET['year']) && $_GET['year'] !== ''){
+  $year= strtoupper($_GET['year']);
+}
+
+if(isset($_GET['comment']) && $_GET['comment'] !== ''){
+  $comment= strtoupper($_GET['comment']);
+}
+
+if(!isset($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) || !isset($first_name) || !isset($last_name) || !isset($year) || !isset($comment)){
+  debug('no member email or first name or last name or year or comment');
   exit();
 }
 
@@ -37,8 +45,8 @@ QUERY_END;
 
 $ADD_SQL = <<<QUERY_END
 INSERT INTO davism.tblSDFWAMembers
-(memberID, fldEmail, fldFirstName, fldLastName)
-VALUES ({{next_member_id}}, '{{email}}', '{{first_name}}', '{{last_name}}')
+(memberID, fldEmail, fldFirstName, fldLastName, year, comment)
+VALUES ({{next_member_id}}, '{{email}}', '{{first_name}}', '{{last_name}}', '{{year}}', '{{comment}}')
 ;
 QUERY_END;
 
@@ -56,6 +64,8 @@ if($row_count == 1){
   $ADD_SQL = str_replace("{{email}}",  $email, $ADD_SQL);
   $ADD_SQL = str_replace("{{first_name}}",  $first_name, $ADD_SQL);
   $ADD_SQL = str_replace("{{last_name}}",  $last_name, $ADD_SQL);
+  $ADD_SQL = str_replace("{{year}}",  $year, $ADD_SQL);
+  $ADD_SQL = str_replace("{{comment}}",  $comment, $ADD_SQL);
   debug($ADD_SQL);
   // Execute query:
   $result = mssql_query($ADD_SQL) 
@@ -70,6 +80,8 @@ if($row_count == 1){
   $output->email = $email;
   $output->first_name = $first_name;
   $output->last_name = $last_name;
+  $output->year = $year;
+  $output->comment = $comment;
   if($row_count > 0){  
     $output->success = 'true';
     $output->message = 'add complete';
