@@ -343,14 +343,16 @@ if(typeof jQuery === 'undefined'){
               });
               s.local.shop_expire = s.tmp.shop_expire;
               if(typeof s.local.member_id === 'undefined'){
-                if(/\(/.test(s.local.full_name) === false && s.local.shop_expire !== null){
+                if(/\(/.test(s.local.full_name) === false){
                   s.local.first_name = s.local.full_name.split(' ')[0];
                   s.local.last_name = s.local.full_name.split(' ')[1];  
                 }
-                s.tmp.comment = 'added by member shop';
-                $.getJSON('https://shop.sdfwa.org/api/add_sdfwa_member.php?email='+(s.local.email || '')+'&first_name='+s.local.first_name+'&last_name='+s.local.last_name+'&year='+s.getYear()+'&comment='+s.tmp.comment).done(function(){
-                  $.getJSON('https://shop.sdfwa.org/api/update_shop_expire.php?email='+(s.local.email || '')+'&shop_expire='+s.local.shop_expire)
-                });
+                if(s.local.shop_expire !== null){
+                  s.tmp.comment = 'added by member shop';
+                  $.getJSON('https://shop.sdfwa.org/api/add_sdfwa_member.php?email='+(s.local.email || '')+'&first_name='+s.local.first_name+'&last_name='+s.local.last_name+'&year='+s.getYear()+'&comment='+s.tmp.comment).done(function(){
+                    $.getJSON('https://shop.sdfwa.org/api/update_shop_expire.php?email='+(s.local.email || '')+'&shop_expire='+s.local.shop_expire)
+                  });
+                }
               }else{
                 if(typeof s.local.email !== 'undefined' && s.local.email !== '' && s.local.shop_expire !== null){
                   $.getJSON('https://shop.sdfwa.org/api/update_shop_expire.php?email='+(s.local.email || '')+'&shop_expire='+s.local.shop_expire);
