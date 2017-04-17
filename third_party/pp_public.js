@@ -182,34 +182,6 @@ if(typeof jQuery === 'undefined'){
     if(typeof s.tmp.email !== 'undefined' && s.tmp.email !== ''){
       s.local.email = s.tmp.email;
     }
-    try{
-      s.tmp.shop_expire = null;
-      $('h4:contains("Active Passes")').parent().find('.row').filter(function(){return /(gold|silver)/i.test($(this).text());}).each(function(){
-        var html = $(this).html();
-        var date = new Date(html.split('Expiration Date: ')[1].split('<br>')[0].trim());
-        var date_str = date.getFullYear();
-        date_str += '-' + ('00'+(date.getMonth()+1)).slice(-2);
-        date_str += '-' + ('00'+(date.getDate())).slice(-2);
-        if(date_str.replace(/-/g, '') > s.tmp.shop_expire){
-          s.tmp.shop_expire = date_str;
-        }
-      });
-      s.local.shop_expire = s.tmp.shop_expire;
-      if(typeof s.local.member_id === 'undefined'){
-        if(/\(/.test(s.local.full_name) === false){
-          s.local.first_name = s.local.full_name.split(' ')[0];
-          s.local.last_name = s.local.full_name.split(' ')[1];  
-        }
-        s.tmp.comment = 'added by member shop';
-        $.getJSON('https://shop.sdfwa.org/api/add_sdfwa_member.php?email='+(s.local.email || '')+'&first_name='+s.local.first_name+'&last_name='+s.local.last_name+'&year='+s.getYear()+'&comment='+s.tmp.comment).done(function(){
-          $.getJSON('https://shop.sdfwa.org/api/update_shop_expire.php?email='+(s.local.email || '')+'&shop_expire='+s.local.shop_expire)
-        });
-      }else{
-        if(typeof s.local.email !== 'undefined' && s.local.email !== '' && s.local.shop_expire !== null){
-          $.getJSON('https://shop.sdfwa.org/api/update_shop_expire.php?email='+(s.local.email || '')+'&shop_expire='+s.local.shop_expire);
-        }
-      }
-    }catch(e){}
     localStorage.setItem('sdfwa', JSON.stringify(s.local));  
     /* end update user info */
     
@@ -356,6 +328,36 @@ if(typeof jQuery === 'undefined'){
             s.local.isMilitaryDiscount = data.isMilitaryDiscount;
             s.local.isInitCurrent = data.isInitCurrent;
             s.local.months_remaining = data.months_remaining;
+            
+            try{
+              s.tmp.shop_expire = null;
+              $('h4:contains("Active Passes")').parent().find('.row').filter(function(){return /(gold|silver)/i.test($(this).text());}).each(function(){
+                var html = $(this).html();
+                var date = new Date(html.split('Expiration Date: ')[1].split('<br>')[0].trim());
+                var date_str = date.getFullYear();
+                date_str += '-' + ('00'+(date.getMonth()+1)).slice(-2);
+                date_str += '-' + ('00'+(date.getDate())).slice(-2);
+                if(date_str.replace(/-/g, '') > s.tmp.shop_expire){
+                  s.tmp.shop_expire = date_str;
+                }
+              });
+              s.local.shop_expire = s.tmp.shop_expire;
+              if(typeof s.local.member_id === 'undefined'){
+                if(/\(/.test(s.local.full_name) === false){
+                  s.local.first_name = s.local.full_name.split(' ')[0];
+                  s.local.last_name = s.local.full_name.split(' ')[1];  
+                }
+                s.tmp.comment = 'added by member shop';
+                $.getJSON('https://shop.sdfwa.org/api/add_sdfwa_member.php?email='+(s.local.email || '')+'&first_name='+s.local.first_name+'&last_name='+s.local.last_name+'&year='+s.getYear()+'&comment='+s.tmp.comment).done(function(){
+                  $.getJSON('https://shop.sdfwa.org/api/update_shop_expire.php?email='+(s.local.email || '')+'&shop_expire='+s.local.shop_expire)
+                });
+              }else{
+                if(typeof s.local.email !== 'undefined' && s.local.email !== '' && s.local.shop_expire !== null){
+                  $.getJSON('https://shop.sdfwa.org/api/update_shop_expire.php?email='+(s.local.email || '')+'&shop_expire='+s.local.shop_expire);
+                }
+              }
+            }catch(e){}
+            
             localStorage.setItem('sdfwa', JSON.stringify(s.local));
             if(/\/member\/?$/.test(s.url)){
               if((data.shop_expire || '1970-01-01').replace(/-/, '') < s.getDate().replace(/-/, '')){
