@@ -6,7 +6,7 @@ if(isset($_GET['email']) && $_GET['email'] !== ''){
 }
 
 if(isset($_GET['military_rank']) && $_GET['military_rank'] !== ''){
-  $email= strtolower($_GET['military_rank']);
+  $military_rank= strtolower($_GET['military_rank']);
 }
 
 if(!isset($email) || !filter_var($email, FILTER_VALIDATE_EMAIL) || !isset($military_rank)){
