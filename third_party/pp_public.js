@@ -183,8 +183,8 @@ if(typeof jQuery === 'undefined'){
         var html = $(this).html();
         var date = new Date(html.split('Expiration Date: ')[1].split('<br>')[0].trim());
         var date_str = date.getFullYear();
-        date_str += ('00'+(date.getMonth()+1)).slice(-2);
-        date_str += ('00'+(date.getDate())).slice(-2);
+        date_str += '-' + ('00'+(date.getMonth()+1)).slice(-2);
+        date_str += '-' + ('00'+(date.getDate())).slice(-2);
         if(date_str > s.tmp.shop_expire){
           s.tmp.shop_expire = date_str;
         }
