@@ -47,6 +47,11 @@ if(typeof jQuery === 'undefined'){
     b += ('00'+a.getDate()).slice(-2);
     return b;
   }
+  s.getYear = function(){
+    var a = new Date();
+    var b = ('0000'+a.getFullYear()).slice(-4);
+    return b;
+  }
   if ($(window).width() < 768) {
       s.sizeName = 'xs';
       s.sizeInt = 0;
@@ -195,9 +200,8 @@ if(typeof jQuery === 'undefined'){
           s.local.first_name = s.local.full_name.split(' ')[0];
           s.local.last_name = s.local.full_name.split(' ')[1];  
         }
-        s.tmp.year = s.tmp.shop_expire.split('-')[0];
         s.tmp.comment = 'added by member shop';
-        $.getJSON('https://shop.sdfwa.org/api/add_sdfwa_member.php?email='+(s.local.email || '')+'&first_name='+s.local.first_name+'&last_name='+s.local.last_name+'&year='+s.tmp.year+'&comment='+s.tmp.comment).done(function(){
+        $.getJSON('https://shop.sdfwa.org/api/add_sdfwa_member.php?email='+(s.local.email || '')+'&first_name='+s.local.first_name+'&last_name='+s.local.last_name+'&year='+s.getYear()+'&comment='+s.tmp.comment).done(function(){
           $.getJSON('https://shop.sdfwa.org/api/update_shop_expire.php?email='+(s.local.email || '')+'&shop_expire='+s.local.shop_expire)
         });
       }else{
