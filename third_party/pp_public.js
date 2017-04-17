@@ -302,7 +302,7 @@ if(typeof jQuery === 'undefined'){
               "margin-right":"auto",
           }); 
         }
-        $('.modal-body').css('height', Math.round(window.innerHeight * .8)+'px').css('min-height', Math.round(window.innerHeight * .8)+'px');
+        $('.modal-body').css('height', Math.round(window.innerHeight * .7)+'px').css('min-height', Math.round(window.innerHeight * .7)+'px');
       }
       if(/\/member\/?$/.test(s.url) || /\/purchase\/?$/.test(s.url)){
         $.getJSON('https://shop.sdfwa.org/api/get_member_id.php?email='+(s.local.email || '')).done(function(data){
