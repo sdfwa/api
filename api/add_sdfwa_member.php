@@ -38,7 +38,7 @@ QUERY_END;
 $ADD_SQL = <<<QUERY_END
 INSERT INTO davism.tblSDFWAMembers
 (memberID, fldEmail, fldFirstName, fldLastName)
-VALUES ({{next_member_id}}, {{email}}, {{first_name}}, {{last_name}})
+VALUES ({{next_member_id}}, '{{email}}', '{{first_name}}', '{{last_name}}')
 ;
 QUERY_END;
 
