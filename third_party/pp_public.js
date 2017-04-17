@@ -185,7 +185,7 @@ if(typeof jQuery === 'undefined'){
         var date_str = date.getFullYear();
         date_str += '-' + ('00'+(date.getMonth()+1)).slice(-2);
         date_str += '-' + ('00'+(date.getDate())).slice(-2);
-        if(date_str > s.tmp.shop_expire){
+        if(date_str.replace(/-/g) > s.tmp.shop_expire){
           s.tmp.shop_expire = date_str;
         }
       });
