@@ -26,7 +26,7 @@ mssql_select_db('SDFWA')
 
 $SQL = <<<QUERY_END
 UPDATE davism.tblSDFWAMembers
-SET fldMilitaryRank = {{military_rank}}
+SET fldMilitaryRank = '{{military_rank}}'
 WHERE LOWER(fldEMail) = '{{email}}'
 ;
 QUERY_END;
