@@ -66,23 +66,23 @@ function isShopCurrent($d){
   }
 }
 
-function isGoldMember($d){
-  if(!isset($d) || !is_array($d)){return false;}
-  if(isShopCurrent($d ) && trim(strtolower($d['fldShopType'])) === 'gold'){
-    return true;
-  }else{
-    return false;
-  }
-}
+// function isGoldMember($d){
+  // if(!isset($d) || !is_array($d)){return false;}
+  // if(isShopCurrent($d ) && trim(strtolower($d['fldShopType'])) === 'gold'){
+    // return true;
+  // }else{
+    // return false;
+  // }
+// }
 
-function isSilverMember($d){
-  if(!isset($d) || !is_array($d)){return false;}
-  if(isShopCurrent($d) && trim(strtolower($d['fldShopType'])) === 'silver'){
-    return true;
-  }else{
-    return false;
-  }
-}
+// function isSilverMember($d){
+  // if(!isset($d) || !is_array($d)){return false;}
+  // if(isShopCurrent($d) && trim(strtolower($d['fldShopType'])) === 'silver'){
+    // return true;
+  // }else{
+    // return false;
+  // }
+// }
 
 function isShopFounder($d){
   // currently just a yes / no (null), but could be 0-999, 1000-10,000,000
@@ -163,7 +163,7 @@ if($row_count == 1){
   $output->member_id = substr("0000" . $Row['MemberID'], -4);
   $output->year = trim($Row['fldYr']);
   $output->shop_expire = $Row['fldShopExpire'];
-  $output->shop_type = $Row['fldShopType'];
+  // $output->shop_type = $Row['fldShopType'];
   $output->military_rank = $Row['fldMilitaryRank']; 
   $output->isSDFWACurrent = isSDFWACurrent($Row);
   $output->isShopCurrent = isShopCurrent($Row);
