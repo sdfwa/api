@@ -302,7 +302,7 @@ if(typeof jQuery === 'undefined'){
               "margin-right":"auto",
           }); 
         }
-        $('.modal-body').css('height', Math.round(window.innerHeight * .8)+'px').css('min-height', Math.round(window.innerHeight * .8)+'px');
+        $('.modal-body').css('height', Math.round(window.innerHeight * .9)+'px').css('min-height', Math.round(window.innerHeight * .9)+'px');
       }
       if(/\/member\/?$/.test(s.url) || /\/purchase\/?$/.test(s.url)){
         $.getJSON('https://shop.sdfwa.org/api/get_member_id.php?email='+(s.local.email || '')).done(function(data){
@@ -359,7 +359,7 @@ if(typeof jQuery === 'undefined'){
                 ';
                 s.tmp.body += '\
                   <h5>\
-                    If you are Activie Military with a paygrade E5 and below, click <a id="sdfwa_military_rank" style="cursor: pointer;">here</a> for a discount.\
+                    If you are Activie Military with a paygrade E5 or below, click <a id="sdfwa_military_rank" style="cursor: pointer;">here</a> for a discount.\
                   </h5>\
                 ';
                 if(s.detectIE !== false){
@@ -378,7 +378,7 @@ if(typeof jQuery === 'undefined'){
                     s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
                 }
                 $('a:contains("Home")').text('Home - Checklist');
-                $('#sdfwa_military_rank').click(function(){
+                $(document.body).on('click', '#sdfwa_military_rank', function(){
                   $('.sdfwaModalClose').click();
                   s.tmp.body='Please select your military paygrade.\
                     <br>\
@@ -395,8 +395,8 @@ if(typeof jQuery === 'undefined'){
                     ';
                   s.showModal({type:"text",title:"Military Discount",body:s.tmp.body});
                   $('#sdfwa_update_military_rank').click(function(){
-                  $.getJSON('https://shop.sdfwa.org/api/update_military_info.php?email='+(s.local.email || '')+'military_rank='+$('#sdfwa_select_rank').val())
-                  $('.sdfwaModalClose').click();
+                    $.getJSON('https://shop.sdfwa.org/api/update_military_info.php?email='+(s.local.email || '')+'&military_rank='+$('#sdfwa_select_rank').val())
+                    $('.sdfwaModalClose').click();
                   });
                 });
               }
