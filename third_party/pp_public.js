@@ -318,7 +318,7 @@ if(typeof jQuery === 'undefined'){
             s.local.message = data.message;
             s.local.referer = data.referer;
             s.local.year = data.year;
-            s.local.shop_type = data.shop_type;
+            // s.local.shop_type = data.shop_type;
             s.local.military_rank = data.military_rank;
             s.local.isSDFWACurrent = data.isSDFWACurrent;
             s.local.isShopCurrent = data.isShopCurrent;
@@ -343,7 +343,7 @@ if(typeof jQuery === 'undefined'){
               });
               s.local.shop_expire = s.tmp.shop_expire;
               if(typeof s.local.member_id === 'undefined'){
-                if(/\(/.test(s.local.full_name) === false){
+                if(/\(/.test(s.local.full_name) === false && s.local.shop_expire !== null){
                   s.local.first_name = s.local.full_name.split(' ')[0];
                   s.local.last_name = s.local.full_name.split(' ')[1];  
                 }
