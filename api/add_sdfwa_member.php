@@ -68,6 +68,9 @@ $result = mssql_query($SQL)
 $row_count = mssql_num_rows($result);
 
 if($row_count == 1){
+  $Row = mssql_fetch_assoc($result);
+  $next_member_id = $Row['next_member_id'];
+
   // Execute query:
   $result = mssql_query($SQL2) 
       or die('A error occured: ' . mysql_error());
@@ -75,8 +78,6 @@ if($row_count == 1){
   // Get email result count:
   $row_count = mssql_num_rows($result);
   if($row_count != 1){
-    $Row = mssql_fetch_assoc($result);
-    $next_member_id = $Row['next_member_id'];
     $ADD_SQL = str_replace("{{next_member_id}}",  $next_member_id, $ADD_SQL);
     $ADD_SQL = str_replace("{{email}}",  $email, $ADD_SQL);
     $ADD_SQL = str_replace("{{first_name}}",  $first_name, $ADD_SQL);
