@@ -56,7 +56,7 @@ if($row_count == 1){
   $ADD_SQL = str_replace("{{email}}",  $email, $SQL);
   $ADD_SQL = str_replace("{{first_name}}",  $first_name, $SQL);
   $ADD_SQL = str_replace("{{last_name}}",  $last_name, $SQL);
-  
+  debug($ADD_SQL);
   // Execute query:
   $result = mssql_query($ADD_SQL) 
       or die('A error occured: ' . mysql_error());
