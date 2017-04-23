@@ -2,7 +2,7 @@
 require('../functions.php');
 
 if(isset($_GET['member_id']) && $_GET['member_id'] !== ''){
-  $member_id = $_GET['member_id'];
+  $member_id = substr('0000' . $_GET['member_id'], -4);
 }else{
   debug('no member id');
   exit();

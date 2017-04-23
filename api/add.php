@@ -3,7 +3,7 @@ require('../functions.php');
 
 // if(isset($_GET['member_id']) && $_GET['member_id'] !== '' && isset($_GET['token']) && $_GET['token'] !== '' && isset($_GET['user_id']) && $_GET['user_id'] !== ''){
 if(isset($_GET['member_id']) && $_GET['member_id'] !== ''){
-  $member_id = $_GET['member_id'];
+  $member_id = substr('0000' . $_GET['member_id'], -4);
   $user_id = $_GET['user_id'];
   $token = $_GET['token'];
 }else{
