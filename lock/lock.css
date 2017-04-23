@@ -5,6 +5,7 @@ body {
 	margin:0;
 }
 #helpText{
+	margin-left: 20px;
 	float:left;
 	width:50%;
 	overflow:hidden;
