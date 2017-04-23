@@ -61,7 +61,7 @@ function clearForm(e){
 }
 function submitForm(e) {
 	if (e.value == "") {
-		$('#helpText').text(error).removeClass('open').removeClass('waiting').removeClass('error').addClass('error');
+		$('#helpText').html(error).removeClass('open').removeClass('waiting').removeClass('error').addClass('error');
 	} else {
 		console.log( "Your PIN has been sent! - " + e.value );
 		data = {
@@ -76,13 +76,13 @@ function submitForm(e) {
 		});
 		*/
 		if(e.value === '1111'){
-			$('#helpText').text(open).removeClass('open').removeClass('waiting').removeClass('error').addClass('open');
+			$('#helpText').html(open).removeClass('open').removeClass('waiting').removeClass('error').addClass('open');
 		}else{
-			$('#helpText').text(error).removeClass('open').removeClass('waiting').removeClass('error').addClass('error');
+			$('#helpText').html(error).removeClass('open').removeClass('waiting').removeClass('error').addClass('error');
 		}
 		setTimeout(function(){
 			$("#PINbox").val("");
-			$('#helpText').text(waiting).removeClass('open').removeClass('waiting').removeClass('error').addClass('waiting');
+			$('#helpText').html(waiting).removeClass('open').removeClass('waiting').removeClass('error').addClass('waiting');
 			$('#PINbox').focus();
 		}, 2000);
 		
