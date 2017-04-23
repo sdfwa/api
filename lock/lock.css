@@ -83,23 +83,23 @@ body {
 .clear, .enter {
 	font-size: 1em;
 }
-.PINbutton:hover {
+/*.PINbutton:hover {
  	box-shadow: #506CE8 0 0 1px 1px;
-}
+}*/
 .PINbutton:active {
  	background: #506CE8;
 	color: #fff;
 }
-.clear:hover {
+/*.clear:hover {
  	box-shadow: #ff3c41 0 0 1px 1px;
-}
+}*/
 .clear:active {
  	background: #ff3c41;
 	color: #fff;
 }
-.enter:hover {
+/*.enter:hover {
  	box-shadow: #47cf73 0 0 1px 1px;
-}
+}*/
 .enter:active {
  	background: #47cf73;
 	color: #fff;
