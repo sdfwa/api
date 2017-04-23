@@ -1,7 +1,3 @@
-// $(function() {
-// 	$( "#PINform" ).draggable();
-// });
-
 function debounce(func, wait, immediate) {
     var timeout;
     return function() {
@@ -20,7 +16,7 @@ waiting = "To Access Member Shop<br><br>Enter Member ID<br><br>Or Scan Member Ca
 error = "Please try your Member ID again or ask the shift supervisor for assistance."
 open = "Door is unlocked, pull to open."
 $( "#PINcode" ).html(
-	"<div id='helpText' class='waiting'>"+waiting+"</div><div id='pin'><form action='' method='' name='PINform' id='PINform' autocomplete='off' draggable='true' >" +
+	"<div id='helpText' class='waiting'>"+waiting+"</div><div id='pin'><form action='' method='' name='PINform' id='PINform' autocomplete='off' >" +
 		"<input id='PINbox' type='password' value='' name='PINbox' autofocus/>" +
 		"<br/>" +
 		"<input type='button' class='PINbutton' name='1' value='1' id='1' onClick=addNumber(this); />" +
@@ -46,7 +42,6 @@ $('#PINcode').keypress(debounce(function (event) {
 }, 250));
 
 function addNumber(e){
-	//document.getElementById('PINbox').value = document.getElementById('PINbox').value+element.value;
 	if(e){
 		var v = $( "#PINbox" ).val();
 		$( "#PINbox" ).val( v + e.value );
@@ -56,7 +51,6 @@ function addNumber(e){
 	}
 }
 function clearForm(e){
-	//document.getElementById('PINbox').value = "";
 	$( "#PINbox" ).val( "" );
 }
 function submitForm(e) {
@@ -75,7 +69,7 @@ function submitForm(e) {
 			$('#PINbox').focus();
 			setTimeout(function(){
 				$('#helpText').html(waiting).removeClass('open').removeClass('waiting').removeClass('error').addClass('waiting');
-			}, 2000);
+			}, 2500);
 		});
 	};
 };
