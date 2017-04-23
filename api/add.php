@@ -1,7 +1,8 @@
 <?php
 require('../functions.php');
 
-if(isset($_GET['member_id']) && $_GET['member_id'] !== '' && isset($_GET['token']) && $_GET['token'] !== '' && isset($_GET['user_id']) && $_GET['user_id'] !== ''){
+// if(isset($_GET['member_id']) && $_GET['member_id'] !== '' && isset($_GET['token']) && $_GET['token'] !== '' && isset($_GET['user_id']) && $_GET['user_id'] !== ''){
+if(isset($_GET['member_id']) && $_GET['member_id'] !== ''){
   $member_id = $_GET['member_id'];
   $user_id = $_GET['user_id'];
   $token = $_GET['token'];
@@ -10,26 +11,26 @@ if(isset($_GET['member_id']) && $_GET['member_id'] !== '' && isset($_GET['token'
   exit();
 }
 
-function check_token($token, $user_id, $current_time){
-  $query = $select_token_query = "SELECT *, '{{current_time}}' AS `current_time` FROM users WHERE token = '{{token}}' AND user_id = '{{user_id}}' ORDER BY start_time DESC limit 1;";
-  $query = str_replace('{{token}}', $token, $query);
-  $query = str_replace('{{user_id}}', $user_id, $query);
-  $query = str_replace('{{current_time}}', $current_time, $query);
-  debug('token_query', $query);
-  $statement = $GLOBALS['db']->query($query);
-  $row_count = $statement->rowCount();
-  if($row_count === 1){
-    return true;
-  }else{
-    return false;
-  }
-}
-$is_active_token = false;
-$is_active_token = check_token($token, $user_id, $current_time);
-if($is_active_token === false){
-  debug('token is not active');
-  exit();
-}
+// function check_token($token, $user_id, $current_time){
+//   $query = $select_token_query = "SELECT *, '{{current_time}}' AS `current_time` FROM users WHERE token = '{{token}}' AND user_id = '{{user_id}}' ORDER BY start_time DESC limit 1;";
+//   $query = str_replace('{{token}}', $token, $query);
+//   $query = str_replace('{{user_id}}', $user_id, $query);
+//   $query = str_replace('{{current_time}}', $current_time, $query);
+//   debug('token_query', $query);
+//   $statement = $GLOBALS['db']->query($query);
+//   $row_count = $statement->rowCount();
+//   if($row_count === 1){
+//     return true;
+//   }else{
+//     return false;
+//   }
+// }
+// $is_active_token = false;
+// $is_active_token = check_token($token, $user_id, $current_time);
+// if($is_active_token === false){
+//   debug('token is not active');
+//   exit();
+// }
 
 $insert_query = <<<QUERY_END
 INSERT INTO access
