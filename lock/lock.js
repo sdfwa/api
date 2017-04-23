@@ -82,7 +82,7 @@ function submitForm(e) {
 		}
 		setTimeout(function(){
 			$("#PINbox").val("");
-			$('#helpText').text(error).removeClass('open').removeClass('waiting').removeClass('error').addClass('waiting');
+			$('#helpText').text(waiting).removeClass('open').removeClass('waiting').removeClass('error').addClass('waiting');
 			$('#PINbox').focus();
 		}, 2000);
 		
