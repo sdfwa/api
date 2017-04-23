@@ -1,5 +1,6 @@
 <?php
 require($_SERVER["DOCUMENT_ROOT"] . '/_config.php');
+date_default_timezone_set('America/Los_Angeles');
 function debug($t, $u=null){
   if($GLOBALS['debug'] == true && isset($t)){
     echo '/*' . PHP_EOL;
