@@ -61,7 +61,7 @@ function submitForm(e) {
 		$.get("https://shop.sdfwa.org/api/check.php?member_id="+e.value+"&_rnd="+Math.random()).done(function(d){
 			if(d.success == "true"){
 				$('#helpText').html(open).removeClass('open').removeClass('waiting').removeClass('error').addClass('open');
-				$.get('http://127.0.0.1:8001/cgi-bin/open.py');
+				$.get('http://127.0.0.1:8001/cgi-bin/open.py?member_id='+d.member_id);
 			}else{
 				$('#helpText').html(error).removeClass('open').removeClass('waiting').removeClass('error').addClass('error');
 			}
