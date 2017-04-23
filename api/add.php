@@ -76,7 +76,9 @@ if($row_count === 1){
   $query = $insert_query;
   $query = str_replace('{{member_id}}', $member_id, $query);
   $query = str_replace('{{start_time}}', $start_time, $query);
-  $query = str_replace('{{end_time}}', $end_time, $query);
+  // $query = str_replace('{{end_time}}', $end_time, $query);
+  $end_time = explode(' ', $end_time)[0];
+  $end_time .= " 23:59:59";
   debug('insert_query', $query);
   $result = $db->exec($query);
   $insert_id = $db->lastInsertId();
