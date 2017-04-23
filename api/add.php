@@ -48,6 +48,12 @@ VALUES
 ;
 QUERY_END;
 
+$delete_query = <<<QUERY_END
+DELETE FROM access
+WHERE member_id = {{member_id}}
+;
+QUERY_END;
+
 // jQuery.getJSON("http://api.briankranson.com/add.php?user_id=api_user&token="+sessionStorage.getItem('bk_api_token')+"&member_id=1234").done(function(data) {console.log(data)});
 $query = $select_query;
 $query = str_replace('{{member_id}}', $member_id, $query);
@@ -56,29 +62,32 @@ debug('select_query', $query);
 $statement = $db->query($query);
 $row_count = $statement->rowCount();
 debug('row count', $row_count);
-if($row_count === 1){
-  $row = $statement->fetch(PDO::FETCH_ASSOC);
-  $row_id = $row['id'];
-  $start_time = $row['start_time'];
-  $end_time = $row['end_time'];
-  $current_time = $row['current_time'];
-  debug('we did not insert', $row_id.' '.$member_id.' '.$start_time.' '.$current_time.' '.$end_time);
-  $output = json_decode('{}');
-  $output->successs = 'false';
-  $output->message = 'member already added, cannot add more than once for given time period';
-  $output->member_id = $member_id;
-  $output->start_time = $start_time;
-  $output->end_time = $end_time;
-  echo json_encode($output);
-}else{
+// if($row_count === 1){
+//   $row = $statement->fetch(PDO::FETCH_ASSOC);
+//   $row_id = $row['id'];
+//   $start_time = $row['start_time'];
+//   $end_time = $row['end_time'];
+//   $current_time = $row['current_time'];
+//   debug('we did not insert', $row_id.' '.$member_id.' '.$start_time.' '.$current_time.' '.$end_time);
+//   $output = json_decode('{}');
+//   $output->successs = 'false';
+//   $output->message = 'member already added, cannot add more than once for given time period';
+//   $output->member_id = $member_id;
+//   $output->start_time = $start_time;
+//   $output->end_time = $end_time;
+//   echo json_encode($output);
+// }else{
+  $query = $delete_query;
+  $query = str_replace('{{member_id}}', $member_id, $query);
+  $result = $db->exec($query);
+
   $start_time = date('Y-m-d H:i:s');
-  $end_time = date('Y-m-d H:i:s', strtotime("$start_time + 4 hours"));
+  // $end_time = date('Y-m-d H:i:s', strtotime("$start_time + 4 hours"));
+  $end_time = date('Y-m-d 23:23:59');;
   $query = $insert_query;
   $query = str_replace('{{member_id}}', $member_id, $query);
   $query = str_replace('{{start_time}}', $start_time, $query);
-  // $query = str_replace('{{end_time}}', $end_time, $query);
-  $end_time = explode(' ', $end_time)[0];
-  $end_time .= " 23:59:59";
+  $query = str_replace('{{end_time}}', $end_time, $query);
   debug('insert_query', $query);
   $result = $db->exec($query);
   $insert_id = $db->lastInsertId();
@@ -90,6 +99,6 @@ if($row_count === 1){
   $output->start_time = $start_time;
   $output->end_time = $end_time;
   echo json_encode($output);
-}
+// }
 
 ?>
