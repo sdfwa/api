@@ -64,7 +64,7 @@ function submitForm(e) {
 		$('#helpText').html(error).removeClass('open').removeClass('waiting').removeClass('error').addClass('error');
 	} else {
 		// console.log( "Your PIN has been sent! - " + e.value );
-		$.get("https://shop.sdfwa.org/api/check.php?member_id="+e.value).done(function(d){
+		$.get("https://shop.sdfwa.org/api/check.php?member_id="+e.value+"_rnd="+Math.random()).done(function(d){
 			if(d.success == "true"){
 				$('#helpText').html(open).removeClass('open').removeClass('waiting').removeClass('error').addClass('open');
 				$.get('http://127.0.0.1:8001/cgi-bin/open.py');
