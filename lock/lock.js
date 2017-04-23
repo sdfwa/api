@@ -63,28 +63,19 @@ function submitForm(e) {
 	if (e.value == "") {
 		$('#helpText').html(error).removeClass('open').removeClass('waiting').removeClass('error').addClass('error');
 	} else {
-		console.log( "Your PIN has been sent! - " + e.value );
-		data = {
-			pin: e.value
-		}
-		/*		
-		apiCall( data, function( r ) {
-			$( "#logo" ).attr( "src", r.site_logo );
-			$( ".title-msg" ).text( r.site_msg );
-			accent = r.accent;
-			$( ".accent-bg" ).css( "background-color", accent );
-		});
-		*/
-		if(e.value === '1111'){
-			$('#helpText').html(open).removeClass('open').removeClass('waiting').removeClass('error').addClass('open');
-		}else{
-			$('#helpText').html(error).removeClass('open').removeClass('waiting').removeClass('error').addClass('error');
-		}
-		setTimeout(function(){
+		// console.log( "Your PIN has been sent! - " + e.value );
+		$.get("https://shop.sdfwa.org/api/check.php?member_id="+e.value).done(function(d){debugger
+			if(d.success == "true"){
+				$('#helpText').html(open).removeClass('open').removeClass('waiting').removeClass('error').addClass('open');
+				$.get('http://127.0.0.1:8001/cgi-bin/open.py');
+			}else{
+				$('#helpText').html(error).removeClass('open').removeClass('waiting').removeClass('error').addClass('error');
+			}
 			$("#PINbox").val("");
-			$('#helpText').html(waiting).removeClass('open').removeClass('waiting').removeClass('error').addClass('waiting');
 			$('#PINbox').focus();
-		}, 2000);
-		
+			setTimeout(function(){
+				$('#helpText').html(waiting).removeClass('open').removeClass('waiting').removeClass('error').addClass('waiting');
+			}, 2000);
+		});
 	};
 };
