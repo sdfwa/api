@@ -22,7 +22,7 @@ if($row_count == 1){
   $end_time = $row['end_time'];
   $current_time = $row['current_time'];
   $output = json_decode('{}');
-  $output->successs = 'true';
+  $output->success = 'true';
   $output->message = 'you have access';
   $output->member_id = $member_id;
   $output->start_time = $start_time;
@@ -30,7 +30,7 @@ if($row_count == 1){
   echo json_encode($output);
 }else{
   $output = json_decode('{}');
-  $output->successs = 'false';
+  $output->success = 'false';
   $output->message = 'you do not have access at this time, try checking in at the check in counter';
   $output->member_id = $member_id;
   echo json_encode($output);

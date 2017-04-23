@@ -95,7 +95,7 @@ if($user_id === 'api_user' && $password === 'api_password'){
   $end_time = date('Y-m-d H:i:s', strtotime("$start_time + 24 hours"));
   $output = json_decode('{}');
   $output->user_id = $user_id;
-  $output->successs = 'true';
+  $output->success = 'true';
   if($row_count == 1){
     $row = $statement->fetch(PDO::FETCH_ASSOC);
     $row_id = $row['id'];
