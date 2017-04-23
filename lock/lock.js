@@ -1,6 +1,7 @@
-$(function() {
-	$( "#PINform" ).draggable();
-});
+alert(window.outerWidth + " X " + window.outerHeight)
+// $(function() {
+	// $( "#PINform" ).draggable();
+// });
 
 $( "#PINcode" ).html(
 	"<form action='' method='' name='PINform' id='PINform' autocomplete='off' draggable='true'>" +
@@ -28,6 +29,9 @@ function addNumber(e){
 	//document.getElementById('PINbox').value = document.getElementById('PINbox').value+element.value;
 	var v = $( "#PINbox" ).val();
 	$( "#PINbox" ).val( v + e.value );
+	if($( "#PINbox" ).val().length === 4){
+		$('#+').click();
+	}
 }
 function clearForm(e){
 	//document.getElementById('PINbox').value = "";
