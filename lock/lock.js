@@ -1,11 +1,27 @@
-alert(window.outerWidth + " X " + window.outerHeight)
 // $(function() {
-	// $( "#PINform" ).draggable();
+// 	$( "#PINform" ).draggable();
 // });
 
+function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+};
+waiting = "To Access Member Shop<br><br>Enter Member ID<br><br>Or Scan Member Card";
+error = "Please try your Member ID again or ask the shift supervisor for assistance."
+open = "Door is unlocked, pull to open."
 $( "#PINcode" ).html(
-	"<form action='' method='' name='PINform' id='PINform' autocomplete='off' draggable='true'>" +
-		"<input id='PINbox' type='password' value='' name='PINbox' disabled />" +
+	"<div id='helpText' class='waiting'>"+waiting+"</div><div id='pin'><form action='' method='' name='PINform' id='PINform' autocomplete='off' draggable='true' >" +
+		"<input id='PINbox' type='password' value='' name='PINbox' autofocus/>" +
 		"<br/>" +
 		"<input type='button' class='PINbutton' name='1' value='1' id='1' onClick=addNumber(this); />" +
 		"<input type='button' class='PINbutton' name='2' value='2' id='2' onClick=addNumber(this); />" +
@@ -19,18 +35,24 @@ $( "#PINcode" ).html(
 		"<input type='button' class='PINbutton' name='8' value='8' id='8' onClick=addNumber(this); />" +
 		"<input type='button' class='PINbutton' name='9' value='9' id='9' onClick=addNumber(this); />" +
 		"<br>" +
-		"<input type='button' class='PINbutton clear' name='-' value='clear' id='-' onClick=clearForm(this); />" +
+		"<input type='button' class='PINbutton clear' name='clear' value='clear' id='clear' onClick=clearForm(this); />" +
 		"<input type='button' class='PINbutton' name='0' value='0' id='0' onClick=addNumber(this); />" +
-		"<input type='button' class='PINbutton enter' name='+' value='enter' id='+' onClick=submitForm(PINbox); />" +
-	"</form>"
+		"<input type='button' class='PINbutton enter' name='enter' value='enter' id='enter' onClick=submitForm(PINbox); />" +
+	"</form></div>"
 );
+$('#PINbox').focus();
+$('#PINcode').keypress(debounce(function (event) {
+  addNumber();
+}, 250));
 
 function addNumber(e){
 	//document.getElementById('PINbox').value = document.getElementById('PINbox').value+element.value;
-	var v = $( "#PINbox" ).val();
-	$( "#PINbox" ).val( v + e.value );
+	if(e){
+		var v = $( "#PINbox" ).val();
+		$( "#PINbox" ).val( v + e.value );
+	}
 	if($( "#PINbox" ).val().length === 4){
-		$('#+').click();
+		$('#enter').click();
 	}
 }
 function clearForm(e){
@@ -39,9 +61,9 @@ function clearForm(e){
 }
 function submitForm(e) {
 	if (e.value == "") {
-		alert("Enter a PIN");
+		$('#helpText').text(error).removeClass('open').removeClass('waiting').removeClass('error').addClass('error');
 	} else {
-		alert( "Your PIN has been sent! - " + e.value );
+		console.log( "Your PIN has been sent! - " + e.value );
 		data = {
 			pin: e.value
 		}
@@ -53,26 +75,16 @@ function submitForm(e) {
 			$( ".accent-bg" ).css( "background-color", accent );
 		});
 		*/
+		if(e.value === '1111'){
+			$('#helpText').text(open).removeClass('open').removeClass('waiting').removeClass('error').addClass('open');
+		}else{
+			$('#helpText').text(error).removeClass('open').removeClass('waiting').removeClass('error').addClass('error');
+		}
+		setTimeout(function(){
+			$("#PINbox").val("");
+			$('#helpText').text(error).removeClass('open').removeClass('waiting').removeClass('error').addClass('waiting');
+			$('#PINbox').focus();
+		}, 2000);
 		
-		//document.getElementById('PINbox').value = "";
-		$( "#PINbox" ).val( "" );
 	};
 };
-
-/*
-function apiCall( post, callback ) {	
-	$.ajax({
-		type: "POST",
-		contentType: "application/json",
-		url: "admin/api.php",
-		data: JSON.stringify( post ),
-		dataType: "json",
-		success: function ( r ) {
-			callback( r );
-		},
-		error: function ( response ) {
-			console.log( response )
-		},
-	});
-}
-*/
