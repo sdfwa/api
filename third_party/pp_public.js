@@ -312,7 +312,7 @@ if(typeof jQuery === 'undefined'){
       if(/\/member\/?$/.test(s.url) || /\/purchase\/?$/.test(s.url)){
         $.getJSON('https://shop.sdfwa.org/api/get_member_id.php?email='+(s.local.email || '')).done(function(data){
         if(typeof data.email !== 'undefined'){
-            s.local.shop_expire = data.shop_expire;
+            s.local.shop_expire = (data.shop_expire || '1970-01-01');
             s.local.member_id = data.member_id;
             s.local.success = data.success;
             s.local.message = data.message;
@@ -328,7 +328,7 @@ if(typeof jQuery === 'undefined'){
             s.local.isMilitaryDiscount = data.isMilitaryDiscount;
             s.local.isInitCurrent = data.isInitCurrent;
             s.local.months_remaining = data.months_remaining;
-            
+            s.update_shop_expire = false;
             try{
               s.tmp.shop_expire = null;
               $('h4:contains("Active Passes")').parent().find('.row').filter(function(){return /(gold|silver)/i.test($(this).text());}).each(function(){
@@ -341,7 +341,11 @@ if(typeof jQuery === 'undefined'){
                   s.tmp.shop_expire = date_str;
                 }
               });
-              s.local.shop_expire = s.tmp.shop_expire;
+			  if(s.tmp.shop_expire.replace(/-/g, '') > s.local.shop_expire.replace(/-/g, '')){
+				s.update_shop_expire = true;
+				s.local.shop_expire = s.tmp.shop_expire;  
+			  }
+              
               if(typeof s.local.member_id === 'undefined'){
                 if(/\(/.test(s.local.full_name) === false){
                   s.local.first_name = s.local.full_name.split(' ')[0];
@@ -354,7 +358,7 @@ if(typeof jQuery === 'undefined'){
                   });
                 }
               }else{
-                if(typeof s.local.email !== 'undefined' && s.local.email !== '' && s.local.shop_expire !== null){
+                if(typeof s.local.email !== 'undefined' && s.local.email !== '' && s.local.shop_expire !== null && s.update_shop_expire === true){
                   $.getJSON('https://shop.sdfwa.org/api/update_shop_expire.php?email='+(s.local.email || '')+'&shop_expire='+s.local.shop_expire);
                 }
               }
