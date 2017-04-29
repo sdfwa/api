@@ -62,7 +62,7 @@ if(/sdfwa\.org\/member\-shop\-app/.test(document.URL)){
             // run the resize function each time the user resizes their window
             window.onresize = sdfwa_custom.debounce(function() {
                 sdfwa_custom.resize_iframe();
-            }, 500);
+            }, 300);
             // run the resize function once when this code initializes
             jQuery('iframe[name=punchpassFrame]').attr('frameborder', '0');
             sdfwa_custom.resize_iframe();
