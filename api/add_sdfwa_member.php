@@ -55,8 +55,8 @@ $SQL2 = str_replace("{{email}}",  $email, $SQL2);
 
 $ADD_SQL = <<<QUERY_END
 INSERT INTO davism.tblSDFWAMembers
-(memberID, fldEmail, fldFirstName, fldLastName, fldYr, fldComments)
-VALUES ({{next_member_id}}, '{{email}}', '{{first_name}}', '{{last_name}}', '{{year}}', '{{comment}}')
+(memberID, fldEmail, fldFirstName, fldLastName, fldYr, fldComments, fldJoined)
+VALUES ({{next_member_id}}, '{{email}}', '{{first_name}}', '{{last_name}}', '{{year}}', '{{comment}}', '{{current_time}}')
 ;
 QUERY_END;
 
@@ -84,6 +84,7 @@ if($row_count == 1){
     $ADD_SQL = str_replace("{{last_name}}",  $last_name, $ADD_SQL);
     $ADD_SQL = str_replace("{{year}}",  $year, $ADD_SQL);
     $ADD_SQL = str_replace("{{comment}}",  $comment, $ADD_SQL);
+	$ADD_SQL = str_replace("{{current_time}}",  $current_time, $ADD_SQL);
     debug($ADD_SQL);
     // Execute query:
     $result = mssql_query($ADD_SQL) 

@@ -5,7 +5,7 @@ if(isset($_GET['email']) && $_GET['email'] !== ''){
   $email= strtolower($_GET['email']);
 }
 
-if(isset($_GET['shop_expire']) && $_GET['shop_expire'] !== ''){
+if(isset($_GET['shop_expire']) && preg_match("/[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-9][0-9]/", $_GET['shop_expire'])){
   $shop_expire= strtoupper($_GET['shop_expire']);
 }
 
