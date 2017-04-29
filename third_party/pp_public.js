@@ -163,12 +163,14 @@ if(typeof jQuery === 'undefined'){
     switch(true) {
       case /\/sign_in/.test(s.url):
         $('<a id="howto" class="btn btn-small btn-public bump" style="cursor:pointer; margin-left:3px">How To Video</a>').insertAfter('a.btn-public.bump:contains("Calendar")');
+		$('#howto').click(function(){
+			s.showVideo(s);
+		});
 		$('#member_remember_me').prop('checked', true);
 		if(s.readCookie('watched_video') === null){
 		  s.showVideo(s);
 		  s.createCookie('watched_video', 'true', 365);
 		}
-		$('#howto').click(function(){s.showVideo(s);});
         if(/@/.test(s.local.email) && $('#member_email').val() === ''){
           $('#member_email').val(s.local.email);
           $('#member_password').focus();
