@@ -57,8 +57,8 @@ if(/sdfwa\.org\/member\-shop\-app/.test(document.URL) || /shop\.sdfwa\.org/.test
     }
     // only run on the punchpass iframe
     if (/app\.punchpass\.net/.test(jQuery('.interior iframe').attr('src'))) {
-        // only run after document is ready
-        $(document).ready(function() {
+        // only run after document is load
+        $(document).load(function() {
             // run the resize function each time the user resizes their window
             window.onresize = sdfwa_custom.debounce(function() {
                 sdfwa_custom.resize_iframe();
