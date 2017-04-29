@@ -100,7 +100,7 @@ if(typeof jQuery === 'undefined'){
       return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
   }
   s.showVideo = function (){
-    sdfwa.showModal({type:"text",title:"How to use the Member Shop App",body:'<video style="display:block; margin:0 auto; martin-top:15px" width="100%" controls><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4">Your browser does not support the video tag.</video>'});
+    s.showModal({type:"text",title:"How to use the Member Shop App",body:'<video style="display:block; margin:0 auto; martin-top:15px" width="100%" controls><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4">Your browser does not support the video tag.</video>'});
   }
 
   /* end helper functions */
