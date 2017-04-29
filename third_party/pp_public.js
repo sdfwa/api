@@ -99,6 +99,10 @@ if(typeof jQuery === 'undefined'){
           results = regex.exec(location.search);
       return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
   }
+  s.showVideo = function (){
+    sdfwa.showModal({type:"text",title:"How to use the Member Shop App",body:'<video style="display:block; margin:0 auto; martin-top:15px" width="100%" controls><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4">Your browser does not support the video tag.</video>'});
+  }
+
   /* end helper functions */
   s.enable = true;
   s.tmp.qp_enable = s.getParameterByName('enable');
@@ -158,7 +162,13 @@ if(typeof jQuery === 'undefined'){
     s.tmp.match_modify_elements = true;
     switch(true) {
       case /\/sign_in/.test(s.url):
-        $('#member_remember_me').prop('checked', true);
+        $('<a id="howto" class="btn btn-small btn-public bump" style="cursor:pointer; margin-left:3px">How To Video</a>').insertAfter('a.btn-public.bump:contains("Calendar")');
+		$('#member_remember_me').prop('checked', true);
+		if(s.readCookie('watched_video') === null){
+		  s.showVideo();
+		  s.createCookie('watched_video', 'true', 365);
+		}
+		$('#howto').click(function(){s.showVideo();});
         if(/@/.test(s.local.email) && $('#member_email').val() === ''){
           $('#member_email').val(s.local.email);
           $('#member_password').focus();
