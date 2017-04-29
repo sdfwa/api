@@ -99,6 +99,43 @@ if(typeof jQuery === 'undefined'){
           results = regex.exec(location.search);
       return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
   }
+  s.showModal = function(data){
+	data = data || {};
+	data.body = data.body || 'Modal Body';
+	data.text = data.text || 'Modal Text';
+	$('#sdfwaModal').hide();
+	$('.modal-backdrop').hide();
+	$('#sdfwaModal').remove();
+	$('#sdfwaModalBtn').remove();
+	var modal_html = '\
+	  <a id="sdfwaModalBtn" href="#sdfwaModal" role="button" class="btn hidden" data-toggle="modal">Show Modal</a>\
+	  <div id="sdfwaModal" class="modal'+(s.detectIE()===false ? ' hide fade"':'"')+' tabindex="-1" role="dialog" aria-labelledby="sdfwaModalLabel" aria-hidden="true" style="">\
+		<div class="modal-header">\
+		  <button type="button" class="close sdfwaModalClose" data-dismiss="modal" aria-hidden="true">×</button>\
+		  <h3 id="sdfwaModalLabel">{{modal_title}}</h3>\
+		</div>\
+		<div class="modal-body">\
+		  {{modal_body}}\
+		</div>\
+		<div class="modal-footer">\
+		  <button class="btn sdfwaModalClose" data-dismiss="modal" aria-hidden="true">Close</button>\
+		</div>\
+	  </div>\
+	';
+	modal_html = modal_html.replace('{{modal_title}}', data.title);
+	modal_html = modal_html.replace('{{modal_body}}', data.body);
+	$('.container').append($(modal_html));
+	$('#sdfwaModalBtn').click();
+	if(s.sizeInt > 2){
+	  $('#sdfwaModal').css({
+		  "width":"90%", 
+		  "left":"5%",
+		  "margin-left":"auto",
+		  "margin-right":"auto",
+	  }); 
+	}
+	$('.modal-body').css('height', Math.round(window.innerHeight * .65)+'px').css('min-height', Math.round(window.innerHeight * .65)+'px');
+  }
   s.showVideo = function (s){
     s.showModal({type:"text",title:"How to use the Member Shop App",body:'<video style="display:block; margin:0 auto; martin-top:15px" width="100%" controls><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4">Your browser does not support the video tag.</video>'});
   }
@@ -284,43 +321,6 @@ if(typeof jQuery === 'undefined'){
     s.hidePurchaseButtons();
     /* end hide purchase buttons */
     /* start modal code */
-      s.showModal = function(data){
-        data = data || {};
-        data.body = data.body || 'Modal Body';
-        data.text = data.text || 'Modal Text';
-        $('#sdfwaModal').hide();
-        $('.modal-backdrop').hide();
-        $('#sdfwaModal').remove();
-        $('#sdfwaModalBtn').remove();
-        var modal_html = '\
-          <a id="sdfwaModalBtn" href="#sdfwaModal" role="button" class="btn hidden" data-toggle="modal">Show Modal</a>\
-          <div id="sdfwaModal" class="modal'+(s.detectIE()===false ? ' hide fade"':'"')+' tabindex="-1" role="dialog" aria-labelledby="sdfwaModalLabel" aria-hidden="true" style="">\
-            <div class="modal-header">\
-              <button type="button" class="close sdfwaModalClose" data-dismiss="modal" aria-hidden="true">×</button>\
-              <h3 id="sdfwaModalLabel">{{modal_title}}</h3>\
-            </div>\
-            <div class="modal-body">\
-              {{modal_body}}\
-            </div>\
-            <div class="modal-footer">\
-              <button class="btn sdfwaModalClose" data-dismiss="modal" aria-hidden="true">Close</button>\
-            </div>\
-          </div>\
-        ';
-        modal_html = modal_html.replace('{{modal_title}}', data.title);
-        modal_html = modal_html.replace('{{modal_body}}', data.body);
-        $('.container').append($(modal_html));
-        $('#sdfwaModalBtn').click();
-        if(s.sizeInt > 2){
-          $('#sdfwaModal').css({
-              "width":"90%", 
-              "left":"5%",
-              "margin-left":"auto",
-              "margin-right":"auto",
-          }); 
-        }
-        $('.modal-body').css('height', Math.round(window.innerHeight * .65)+'px').css('min-height', Math.round(window.innerHeight * .65)+'px');
-      }
       if(/\/member\/?$/.test(s.url) || /\/purchase\/?$/.test(s.url)){
         $.getJSON('https://shop.sdfwa.org/api/get_member_id.php?email='+(s.local.email || '')).done(function(data){
         if(typeof data.email !== 'undefined'){
