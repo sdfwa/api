@@ -43,29 +43,33 @@ if(/sdfwa\.org\/member\-shop\-app/.test(document.URL) || /shop\.sdfwa\.org/.test
             timeout = setTimeout(later, wait);
         };
     }
-    sdfwa_custom.createCookie('cookie_test', 'cookie_test', 1)
-    if(sdfwa_custom.readCookie('cookie_test') === 'cookie_test'){
-      sdfwa_custom.deleteCookie('cookie_test');
-      sdfwa_custom.iframe = document.createElement('iframe');
-      sdfwa_custom.iframe.src = 'https://app.punchpass.net/org/2729/sign_in';
-      sdfwa_custom.iframe.name = 'punchpassFrame';
-      sdfwa_custom.iframe.width = '100%';
-      sdfwa_custom.iframe.height = '1200';
-      sdfwa_custom.iframe.frameBorder = '0';
-      jQuery('#show_iframe').append(sdfwa_custom.iframe);
-      jQuery('#noJS').hide();
-    }
-    // only run on the punchpass iframe
-    if (/app\.punchpass\.net/.test(jQuery('.interior iframe').attr('src'))) {
-        // only run after document is ready
-        $(document).ready(function() {
-            // run the resize function each time the user resizes their window
-            window.onresize = sdfwa_custom.debounce(function() {
-                sdfwa_custom.resize_iframe();
-            }, 300);
-            // run the resize function once when this code initializes
-            jQuery('iframe[name=punchpassFrame]').attr('frameborder', '0');
-            sdfwa_custom.resize_iframe();
-        });
-    }
+	sdfwa_custom.createCookie('cookie_test', 'cookie_test', 1);
+	if(sdfwa_custom.readCookie('cookie_test') === 'cookie_test'){
+		if(/sdfwa\.org\/member\-shop\-app/.test(document.URL)){
+			document.location = 'https://shop.sdfwa.org/';
+		}else if(/shop\.sdfwa\.org/.test(document.URL)){
+			sdfwa_custom.deleteCookie('cookie_test');
+			sdfwa_custom.iframe = document.createElement('iframe');
+			sdfwa_custom.iframe.src = 'https://app.punchpass.net/org/2729/sign_in';
+			sdfwa_custom.iframe.name = 'punchpassFrame';
+			sdfwa_custom.iframe.width = '100%';
+			sdfwa_custom.iframe.height = '1200';
+			sdfwa_custom.iframe.frameBorder = '0';
+			jQuery('#show_iframe').append(sdfwa_custom.iframe);
+			jQuery('#noJS').hide();
+			// only run after document is load
+			$(document).load(function() {
+				// only run on the punchpass iframe
+				if (/app\.punchpass\.net/.test(jQuery('.interior iframe').attr('src'))) {
+					// run the resize function each time the user resizes their window
+					window.onresize = sdfwa_custom.debounce(function() {
+						sdfwa_custom.resize_iframe();
+					}, 300);
+					// run the resize function once when this code initializes
+					jQuery('iframe[name=punchpassFrame]').attr('frameborder', '0');
+					sdfwa_custom.resize_iframe();
+				}
+			});
+		}
+	}
 }
