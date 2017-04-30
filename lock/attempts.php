@@ -10,7 +10,7 @@ if(isset($_GET['file']) && isset($_GET['file']) !== ''){
   while($file = readdir($handle)){
       if($file !== '.' && $file !== '..' && preg_match('/\.jpg$/i', $file)){
           //echo '<img src="attempts.php/?file='.urlencode($file).'" border="0" /><br>';
-          echo '<a href="attempts.php/?file='.urlencode($file).'">'.$file.'</a>';
+          echo '<a href="attempts.php/?file='.urlencode($file).'">'.$file.'</a><br>';
       }
   } 
 }
