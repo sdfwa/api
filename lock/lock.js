@@ -64,6 +64,7 @@ function submitForm(e) {
 				$.get('http://127.0.0.1:8001/cgi-bin/open.py?member_id='+d.member_id);
 			}else{
 				$('#helpText').html(error).removeClass('open').removeClass('waiting').removeClass('error').addClass('error');
+        $.get('http://127.0.0.1:8001/cgi-bin/fail.py?member_id='+d.member_id);
 			}
 			$("#PINbox").val("");
 			$('#PINbox').focus();

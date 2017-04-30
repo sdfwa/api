@@ -2,14 +2,30 @@
 $member_id = '';
 if(isset($_POST['memberId']) && $_POST['memberId'] !== ''){
   $member_id = $_POST['memberId'];
+}else{
+  echo "Member ID required";
+  exit();
 }
+
+$status = '';
+if(isset($_POST['status']) && $_POST['status'] !== ''){
+  $status = $_POST['status'];
+}else{
+  echo "status required";
+  exit();
+}
+
 $current_time = date('Y-m-d_H-i-s');
 $target_dir = "/var/shop/motion/";
-$target_file = $target_dir . $current_time . '_' . $member_id . '.jpg';
+$target_file = $target_dir . $current_time . '_' . $status . '_' . $member_id . '.jpg';
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
+  if(isset($_FILES['fileToUpload'])){
+    echo "File required";
+    exit();
+  }
   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
   if($check !== false) {
     echo "File is an image - " . $check["mime"] . ".";
