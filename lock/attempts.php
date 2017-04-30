@@ -8,7 +8,7 @@ if(isset($_GET['file']) && isset($_GET['file']) !== ''){
 }else{
   $handle = opendir(dirname(realpath(__FILE__)).'/var/shop/motion/');
   while($file = readdir($handle)){
-      if($file !== '.' && $file !== '..' && preg_grep('/\.jpg$/i', $file))){
+      if($file !== '.' && $file !== '..' && preg_grep('/\.jpg$/i', $file)){
           echo '<img src="attempts.php/?file='.urlencode($file).'" border="0" /><br>';
       }
   } 
