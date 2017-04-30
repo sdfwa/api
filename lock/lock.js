@@ -12,7 +12,7 @@ function debounce(func, wait, immediate) {
         if (callNow) func.apply(context, args);
     };
 };
-waiting = "To Access Member Shop<br><br>Enter Member ID<br><br>Or Scan Member Card";
+waiting = "To Access Member Shop<br><br>Enter Member ID";
 error = "Please try your Member ID again or ask the shift supervisor for assistance."
 open = "Door is unlocked, pull to open."
 $( "#PINcode" ).html(
@@ -70,7 +70,7 @@ function submitForm(e) {
 			$('#PINbox').focus();
 			setTimeout(function(){
 				$('#helpText').html(waiting).removeClass('open').removeClass('waiting').removeClass('error').addClass('waiting');
-			}, 2500);
+			}, 3000);
 		});
 	};
 };
