@@ -13,6 +13,7 @@ if(typeof jQuery === 'undefined'){
   w[n] = w[n] || {};
   s = w[n];
   s.tmp={};
+  parent.postMessage(document.body.scrollHeight,"https://shop.sdfwa.org");
   s.detectIE = function () {
       var ua = window.navigator.userAgent;
 
