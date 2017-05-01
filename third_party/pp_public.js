@@ -100,41 +100,47 @@ if(typeof jQuery === 'undefined'){
       return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
   }
   s.showModal = function(data){
-	data = data || {};
-	data.body = data.body || 'Modal Body';
-	data.text = data.text || 'Modal Text';
-	$('#sdfwaModal').hide();
-	$('.modal-backdrop').hide();
-	$('#sdfwaModal').remove();
-	$('#sdfwaModalBtn').remove();
-	var modal_html = '\
-	  <a id="sdfwaModalBtn" href="#sdfwaModal" role="button" class="btn hidden" data-toggle="modal">Show Modal</a>\
-	  <div id="sdfwaModal" class="modal'+(s.detectIE()===false ? ' hide fade"':'"')+' tabindex="-1" role="dialog" aria-labelledby="sdfwaModalLabel" aria-hidden="true" style="">\
-		<div class="modal-header">\
-		  <button type="button" class="close sdfwaModalClose" data-dismiss="modal" aria-hidden="true">×</button>\
-		  <h3 id="sdfwaModalLabel">{{modal_title}}</h3>\
-		</div>\
-		<div class="modal-body">\
-		  {{modal_body}}\
-		</div>\
-		<div class="modal-footer">\
-		  <button class="btn sdfwaModalClose" data-dismiss="modal" aria-hidden="true">Close</button>\
-		</div>\
-	  </div>\
-	';
-	modal_html = modal_html.replace('{{modal_title}}', data.title);
-	modal_html = modal_html.replace('{{modal_body}}', data.body);
-	$('.container').append($(modal_html));
-	$('#sdfwaModalBtn').click();
-	if(s.sizeInt > 2){
-	  $('#sdfwaModal').css({
-		  "width":"90%", 
-		  "left":"5%",
-		  "margin-left":"auto",
-		  "margin-right":"auto",
-	  }); 
-	}
-	$('.modal-body').css('height', Math.round(window.innerHeight * .65)+'px').css('min-height', Math.round(window.innerHeight * .65)+'px');
+    data = data || {};
+    data.body = data.body || 'Modal Body';
+    data.text = data.text || 'Modal Text';
+    $('#sdfwaModal').hide();
+    $('.modal-backdrop').hide();
+    $('#sdfwaModal').remove();
+    $('#sdfwaModalBtn').remove();
+    var modal_html = '\
+      <a id="sdfwaModalBtn" href="#sdfwaModal" role="button" class="btn hidden" data-toggle="modal">Show Modal</a>\
+      <div id="sdfwaModal" class="modal'+(s.detectIE()===false ? ' hide fade"':'"')+' tabindex="-1" role="dialog" aria-labelledby="sdfwaModalLabel" aria-hidden="true" style="">\
+      <div class="modal-header">\
+        <button type="button" class="close sdfwaModalClose" data-dismiss="modal" aria-hidden="true">×</button>\
+        <h3 id="sdfwaModalLabel">{{modal_title}}</h3>\
+      </div>\
+      <div class="modal-body">\
+        {{modal_body}}\
+      </div>\
+      <div class="modal-footer">\
+        <button class="btn sdfwaModalClose" data-dismiss="modal" aria-hidden="true">Close</button>\
+      </div>\
+      </div>\
+    ';
+    modal_html = modal_html.replace('{{modal_title}}', data.title);
+    modal_html = modal_html.replace('{{modal_body}}', data.body);
+    $('.container').append($(modal_html));
+    $('#sdfwaModalBtn').click();
+    if(s.sizeInt > 2){
+      $('#sdfwaModal').css({
+        "width":"90%", 
+        "left":"5%",
+        "margin-left":"auto",
+        "margin-right":"auto",
+      }); 
+    }
+    $('.modal-body').css('height', Math.round(window.innerHeight * .65)+'px').css('min-height', Math.round(window.innerHeight * .65)+'px');
+    $('.sdfwaModalClose').click(function(){
+      $('#sdfwaModal').hide();
+      $('.modal-backdrop').hide();
+      $('#sdfwaModal').remove();
+      $('#sdfwaModalBtn').remove();
+    });                      
   }
   s.showVideo = function (s){
     s.showModal({type:"text",title:"How to use the Member Shop App",body:'<video style="display:block; margin:0 auto; martin-top:15px" width="100%" controls><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4">Your browser does not support the video tag.</video>'});
@@ -378,81 +384,81 @@ if(typeof jQuery === 'undefined'){
             
             localStorage.setItem('sdfwa', JSON.stringify(s.local));
             if(/\/member\/?$/.test(s.url)){
-              if((data.shop_expire || '1970-01-01').replace(/-/, '') < s.getDate().replace(/-/, '')){
-                s.tmp.body = '\
-                  <h5>\
-                    A good place to start is to make sure you understand that this is your Shop!  It is "of, by and for" our Members.  We want you to not only use the Shop but help us make it better.<br><br>\
-                    This checklist will help get you in the shop as soon as possible.  And once you complete the list, we will update our records so you don\'t have to see this popup again.  Please be patient with us while we get our records in order.<br><br>\
-                    All of us will need to go through a basic Shop Safety Training program.  This training is essential to ensure that we offer everyone a safe environment, that everyone knows how to operate each piece of equipment safely and to satisfy our insurance provider.\
-                ';
-                s.tmp.body += '\
-                  <h4>\
-                    1) To join the Member Shop, you must be a member of the San Diego Fine Woodworkers Association.\
-                  </h4>\
-                ';
-                s.tmp.body += '\
-                  <h4>\
-                    2) Pick either a Silver or Gold Membershop from the Purchase A Pass Section.</a>\
-                  </h4>\
-                ';
-                s.tmp.body += '\
-                  <h4>\
-                    3) Download and read our Member Shop Safety Manual {link coming soon}\
-                  </h4>\
-                ';
-                s.tmp.body += '\
-                  <h4>\
-                    4) Register for a Shop Safety Training via the calendar.\
-                  </h4>\
-                ';
-                s.tmp.body += '\
-                  <h4>\
-                    5) Pass the Shop Safety Exam taken during the Shop Safety Training.\
-                  </h4>\
-                ';
-                s.tmp.body += '\
-                  <h5>\
-                    If you are Activie Military with a paygrade E5 or below, click <a id="sdfwa_military_rank" style="cursor: pointer;">here</a> for a discount.\
-                  </h5>\
-                ';
-                if(s.detectIE !== false){
-                  (function($, s){
-                    setTimeout(function(){
-                      s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
-                      $('.sdfwaModalClose').click(function(){
-                        $('#sdfwaModal').hide();
-                        $('.modal-backdrop').hide();
-                        $('#sdfwaModal').remove();
-                        $('#sdfwaModalBtn').remove();
-                      });
-                    }, 500);
-                  }($, s))
-                }else{
-                    s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.tmp.body});
+              s.checklist_body = '\
+                <h5>\
+                  A good place to start is to make sure you understand that this is your Shop!  It is "of, by and for" our Members.  We want you to not only use the Shop but help us make it better.<br><br>\
+                  This checklist will help get you in the shop as soon as possible.  And once you complete the list, we will update our records so you don\'t have to see this popup again.  Please be patient with us while we get our records in order.<br><br>\
+                  All of us will need to go through a basic Shop Safety Training program.  This training is essential to ensure that we offer everyone a safe environment, that everyone knows how to operate each piece of equipment safely and to satisfy our insurance provider.\
+              ';
+              s.checklist_body += '\
+                <h4>\
+                  1) To join the Member Shop, you must be a member of the San Diego Fine Woodworkers Association.\
+                </h4>\
+              ';
+              s.checklist_body += '\
+                <h4>\
+                  2) Pick either a Silver or Gold Membershop from the Purchase A Pass Section.</a>\
+                </h4>\
+              ';
+              s.checklist_body += '\
+                <h4>\
+                  3) Download and read our Member Shop Safety Manual {link coming soon}\
+                </h4>\
+              ';
+              s.checklist_body += '\
+                <h4>\
+                  4) Register for a Shop Safety Training via the calendar.\
+                </h4>\
+              ';
+              s.checklist_body += '\
+                <h4>\
+                  5) Pass the Shop Safety Exam taken during the Shop Safety Training.\
+                </h4>\
+              ';
+              s.checklist_body += '\
+                <h5>\
+                  If you are Activie Military with a paygrade E5 or below, click <a id="sdfwa_military_rank" style="cursor: pointer;">here</a> for a discount.\
+                </h5>\
+              ';
+              if(s.detectIE !== false){
+                (function($, s){
+                  setTimeout(function(){
+                    if((data.shop_expire || '1970-01-01').replace(/-/, '') < s.getDate().replace(/-/, '')){
+                      s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.checklist_body});
+                    }
+                  }, 500);
+                }($, s))
+              }else{
+                if((data.shop_expire || '1970-01-01').replace(/-/, '') < s.getDate().replace(/-/, '')){
+                  s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.checklist_body});
                 }
-                $('a:contains("Home")').text('Home - Checklist');
-                $(document.body).on('click', '#sdfwa_military_rank', function(){
-                  $('.sdfwaModalClose').click();
-                  s.tmp.body='Please select your military paygrade.\
-                    <br>\
-                    <select id="sdfwa_select_rank">\
-                      <option value="Not Selected">None</option>\
-                      <option value="E1">E1</option>\
-                      <option value="E2">E2</option>\
-                      <option value="E3">E3</option>\
-                      <option value="E4">E4</option>\
-                      <option value="E5">E5</option>\
-                    </select>\
-                    <br>\
-                    <a id="sdfwa_update_military_rank" class="btn" style="cursor: pointer;">Submit</a>\
-                    ';
-                  s.showModal({type:"text",title:"Military Discount",body:s.tmp.body});
-                  $('#sdfwa_update_military_rank').click(function(){
-                    $.getJSON('https://shop.sdfwa.org/api/update_military_info.php?email='+(s.local.email || '')+'&military_rank='+$('#sdfwa_select_rank').val());
-                    $('.sdfwaModalClose').click();
-                  });
-                });
               }
+              // $('a:contains("Home")').text('Home - Checklist');
+              $('<span><a id="checklist_link" style="cursor:pointer;">Checklist</a>  |  </span>').insertBefore('a:contains("Home")');
+              $('#checklist_link').click(function(){
+                s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.checklist_body});
+              });
+              $(document.body).on('click', '#sdfwa_military_rank', function(){
+                $('.sdfwaModalClose').click();
+                s.military_body='Please select your military paygrade.\
+                  <br>\
+                  <select id="sdfwa_select_rank">\
+                    <option value="Not Selected">None</option>\
+                    <option value="E1">E1</option>\
+                    <option value="E2">E2</option>\
+                    <option value="E3">E3</option>\
+                    <option value="E4">E4</option>\
+                    <option value="E5">E5</option>\
+                  </select>\
+                  <br>\
+                  <a id="sdfwa_update_military_rank" class="btn" style="cursor: pointer;">Submit</a>\
+                  ';
+                s.showModal({type:"text",title:"Military Discount",body:s.military_body});
+                $('#sdfwa_update_military_rank').click(function(){
+                  $.getJSON('https://shop.sdfwa.org/api/update_military_info.php?email='+(s.local.email || '')+'&military_rank='+$('#sdfwa_select_rank').val());
+                  $('.sdfwaModalClose').click();
+                });
+              });
             }else{
               s.hidePurchaseButtons();
             }
