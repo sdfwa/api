@@ -48,16 +48,13 @@ if(/sdfwa\.org\/member\-shop\-app/.test(document.URL) || /shop\.sdfwa\.org/.test
 		if(/sdfwa\.org\/member\-shop\-app/.test(document.URL)){
 			document.location = 'https://shop.sdfwa.org/';
 		}else if(/shop\.sdfwa\.org/.test(document.URL)){
-      sdfwa_custom.resizeIframe = function(obj) {
-        obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-      }
 			sdfwa_custom.deleteCookie('cookie_test');
 			sdfwa_custom.iframe = document.createElement('iframe');
 			sdfwa_custom.iframe.src = 'https://app.punchpass.net/org/2729/sign_in';
 			sdfwa_custom.iframe.name = 'punchpassFrame';
 			sdfwa_custom.iframe.width = '100%';
+			sdfwa_custom.iframe.height = '3200px';
 			sdfwa_custom.iframe.frameBorder = '0';
-      sdfwa_custom.iframe.onload='sdfwa_custom.resizeIframe(this)';
       sdfwa_custom.iframe.scrolling="no";
 			jQuery('#show_iframe').append(sdfwa_custom.iframe);
 			jQuery('#noJS').hide();
