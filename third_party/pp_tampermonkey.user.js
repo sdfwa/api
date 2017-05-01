@@ -166,47 +166,48 @@ console.log('Started Punchpass enhancements');
           if(1 === 1){
             s.tmp.update = false;
             if($('#customer_first_name').val() !== data.first_name) {
-              $('#customer_first_name').val(data.first_name);debugger;
+              $('#customer_first_name').val(data.first_name);
               s.tmp.update = true;
             }
             if($('#customer_last_name').val() !== s.tmp.last_name) {
-              $('#customer_last_name').val(s.tmp.last_name);debugger;
+              $('#customer_last_name').val(s.tmp.last_name);
               s.tmp.update = true;
             }
             if($('#customer_phone').val() !== s.tmp.phone) {
-              $('#customer_phone').val(s.tmp.phone);debugger;
+              $('#customer_phone').val(s.tmp.phone);
               s.tmp.update = true;
             }
             if($('#customer_street_address').val() !== data.address) {
-              $('#customer_street_address').val(data.address);debugger;
+              $('#customer_street_address').val(data.address);
               s.tmp.update = true;
             }
             if((parseInt(data.year) >= (new Date()).getFullYear() || parseInt(data.year) == 99)){
               if($('#customer_city').val() !== '') {
-                $('#customer_city').val('');debugger;
+                $('#customer_city').val('');
                 s.tmp.update = true;
               }
             }else if(s.tmp.email === ''){
               if($('#customer_city').val() !== 'NO EMAIL') {
-                $('#customer_city').val('NO EMAIL');debugger;
+                $('#customer_city').val('NO EMAIL');
                 s.tmp.update = true;
               }
             }else{
               if($('#customer_city').val() !== data.year) {
-                $('#customer_city').val(data.year);debugger;
+                $('#customer_city').val(data.year);
                 s.tmp.update = true;
               }
             }
             if($('#customer_state').val() !== data.state) {
-              $('#customer_state').val(data.state);debugger;
+              $('#customer_state').val(data.state);
               s.tmp.update = true;
             }
             if($('#customer_zip_code').val() !== data.zip_code) {
-              $('#customer_zip_code').val(data.zip_code);debugger;
+              $('#customer_zip_code').val(data.zip_code);
               s.tmp.update = true;
             }
-            if(s.tmp.update === true){debugger;
-              $('#customer_notes').val($('#customer_notes').val() + ($('#customer_notes').val() === '' ? '' : '\n') + (new Date()).toISOString());
+            if(s.tmp.update === true){
+              // $('#customer_notes').val($('#customer_notes').val() + ($('#customer_notes').val() === '' ? '' : '\n') + (new Date()).toISOString());
+              $('#customer_notes').val();
               if(s.tmp.all_user_status === 'loop_urls'){
                 unsafe.localStorage.setItem('next_url', 'https://app.punchpass.net/customers');
               }else{
@@ -232,7 +233,7 @@ console.log('Started Punchpass enhancements');
             $('#customer_city').val('NO MEMBER ID');
             s.tmp.update = true;
           }
-          if(s.tmp.update === true){debugger;
+          if(s.tmp.update === true){
             $('#customer_notes').val($('#customer_notes').val() + ($('#customer_notes').val() === '' ? '' : '\n') + (new Date()).toISOString());
             if(s.tmp.all_user_status === 'loop_urls'){
               unsafe.localStorage.setItem('next_url', 'https://app.punchpass.net/customers');
