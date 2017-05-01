@@ -13,7 +13,13 @@ if(typeof jQuery === 'undefined'){
   w[n] = w[n] || {};
   s = w[n];
   s.tmp={};
-  parent.postMessage(document.body.scrollHeight,"https://shop.sdfwa.org");
+  s.inIframe function() {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
+    }
+  }
   s.detectIE = function () {
       var ua = window.navigator.userAgent;
 
@@ -55,7 +61,7 @@ if(typeof jQuery === 'undefined'){
   }
   if ($(window).width() < 768) {
       s.sizeName = 'xs';
-      s.sizeInt = 0;
+        s.sizeInt = 0;
   }
   else if ($(window).width() >= 768 &&  $(window).width() <= 992) {
       s.sizeName = 'sm';
@@ -148,6 +154,9 @@ if(typeof jQuery === 'undefined'){
   }
 
   /* end helper functions */
+  if(s.inIframe()){
+    parent.postMessage(document.body.scrollHeight,"https://shop.sdfwa.org");
+  }
   s.enable = true;
   s.tmp.qp_enable = s.getParameterByName('enable');
   if(s.tmp.qp_enable === 'false'){

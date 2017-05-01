@@ -56,10 +56,10 @@ if(/sdfwa\.org\/member\-shop\-app/.test(document.URL) || /shop\.sdfwa\.org/.test
 			sdfwa_custom.iframe.frameBorder = '0';
 			jQuery('#show_iframe').append(sdfwa_custom.iframe);
 			jQuery('#noJS').hide();
-			// only run after document is load
-			$(document).load(function() {
+			// only run after document is ready
+			$(document).ready(function() {
 				// only run on the punchpass iframe
-				if (/app\.punchpass\.net/.test(jQuery('.interior iframe').attr('src'))) {
+				if (/app\.punchpass\.net/.test(jQuery('iframe[name="punchpassFrame"]').attr('src'))) {
             // Create IE + others compatible event handler
             var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
             var eventer = window[eventMethod];
