@@ -13,7 +13,7 @@ if(typeof jQuery === 'undefined'){
   w[n] = w[n] || {};
   s = w[n];
   s.tmp={};
-  s.inIframe function() {
+  s.inIframe = function() {
     try {
         return window.self !== window.top;
     } catch (e) {
