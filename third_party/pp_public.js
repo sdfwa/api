@@ -134,8 +134,8 @@ if(typeof jQuery === 'undefined'){
     $('#sdfwaModalBtn').click();
     if(s.sizeInt > 1){
       $('#sdfwaModal').css({
-        "width":"90%", 
-        "left":"5%",
+        "width":"100%", 
+        "left":"0%",
         "margin-left":"auto",
         "margin-right":"auto",
       }); 
