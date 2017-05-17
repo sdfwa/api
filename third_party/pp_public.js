@@ -125,6 +125,7 @@ if(typeof jQuery === 'undefined'){
         {{modal_body}}\
       </div>\
       <div class="modal-footer">\
+        <button class="btn sdfwaModalClose" data-dismiss="modal" aria-hidden="true">Close</button>\
       </div>\
       </div>\
     ';
@@ -141,7 +142,6 @@ if(typeof jQuery === 'undefined'){
       }); 
     }
     $('.modal-body').css('height', Math.round(window.innerHeight * .65)+'px').css('min-height', Math.round(window.innerHeight * .65)+'px');
-    $('.modal-body').css('border', '1px solid #ccc');
     $('.sdfwaModalClose').click(function(){
       $('#sdfwaModal').hide();
       $('.modal-backdrop').hide();
@@ -150,7 +150,7 @@ if(typeof jQuery === 'undefined'){
     });                      
   }
   s.showVideo = function (s){
-    s.showModal({type:"text",title:"How to use the Member Shop App",body:'<p><video controls="controls" width="80%"><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4"> Your browser does not support the video tag.</video></p>'});
+    s.showModal({type:"text",title:"How to use the Member Shop App",body:'<video id="player" controls="controls" style="display:block; margin:0 auto; margin-top:15px" height="100%" ><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4">Your browser does not support the video tag.</video><button onclick="goFullscreen("player"); return false">View Fullscreen</button>'});
   }
 
   /* end helper functions */
