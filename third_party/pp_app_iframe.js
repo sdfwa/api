@@ -53,6 +53,7 @@ if(/sdfwa\.org\/member\-shop\-app/.test(document.URL) || /shop\.sdfwa\.org/.test
 			sdfwa_custom.iframe.src = 'https://app.punchpass.net/org/2729/sign_in';
 			sdfwa_custom.iframe.name = 'punchpassFrame';
 			sdfwa_custom.iframe.width = '100%';
+      sdfwa_custom.iframe.height = window.innerHeight;
 			sdfwa_custom.iframe.frameBorder = '0';
 			jQuery('#show_iframe').append(sdfwa_custom.iframe);
 			jQuery('#noJS').hide();
