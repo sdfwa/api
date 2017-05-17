@@ -150,7 +150,7 @@ if(typeof jQuery === 'undefined'){
     });                      
   }
   s.showVideo = function (s){
-    s.showModal({type:"text",title:"How to use the Member Shop App",body:'<p><video controls="controls" width="100%"><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4"> Your browser does not support the video tag.</video></p>'});
+    s.showModal({type:"text",title:"How to use the Member Shop App",body:'<p><video controls="controls" width="90%"><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4"> Your browser does not support the video tag.</video></p>'});
   }
 
   /* end helper functions */
