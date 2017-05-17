@@ -106,6 +106,14 @@ if(typeof jQuery === 'undefined'){
           results = regex.exec(location.search);
       return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
   }
+  s.goFullscreen = function(id) {
+    var element = document.getElementById(id);       
+    if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullScreen) {
+      element.webkitRequestFullScreen();
+    }  
+  }
   s.showModal = function(data){
     data = data || {};
     data.body = data.body || 'Modal Body';
@@ -150,7 +158,7 @@ if(typeof jQuery === 'undefined'){
     });                      
   }
   s.showVideo = function (s){
-    s.showModal({type:"text",title:"How to use the Member Shop App",body:'<video id="player" controls="controls" style="display:block; margin:0 auto; margin-top:15px" height="100%" ><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4">Your browser does not support the video tag.</video><button onclick="goFullscreen("player"); return false">View Fullscreen</button>'});
+    s.showModal({type:"text",title:"How to use the Member Shop App",body:'<video id="player" controls="controls" style="display:block; margin:0 auto; margin-top:15px" height="100%" ><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4">Your browser does not support the video tag.</video><button onclick="sdfwa.goFullscreen("player"); return false">View Fullscreen</button>'});
   }
 
   /* end helper functions */
