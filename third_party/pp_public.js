@@ -150,6 +150,27 @@ if(typeof jQuery === 'undefined'){
     });                      
   }
   s.showVideo = function (s){
+    var css = 'video::-webkit-media-controls-fullscreen-button {\
+      margin-right: -32px;\
+      z-index: 10;\
+      position: relative;\
+      background: #fafafa;\
+      background-image: url(https://shop.sdfwa.com/151926.svg);\
+      background-size: 50%;\
+      background-position: 50% 50%;\
+      background-repeat: no-repeat;\
+    }';
+    var head = document.head || document.getElementsByTagName('head')[0];
+    var style = document.createElement('style');
+
+    style.type = 'text/css';
+    if (style.styleSheet){
+      style.styleSheet.cssText = css;
+    } else {
+      style.appendChild(document.createTextNode(css));
+    }
+
+    head.appendChild(style);
     s.showModal({type:"text",title:"How to use the Member Shop App",body:'<video id="player" controls="controls" style="display:block; margin:0 auto; margin-top:15px" height="80%" ><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4">Your browser does not support the video tag.</video>'});
   }
 
