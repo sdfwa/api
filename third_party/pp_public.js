@@ -181,13 +181,13 @@ if(typeof jQuery === 'undefined'){
     }, 100);
   }
   s.enable = true;
-  s.tmp.qp_enable = s.getParameterByName('enable');
+  s.tmp.qp_enable = s.getParameterByName('sdfwa_enable');
   if(s.tmp.qp_enable === 'false'){
-    s.createCookie('enable', 'false', 1);
+    s.createCookie('sdfwa_enable', 'false', 1);
   }else if(s.tmp.qp_enable === 'true'){
-    s.eraseCookie('enable');
+    s.eraseCookie('sdfwa_`enable');
   }
-  if(s.readCookie('enable') === 'false'){
+  if(s.readCookie('sdfwa_enable') === 'false'){
     s.enable = false;
   }
   s.url = document.URL;
