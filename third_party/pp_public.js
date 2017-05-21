@@ -185,7 +185,7 @@ if(typeof jQuery === 'undefined'){
   if(s.tmp.qp_enable === 'false'){
     s.createCookie('sdfwa_enable', 'false', 1);
   }else if(s.tmp.qp_enable === 'true'){
-    s.eraseCookie('sdfwa_`enable');
+    s.eraseCookie('sdfwa_enable');
   }
   if(s.readCookie('sdfwa_enable') === 'false'){
     s.enable = false;
