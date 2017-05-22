@@ -120,7 +120,12 @@ if(typeof jQuery === 'undefined'){
     $(html).appendTo('body');
     $('#close').on('click', function(){
       $('#sdfwaModal').remove();
-    });                     
+    });
+    $(document).keyup(function(e) {
+      if (e.keyCode == 27) { // escape key maps to keycode `27`
+        $('#sdfwaModal').remove();
+      }
+    });
   }
   s.showVideo = function (s){
     var modal_body = '<p style=""><video style="margin:0 auto; width: 90%; margin-left: 5%;" controls="controls"><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4">Your browser does not support the video tag.</video></p>';
@@ -405,7 +410,8 @@ if(typeof jQuery === 'undefined'){
                 <h5>\
                   If you are Activie Military with a paygrade E5 or below, click <a id="sdfwa_military_rank" style="cursor: pointer;">here</a> for a discount.\
                 </h5>\
-              ';
+              '
+              s.checklist_body += '<HR><BR><BR><BR><BR><BR><BR>';
               if(s.detectIE !== false){
                 (function($, s){
                   setTimeout(function(){
