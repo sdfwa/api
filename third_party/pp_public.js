@@ -123,7 +123,7 @@ if(typeof jQuery === 'undefined'){
     });                     
   }
   s.showVideo = function (s){
-    var modal_body = '<p style=""><video style="margin:0 auto; width:90% margin-left: 5%;" controls="controls"><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4">Your browser does not support the video tag.</video></p>';
+    var modal_body = '<p style=""><video style="margin:0 auto; width: 90%; margin-left: 5%;" controls="controls"><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4">Your browser does not support the video tag.</video></p>';
     s.showModal({body:modal_body});
   }
 
