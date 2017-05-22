@@ -114,7 +114,7 @@ if(typeof jQuery === 'undefined'){
     html += 'id="sdfwaModal" ';
     html += 'style="position: absolute; top: 1%; right: 1%; margin-bottom: 1em; left: 1%; z-index: 6543210; width: 94%; border: 0px; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 25px 0px; background: rgb(255, 255, 255); height: 4501px;"';
     html += '>';
-    html += '<button id="close" type="button" style="position: absolute; top: 0; right: 0; padding: 1em; z-index: 1; background: transparent; border: 0; cursor: pointer;">X</button>';
+    html += '<button id="close" type="button" style="position: absolute; top: 0; right: 0; padding: 1em 2em; z-index: 1; background: transparent; border: 0; cursor: pointer;">X</button>';
     html += '<div id="modal_content" style="position: relative; overflow: scroll; width: 96%; padding: 3em 1em; margin: 0 auto; height: 100vh;">{{modal_body}}</div></div>';
     html = html.replace('{{modal_body}}', data.body);
     $(html).appendTo('body');
