@@ -109,69 +109,22 @@ if(typeof jQuery === 'undefined'){
   s.showModal = function(data){
     data = data || {};
     data.body = data.body || 'Modal Body';
-    data.text = data.text || 'Modal Text';
-    $('#sdfwaModal').hide();
-    $('.modal-backdrop').hide();
     $('#sdfwaModal').remove();
-    $('#sdfwaModalBtn').remove();
-    var modal_html = '\
-      <a id="sdfwaModalBtn" href="#sdfwaModal" role="button" class="btn hidden" data-toggle="modal">Show Modal</a>\
-      <div id="sdfwaModal" class="modal'+(s.detectIE()===false ? ' hide fade"':'"')+' tabindex="-1" role="dialog" aria-labelledby="sdfwaModalLabel" aria-hidden="true" style="">\
-      <div class="modal-header">\
-        <button type="button" class="close sdfwaModalClose" data-dismiss="modal" aria-hidden="true">×</button>\
-        <h3 id="sdfwaModalLabel">{{modal_title}}</h3>\
-      </div>\
-      <div class="modal-body">\
-        {{modal_body}}\
-      </div>\
-      <div class="modal-footer">\
-        <button class="btn sdfwaModalClose" data-dismiss="modal" aria-hidden="true">Close</button>\
-      </div>\
-      </div>\
-    ';
-    modal_html = modal_html.replace('{{modal_title}}', data.title);
-    modal_html = modal_html.replace('{{modal_body}}', data.body);
-    $('.container').append($(modal_html));
-    $('#sdfwaModalBtn').click();
-    if(s.sizeInt > 1){
-      $('#sdfwaModal').css({
-        "width":"100%", 
-        "left":"0%",
-        "margin-left":"auto",
-        "margin-right":"auto",
-      }); 
-    }
-    $('.modal-body').css('height', Math.round(window.innerHeight * .65)+'px').css('min-height', Math.round(window.innerHeight * .65)+'px');
-    $('.sdfwaModalClose').click(function(){
-      $('#sdfwaModal').hide();
-      $('.modal-backdrop').hide();
+    var html = '<div ';
+    html += 'id="sdfwaModal" ';
+    html += 'style="position: absolute; top: 1%; right: 1%; margin-bottom: 1em; left: 1%; z-index: 6543210; width: 94%; border: 0px; box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 25px 0px; background: rgb(255, 255, 255); height: 4501px;"';
+    html += '>';
+    html += '<button id="close" type="button" style="position: absolute; top: 0; right: 0; padding: 1em; z-index: 1; background: transparent; border: 0; cursor: pointer;">X</button>';
+    html += '<div id="modal_content" style="position: relative; overflow: scroll; width: 96%; padding: 3em 1em; margin: 0 auto; height: 100vh;">{{modal_body}}</div></div>';
+    html = html.replace('{{modal_body}}', data.body);
+    $(html).appendTo('body');
+    $('#close').on('click', function(){
       $('#sdfwaModal').remove();
-      $('#sdfwaModalBtn').remove();
-    });                      
+    });                     
   }
   s.showVideo = function (s){
-    var css = 'video::-webkit-media-controls-fullscreen-button {\
-      margin-right: -32px;\
-      z-index: 10;\
-      position: relative;\
-      background: #fafafa;\
-      background-image: url(https://shop.sdfwa.com/151926.svg);\
-      background-size: 50%;\
-      background-position: 50% 50%;\
-      background-repeat: no-repeat;\
-    }';
-    var head = document.head || document.getElementsByTagName('head')[0];
-    var style = document.createElement('style');
-
-    style.type = 'text/css';
-    if (style.styleSheet){
-      style.styleSheet.cssText = css;
-    } else {
-      style.appendChild(document.createTextNode(css));
-    }
-
-    head.appendChild(style);
-    s.showModal({type:"text",title:"How to use the Member Shop App",body:'<video id="player" controls="controls" style="display:block; margin:0 auto; margin-top:15px" height="80%" ><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4">Your browser does not support the video tag.</video>'});
+    var modal_body = '<p style=""><video style="margin:0 auto; width:90% margin-left: 5%;" controls="controls"><source src="https://s3-us-west-2.amazonaws.com/briankranson/video/how_to_use_member_shop_app.mp4" type="video/mp4">Your browser does not support the video tag.</video></p>';
+    s.showModal({body:modal_body});
   }
 
   /* end helper functions */
@@ -417,7 +370,7 @@ if(typeof jQuery === 'undefined'){
             
             localStorage.setItem('sdfwa', JSON.stringify(s.local));
             if(/\/member\/?$/.test(s.url)){
-              s.checklist_body = '\
+              s.checklist_body = '<h3>Welcome to the SDFWA Member Shop!</h3><hr>\
                 <h5>\
                   A good place to start is to make sure you understand that this is your Shop!  It is "of, by and for" our Members.  We want you to not only use the Shop but help us make it better.<br><br>\
                   This checklist will help get you in the shop as soon as possible.  And once you complete the list, we will update our records so you don\'t have to see this popup again.  Please be patient with us while we get our records in order.<br><br>\
@@ -457,23 +410,24 @@ if(typeof jQuery === 'undefined'){
                 (function($, s){
                   setTimeout(function(){
                     if((data.shop_expire || '1970-01-01').replace(/-/, '') < s.getDate().replace(/-/, '')){
-                      s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.checklist_body});
+                      s.showModal({body:s.checklist_body});
                     }
                   }, 500);
                 }($, s))
               }else{
                 if((data.shop_expire || '1970-01-01').replace(/-/, '') < s.getDate().replace(/-/, '')){
-                  s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.checklist_body});
+                  s.showModal({body:s.checklist_body});
                 }
               }
               // $('a:contains("Home")').text('Home - Checklist');
               $('<span><a id="checklist_link" style="cursor:pointer;">Checklist</a>  |  </span>').insertBefore('a:contains("Home")');
               $('#checklist_link').click(function(){
-                s.showModal({type:"text",title:"Welcome to the SDFWA Member Shop!",body:s.checklist_body});
+                s.showModal({body:s.checklist_body});
               });
               $(document.body).on('click', '#sdfwa_military_rank', function(){
                 $('.sdfwaModalClose').click();
-                s.military_body='Please select your military paygrade.\
+                s.military_body='<h3>Military Discount</h3><hr>\
+                  Please select your military paygrade.\
                   <br>\
                   <select id="sdfwa_select_rank">\
                     <option value="Not Selected">None</option>\
@@ -486,7 +440,7 @@ if(typeof jQuery === 'undefined'){
                   <br>\
                   <a id="sdfwa_update_military_rank" class="btn" style="cursor: pointer;">Submit</a>\
                   ';
-                s.showModal({type:"text",title:"Military Discount",body:s.military_body});
+                s.showModal({body:s.military_body});
                 $('#sdfwa_update_military_rank').click(function(){
                   $.getJSON('https://shop.sdfwa.org/api/update_military_info.php?email='+(s.local.email || '')+'&military_rank='+$('#sdfwa_select_rank').val());
                   $('.sdfwaModalClose').click();
