@@ -164,6 +164,7 @@ if(typeof jQuery === 'undefined'){
     s.remove_elements = [];
     s.delay_remove_elements = [];
     s.tmp.match_hide_elements = true;
+    $('option:contains("Filter By Class Name")').text("Filter By Name...")
     switch(true) {
       case /\/sign_in/.test(s.url):
         s.remove_elements.push('a.btn-public.bump:contains("Sign In")');
