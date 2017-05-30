@@ -53,7 +53,7 @@ if(/sdfwa\.org\/member\-shop\-app/.test(document.URL) || /shop\.sdfwa\.org/.test
 			sdfwa_custom.iframe.src = 'https://app.punchpass.net/org/2729/sign_in';
 			sdfwa_custom.iframe.name = 'punchpassFrame';
 			sdfwa_custom.iframe.width = '100%';
-      sdfwa_custom.iframe.height = window.innerHeight;
+      sdfwa_custom.iframe.height = '1200px';
 			sdfwa_custom.iframe.frameBorder = '0';
 			jQuery('#show_iframe').append(sdfwa_custom.iframe);
 			jQuery('#noJS').hide();
@@ -68,8 +68,10 @@ if(/sdfwa\.org\/member\-shop\-app/.test(document.URL) || /shop\.sdfwa\.org/.test
 
             // Listen to message from child window
             eventer(messageEvent,function(e) {
-              $('iframe[name="punchpassFrame"]').attr('height', e.data+'px');
-              $('iframe[name="punchpassFrame"]').attr('scrolling', 'no');
+              if(e.data > 1200){
+                $('iframe[name="punchpassFrame"]').attr('height', e.data+'px');
+                $('iframe[name="punchpassFrame"]').attr('scrolling', 'no');
+              }
             },false);
 					// run the resize function each time the user resizes their window
 					window.onresize = sdfwa_custom.debounce(function() {
