@@ -134,11 +134,18 @@ if(typeof jQuery === 'undefined'){
 
   /* end helper functions */
   if(s.inIframe()){
+    window.sdfwa.h1 = 1;
     setTimeout(function(){
-      parent.postMessage(window.innerHeight,"https://shop.sdfwa.org");
+      $('div').each(function(){
+        window.sdfwa.h2 = $(this).height();
+        if(window.sdfwa.h1 < window.sdfwa.h2){
+          window.sdfwa.h1 = window.sdfwa.h2;
+        }
+      })
+      parent.postMessage(window.sdfwa.h1,"https://shop.sdfwa.org");
     }, 100);
     setTimeout(function(){
-      parent.postMessage(window.innerHeight,"https://shop.sdfwa.org");
+      parent.postMessage(window.sdfwa.h1,"https://shop.sdfwa.org");
     }, 400);
   }
   s.enable = true;
