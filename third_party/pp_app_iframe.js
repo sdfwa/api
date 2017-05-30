@@ -78,6 +78,7 @@ if(/sdfwa\.org\/member\-shop\-app/.test(document.URL) || /shop\.sdfwa\.org/.test
 					// run the resize function once when this code initializes
 					jQuery('iframe[name=punchpassFrame]').attr('frameborder', '0');
 					sdfwa_custom.resize_iframe();
+          setTimeout(function(){sdfwa_custom.resize_iframe();}, 400)
 				}
 			});
 		}
