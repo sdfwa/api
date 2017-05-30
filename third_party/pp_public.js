@@ -137,6 +137,9 @@ if(typeof jQuery === 'undefined'){
     setTimeout(function(){
       parent.postMessage(window.innerHeight,"https://shop.sdfwa.org");
     }, 100);
+    setTimeout(function(){
+      parent.postMessage(window.innerHeight,"https://shop.sdfwa.org");
+    }, 400);
   }
   s.enable = true;
   s.tmp.qp_enable = s.getParameterByName('sdfwa_enable');

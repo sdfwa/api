@@ -73,6 +73,7 @@ if(/sdfwa\.org\/member\-shop\-app/.test(document.URL) || /shop\.sdfwa\.org/.test
                 $('iframe[name="punchpassFrame"]').attr('height', e.data+'px');
               }
               $('iframe[name="punchpassFrame"]').attr('scrolling', 'no');
+              window.scrollTo(0,0);
             },false);
 					// run the resize function each time the user resizes their window
 					window.onresize = sdfwa_custom.debounce(function() {
