@@ -71,6 +71,8 @@ if(/sdfwa\.org\/member\-shop\-app/.test(document.URL) || /shop\.sdfwa\.org/.test
             eventer(messageEvent,function(e) {
               if(e.data > 1000){
                 $('iframe[name="punchpassFrame"]').attr('height', e.data+'px');
+              }else{
+                $('iframe[name="punchpassFrame"]').attr('height', '1000px');
               }
               $('iframe[name="punchpassFrame"]').attr('scrolling', 'no');
               window.scrollTo(0,0);
