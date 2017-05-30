@@ -55,6 +55,7 @@ if(/sdfwa\.org\/member\-shop\-app/.test(document.URL) || /shop\.sdfwa\.org/.test
 			sdfwa_custom.iframe.width = '100%';
       sdfwa_custom.iframe.height = '1200px';
 			sdfwa_custom.iframe.frameBorder = '0';
+      sdfwa_custom.iframe.scrolling = 'no';
 			jQuery('#show_iframe').append(sdfwa_custom.iframe);
 			jQuery('#noJS').hide();
 			// only run after document is ready
@@ -70,8 +71,8 @@ if(/sdfwa\.org\/member\-shop\-app/.test(document.URL) || /shop\.sdfwa\.org/.test
             eventer(messageEvent,function(e) {
               if(e.data > 1200){
                 $('iframe[name="punchpassFrame"]').attr('height', e.data+'px');
-                $('iframe[name="punchpassFrame"]').attr('scrolling', 'no');
               }
+              $('iframe[name="punchpassFrame"]').attr('scrolling', 'no');
             },false);
 					// run the resize function each time the user resizes their window
 					window.onresize = sdfwa_custom.debounce(function() {
