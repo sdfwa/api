@@ -234,26 +234,27 @@ if(typeof jQuery === 'undefined'){
     /* start hide purchase buttons */
     s.hidePurchaseButtons = function(){
       if(/\/purchase\/?$/.test(s.url)){
-          $('a[href*="21781"]').parent().addClass('hidden'); // Gold + Init + SDFWA
-          $('a[href*="21782"]').parent().addClass('hidden'); // Silver + Init + SDFWA
-          $('a[href*="21783"]').parent().addClass('hidden'); // Gold + Init
-          $('a[href*="21784"]').parent().addClass('hidden'); // Silver + Init
-          $('a[href*="21042"]').parent().addClass('hidden'); // Gold
-          $('a[href*="21043"]').parent().addClass('hidden'); // Silver
-          $('a[href*="21785"]').parent().addClass('hidden'); // Gold + SDFWA
-          $('a[href*="21786"]').parent().addClass('hidden'); // Silver + SDFWA
-          $('a[href*="21787"]').parent().addClass('hidden'); // Extra 10 Exp 12 Months
-          $('a[href*="21788"]').parent().addClass('hidden'); // Extra 10 Exp 11 Months
-          $('a[href*="21789"]').parent().addClass('hidden'); // Extra 10 Exp 10 Months
-          $('a[href*="21790"]').parent().addClass('hidden'); // Extra 10 Exp 9 Months
-          $('a[href*="21791"]').parent().addClass('hidden'); // Extra 10 Exp 8 Months
-          $('a[href*="21792"]').parent().addClass('hidden'); // Extra 10 Exp 7 Months
-          $('a[href*="21793"]').parent().addClass('hidden'); // Extra 10 Exp 6 Months
-          $('a[href*="21794"]').parent().addClass('hidden'); // Extra 10 Exp 5 Months
-          $('a[href*="21795"]').parent().addClass('hidden'); // Extra 10 Exp 4 Months
-          $('a[href*="21796"]').parent().addClass('hidden'); // Extra 10 Exp 3 Months
-          $('a[href*="21797"]').parent().addClass('hidden'); // Extra 10 Exp 2 Months
-          $('a[href*="21798"]').parent().addClass('hidden'); // Extra 10 Exp 1 Months
+          $('a[href*="purchase/"]').each(function(){$(this).parent().addClass('hidden')})
+          //$('a[href*="21781"]').parent().addClass('hidden'); // Gold + Init + SDFWA
+          //$('a[href*="21782"]').parent().addClass('hidden'); // Silver + Init + SDFWA
+          //$('a[href*="21783"]').parent().addClass('hidden'); // Gold + Init
+          //$('a[href*="21784"]').parent().addClass('hidden'); // Silver + Init
+          //$('a[href*="21042"]').parent().addClass('hidden'); // Gold
+          //$('a[href*="21043"]').parent().addClass('hidden'); // Silver
+          //$('a[href*="21785"]').parent().addClass('hidden'); // Gold + SDFWA
+          //$('a[href*="21786"]').parent().addClass('hidden'); // Silver + SDFWA
+          //$('a[href*="21787"]').parent().addClass('hidden'); // Extra 10 Exp 12 Months
+          //$('a[href*="21788"]').parent().addClass('hidden'); // Extra 10 Exp 11 Months
+          //$('a[href*="21789"]').parent().addClass('hidden'); // Extra 10 Exp 10 Months
+          //$('a[href*="21790"]').parent().addClass('hidden'); // Extra 10 Exp 9 Months
+          //$('a[href*="21791"]').parent().addClass('hidden'); // Extra 10 Exp 8 Months
+          //$('a[href*="21792"]').parent().addClass('hidden'); // Extra 10 Exp 7 Months
+          //$('a[href*="21793"]').parent().addClass('hidden'); // Extra 10 Exp 6 Months
+          //$('a[href*="21794"]').parent().addClass('hidden'); // Extra 10 Exp 5 Months
+          //$('a[href*="21795"]').parent().addClass('hidden'); // Extra 10 Exp 4 Months
+          //$('a[href*="21796"]').parent().addClass('hidden'); // Extra 10 Exp 3 Months
+          //$('a[href*="21797"]').parent().addClass('hidden'); // Extra 10 Exp 2 Months
+          //$('a[href*="21798"]').parent().addClass('hidden'); // Extra 10 Exp 1 Months
         if(s.local.isShopCurrent){
           switch(s.local.months_remaining) {
               case 1:
