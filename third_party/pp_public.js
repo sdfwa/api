@@ -162,20 +162,28 @@ if(typeof jQuery === 'undefined'){
         s.remove_elements.push('a.btn-public.bump:contains("Sign In")');
         s.remove_elements.push('a.btn-public.bump:contains("Create Account")');
         s.remove_elements.push('a.btn-public.bump:contains("Purchase A Pass Online")');
+        s.remove_elements.push('a.btn-public.bump:contains("Class Schedule - List")');
+        s.remove_elements.push('a.btn-public.bump:contains("Class Schedule - Calendar")');
         break;
       case /\/sign_up/.test(s.url):
         s.remove_elements.push('a.btn-public.bump:contains("Sign In")');
         s.remove_elements.push('a.btn-public.bump:contains("Create Account")');
         s.remove_elements.push('a.btn-public.bump:contains("Purchase A Pass Online")');
+        s.remove_elements.push('a.btn-public.bump:contains("Class Schedule - List")');
+        s.remove_elements.push('a.btn-public.bump:contains("Class Schedule - Calendar")');
         break;
       case /\/classes/.test(s.url):
         s.remove_elements.push('a.btn-public.bump:contains("Create Account")');
         s.remove_elements.push('a.btn-public.bump:contains("Purchase A Pass Online")');
+        s.remove_elements.push('a.btn-public.bump:contains("Class Schedule - List")');
+        s.remove_elements.push('a.btn-public.bump:contains("Class Schedule - Calendar")');
         s.delay_remove_elements.push('.bottom-gap');
         break;
       case /\/calendar/.test(s.url):
         s.remove_elements.push('a.btn-public.bump:contains("Create Account")');
         s.remove_elements.push('a.btn-public.bump:contains("Purchase A Pass Online")');
+        s.remove_elements.push('a.btn-public.bump:contains("Class Schedule - List")');
+        s.remove_elements.push('a.btn-public.bump:contains("Class Schedule - Calendar")');
         s.delay_remove_elements.push('.bottom-gap');
         break;
       case /\/2729\/member/.test(s.url):
