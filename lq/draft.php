@@ -1,6 +1,6 @@
 <?php
 require_once('./before.php');
-while (($row = fgetcsv($g->in_dir . $g->in_file)) !== false) {
+while (($row = fgetcsv($g->in_handle)) !== false) {
   $g->write_contact = false;
   $g->write_event = false;
   $g->write_supplement = false;
@@ -15,14 +15,15 @@ while (($row = fgetcsv($g->in_dir . $g->in_file)) !== false) {
   foreach($row as $column){
     array_push($results, trim($column));
   }
+  fputcsv($g->out_test_handle, $results);
   if($g->write_contact){
-    fputcsv($g->out_dir . $g->out_contact, $results);
+    fputcsv($g->out_contact_handle, $results);
   }
   if($g->write_event){
-    fputcsv($g->out_dir . $g->out_event, $results);
+    fputcsv($g->out_event_handle, $results);
   }
   if($g->write_supplement){
-    fputcsv($g->out_dir . $g->out_supplement, $results);
+    fputcsv($g->out_supplement_handle, $results);
   }
 }
 require_once('./after.php');
