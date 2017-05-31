@@ -1,6 +1,7 @@
 <?php
 /* Start helper funstions */
-function getHeader($data, $map, $g=$g){
+function getHeader($data, $map){
+  global $g;
   $results = json_decode("[]");
   foreach($data as $column){
     array_push($results, getMap($column, $map));
@@ -8,11 +9,13 @@ function getHeader($data, $map, $g=$g){
   return $results;
 }
 
-getMap function($key, $map, $g=$g){
+getMap function($key, $map){
+  global $g;
   return $g->mappings->$key->$map
 }
 
 function getKeyNames($json){
+  global $g;
   $results = json_decode("[]");
   foreach($json as $key => $value){
     array_push($results, $key);
@@ -20,7 +23,8 @@ function getKeyNames($json){
   return $results;
 }
 
-function exit_code($error, $g=$g){
+function exit_code($error){
+  global $g;
   if(isset($error)){
     $g->error = $error;
   }
