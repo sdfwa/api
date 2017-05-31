@@ -136,6 +136,26 @@ function closeFiles(){
   }
 }
 
+function downloadFTP(){
+  global $g;
+
+  // set up basic connection
+  $g->in_ftp_conn_id = ftp_connect($g->in_ftp_creds->in_ftp_server);
+
+  // login with username and password
+  $login_result = ftp_login($g->in_ftp_conn_id, $g->in_ftp_creds->in_ftp_username, $g->in_ftp_creds->in_ftp_password);
+
+  // try to download 
+  if (!ftp_get($g->in_ftp_conn_id, $g->in_file, $g->in_server_file, FTP_BINARY)){
+      exit_code("Could not get FTP file.");
+  }
+
+  // close the connection
+  ftp_close($g->in_ftp_conn_id);
+}
+
+
+
 function exit_code($error){
   global $g;
   if(isset($error)){
@@ -151,27 +171,33 @@ function exit_code($error){
 /* End helper funstions */
 
 /* Start Config Setup */
+if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
+  $g->debug = true;
+}else{
+  $g->debug = false;
+}
 $g = json_decode("{}");
-$g->debug = false;
-$g->in_config_dir = "/var/github/shop/lq/";
-$g->in_dir = "/var/lq/";
 $g->out_dir = "/var/lq/";
-$g->in_file = "20170531_trigger_first_100.csv";
-$g->in_mapping_file = "mapping.json";
+$g->in_server_file = "/incoming/Clairvoyix/20170531_trigger.csv";
+$g->in_file = "/var/lq/20170531_trigger.csv";
+$g->in_mapping_file = "/var/github/shop/lq/mapping.json";
+$g->in_creds_file = "/var/lq/creds.json";
 $g->out_debug = "20170531_trigger_first_100_debug.out";
 $g->out_contact = "20170531_trigger_first_100_contact.out";
 $g->out_event = "20170531_trigger_first_100_event.out";
 $g->out_supplement = "20170531_trigger_first_100_supplement.out";
-$g->in_handle = fopen($g->in_dir . $g->in_file, "r");
 $g->have_read_header = false;
-$g->mappings = json_decode(file_get_contents($g->in_config_dir . $g->in_mapping_file));
+$g->in_ftp_creds = json_decode(file_get_contents($g->in_creds_file));
+$g->mappings = json_decode(file_get_contents($g->in_mapping_file));
+/* End Config Setup */
+
+/* Start Before process Rows */
+
+downloadFTP();
+$g->in_handle = fopen($g->in_file, "r");
 $g->mappings_keys = getKeyNames($g->mappings);
 $g->mappings_keys_count = count($g->mappings_keys);
-
-if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
-  $g->debug = true;
-}
-/* End Config Setup */
+/* End Before Process Rows */
 
 /* Start processing Rows */
 while (($g->row = fgetcsv($g->in_handle)) !== false) {
