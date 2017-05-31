@@ -15,9 +15,11 @@ if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
 }
 
 function getHeader($row){
-  $results = json_decode("[]");
+  $results = json_decode("{}");
+  $i = 0;
   foreach($row as $column){
-    array_push($results, trim($column));
+    $results[$column] = $i;
+    $i++;
   }
   return $results;
 }
