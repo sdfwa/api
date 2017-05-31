@@ -9,6 +9,15 @@ function getHeader($row){
   }
   return $results;
 }
+
+function exit_with_error($error){
+  $g->error = $error;
+  if($g->debug === true){
+    echo "<pre>";
+    print_r($g);
+    echo "</pre>";
+  }
+}
 /* End helper funstions */
 
 /* Start Config Setup */
@@ -29,7 +38,9 @@ $g->out_contact_handle = fopen($g->out_dir . $g->out_contact, "w");
 $g->out_event_handle = fopen($g->out_dir . $g->out_event, "w");
 $g->out_supplement_handle = fopen($g->out_dir . $g->out_supplement, "w");
 $g->have_read_header = false;
-$g->read_header = json_decode(file_get_contents($g->in_config_dir . $g->in_mapping_file));
+$g->mappings = json_decode(file_get_contents($g->in_config_dir . $g->in_mapping_file));
+$g->mappings_keys = get_object_vars($g->mappings);
+$g->mappings_keys_count = count($g->mappings_keys);
 
 if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
   $g->debug = true;
@@ -48,11 +59,18 @@ while (($row = fgetcsv($g->in_handle)) !== false) {
   $results_supplement = json_decode("[]");
   if(!$g->have_read_header){
     $g->have_read_header = true;
-    // $g->read_header = getHeader($row);
     if($g->debug){
-      $g->write_debug = true;
+      if($g->mappings_keys_count === count($row)){
+        exit_with_error('key counts in input file does not match mappings');
+      }
       foreach($row as $column){
-        array_push($results_debug, trim($column));
+        if(isset($g->mappings->$column)){ // is the column in the mapping? 
+          exit_with_error('key found in input file does not match mappings');
+        }
+      }
+      foreach($g->mappings_keys as $header){
+        $g->write_debug = true;
+        $results_debug = getHeader($g->mappings_keys);
       }
     }  
   }else{
