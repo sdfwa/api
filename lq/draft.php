@@ -53,6 +53,7 @@ function checkHeader(){
 
 function debugHeader(){
   global $g;
+  $g->out_debug_handle = fopen($g->out_dir . $g->out_debug, "w");
   if($g->debug){
     foreach($g->mappings_keys as $header){
       $g->write_debug = true;
@@ -63,14 +64,17 @@ function debugHeader(){
 
 function contactHeader(){
   global $g;
+  // $g->out_contact_handle = fopen($g->out_dir . $g->out_contact, "w");
 }
 
 function eventHeader(){
   global $g;
+  // $g->out_event_handle = fopen($g->out_dir . $g->out_event, "w");
 }
 
 function supplementHeader(){
   global $g;
+  // $g->out_supplement_handle = fopen($g->out_dir . $g->out_supplement, "w");
 }
 
 function debugRow(){
@@ -150,10 +154,6 @@ $g->out_contact = "20170531_trigger_first_100_contact.out";
 $g->out_event = "20170531_trigger_first_100_event.out";
 $g->out_supplement = "20170531_trigger_first_100_supplement.out";
 $g->in_handle = fopen($g->in_dir . $g->in_file, "r");
-$g->out_debug_handle = fopen($g->out_dir . $g->out_debug, "w");
-$g->out_contact_handle = fopen($g->out_dir . $g->out_contact, "w");
-$g->out_event_handle = fopen($g->out_dir . $g->out_event, "w");
-$g->out_supplement_handle = fopen($g->out_dir . $g->out_supplement, "w");
 $g->have_read_header = false;
 $g->mappings = json_decode(file_get_contents($g->in_config_dir . $g->in_mapping_file));
 $g->mappings_keys = getKeyNames($g->mappings);
