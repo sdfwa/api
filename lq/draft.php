@@ -87,7 +87,7 @@ while (($row = fgetcsv($g->in_handle)) !== false) {
       }
       foreach($g->mappings_keys as $header){
         $g->write_debug = true;
-        $results_debug = getHeader($g->mappings, "map_debug");
+        $results_debug = getHeader($row, "map_debug");
       }
     }  
   }else{
