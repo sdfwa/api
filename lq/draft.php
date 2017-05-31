@@ -11,7 +11,7 @@ function getHeader($data, $map){
 
 function getMap($key, $map){
   global $g;
-  return $g->mappings->$key->$map
+  return $g->mappings->$key->$map;
 }
 
 function getKeyNames($json){
