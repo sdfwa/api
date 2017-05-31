@@ -140,18 +140,18 @@ function downloadFTP(){
   global $g;
 
   // set up basic connection
-  $g->in_ftp_conn_id = ftp_connect($g->in_ftp_creds->in_ftp_server);
+  $conn_id = ftp_connect($g->in_ftp_creds->in_ftp_server);
 
   // login with username and password
-  $login_result = ftp_login($g->in_ftp_conn_id, $g->in_ftp_creds->in_ftp_username, $g->in_ftp_creds->in_ftp_password);
+  $login_result = ftp_login($conn_id, $g->in_ftp_creds->in_ftp_username, $g->in_ftp_creds->in_ftp_password);
 
   // try to download 
-  if (!ftp_get($g->in_ftp_conn_id, $g->in_file, $g->in_server_file, FTP_BINARY)){
+  if (!ftp_get($conn_id, $g->in_file, $g->in_server_file, FTP_BINARY)){
       exit_code("Could not get FTP file.");
   }
 
   // close the connection
-  ftp_close($g->in_ftp_conn_id);
+  ftp_close($conn_id);
 }
 
 
