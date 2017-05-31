@@ -1,9 +1,9 @@
 <?php
 $g = json_decode("{}");
 $g->debug = false;
-$g->in_dir = "/var/github/shop/lq/";
-$g->in_file = "20170531_trigger_first_100.csv";
+$g->in_dir = "/var/lq/";
 $g->out_dir = "/var/lq/";
+$g->in_file = "20170531_trigger_first_100.csv";
 $g->out_debug = "20170531_trigger_first_100_debug.out";
 $g->out_contact = "20170531_trigger_first_100_contact.out";
 $g->out_event = "20170531_trigger_first_100_event.out";
