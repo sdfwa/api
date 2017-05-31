@@ -1,11 +1,15 @@
 <?php
 /* Start helper funstions */
-function getHeader($row){
+function getHeader($data, $map, $g=$g){
   $results = json_decode("[]");
-  foreach($row as $column){
-    array_push($results, $column);
+  foreach($data as $column){
+    array_push($results, getMap($column, $map));
   }
   return $results;
+}
+
+getMap function($key, $map, $g=$g){
+  return $g->mappings->$key->$map
 }
 
 function getKeyNames($json){
@@ -16,7 +20,7 @@ function getKeyNames($json){
   return $results;
 }
 
-function exit_code($error, $g){
+function exit_code($error, $g=$g){
   if(isset($error)){
     $g->error = $error;
   }
@@ -70,7 +74,7 @@ while (($row = fgetcsv($g->in_handle)) !== false) {
     $g->have_read_header = true;
     if($g->debug){
       if($g->mappings_keys_count !== count($row)){
-        exit_code('key counts in input file does not match mappings row count: ' . count($row), $g);
+        exit_code('key counts in input file does not match mappings row count: ' . count($row));
       }
       foreach($row as $column){
         if(!isset($g->mappings->$column)){ // is the column in the mapping? 
@@ -79,7 +83,7 @@ while (($row = fgetcsv($g->in_handle)) !== false) {
       }
       foreach($g->mappings_keys as $header){
         $g->write_debug = true;
-        $results_debug = getHeader($g->mappings_keys);
+        $results_debug = getHeader($g->mappings, "map_debug");
       }
     }  
   }else{
@@ -111,6 +115,6 @@ fclose($g->out_debug_handle);
 fclose($g->out_contact_handle);
 fclose($g->out_event_handle);
 fclose($g->out_supplement_handle);
-exit_code(null, $g);
+exit_code(null);
 /* End Cleanup and Send */
 ?>
