@@ -136,22 +136,16 @@ function closeFiles(){
   }
 }
 
-function downloadFTP(){
+function downloadSFTP(){
   global $g;
-
-  // set up basic connection
-  $conn_id = ftp_connect($g->in_ftp_creds->in_ftp_server);
-
-  // login with username and password
-  $login_result = ftp_login($conn_id, $g->in_ftp_creds->in_ftp_username, $g->in_ftp_creds->in_ftp_password);
-
-  // try to download 
-  if (!ftp_get($conn_id, $g->in_file, $g->in_server_file, FTP_BINARY)){
-      exit_code("Could not get FTP file.");
-  }
-
-  // close the connection
-  ftp_close($conn_id);
+  $connection = ssh2_connect($g->in_ftp_creds->in_ftp_server, 22);
+  ssh2_auth_password($connection, $g->in_ftp_creds->in_ftp_username, $g->in_ftp_creds->in_ftp_passwor);
+  $sftp = ssh2_sftp($connection);
+  $g->in_ftp_handle = fopen("ssh2.sftp://$sftp/".$g->in_server_file, 'r');
+  $g->in_handle = fopen($g->in_file, "w");
+  $writtenBytes = stream_copy_to_stream($g->in_file, $g->in_handle);
+  fclose($g->in_ftp_handle);
+  fclose($g->in_handle);
 }
 
 
@@ -193,7 +187,7 @@ $g->mappings = json_decode(file_get_contents($g->in_mapping_file));
 
 /* Start Before process Rows */
 
-downloadFTP();
+downloadSFTP();
 $g->in_handle = fopen($g->in_file, "r");
 $g->mappings_keys = getKeyNames($g->mappings);
 $g->mappings_keys_count = count($g->mappings_keys);
