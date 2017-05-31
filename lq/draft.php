@@ -23,6 +23,105 @@ function getKeyNames($json){
   return $results;
 }
 
+function clearWriteFlags(){
+  global $g;
+  $g->write_debug = false;
+  $g->write_contact = false;
+  $g->write_event = false;
+  $g->write_supplement = false;
+}
+
+function resetWriteArrays(){
+  global $g;
+  $g->results_debug = json_decode("[]");
+  $g->results_contact = json_decode("[]");
+  $g->results_event = json_decode("[]");
+  $g->results_supplement = json_decode("[]");
+}
+
+function checkHeader(){
+  if($g->mappings_keys_count !== count($g->row)){
+    exit_code('key counts in input file does not match mappings row count: ' . count($g->row));
+  }
+  foreach($g->row as $column){
+    if(!isset($g->mappings->$column)){ // is the column in the mapping? 
+      exit_code('key found in input file does not match mappings', $g);
+    }
+  }
+}
+
+function debugHeader(){
+  global $g;
+  if($g->debug){
+    foreach($g->mappings_keys as $header){
+      $g->write_debug = true;
+      $g->results_debug = getHeader($g->row, "map_debug");
+    }
+  }
+}
+
+function contactHeader(){
+  global $g;
+}
+
+function eventHeader(){
+  global $g;
+}
+
+function supplementHeader(){
+  global $g;
+}
+
+function debugRow(){
+  global $g;
+  if($g->debug){
+    $g->write_debug = true;
+    foreach($g->row as $column){
+      array_push($g->results_debug, trim($column));
+    }
+  } 
+}
+
+function contactRow(){
+  global $g;
+}
+
+function eventRow(){
+  global $g;
+}
+
+function supplementRow(){
+  global $g;
+}
+
+function debugWrite(){
+  global $g;
+  if($g->write_debug){
+    fputcsv($g->out_debug_handle, $g->results_debug);
+  }
+}
+
+function contactWrite(){
+  global $g
+  if($g->write_contact){
+    fputcsv($g->out_contact_handle, $g->results_contact);
+  }
+}
+
+function eventWrite(){
+  global $g
+  if($g->write_event){
+    fputcsv($g->out_event_handle, $g->results_event);
+  }
+}
+
+function supplementWrite(){
+  if($g->write_supplement){
+    fputcsv($g->out_supplement_handle, $g->results_supplement);
+  }
+  global $g
+}
+
 function exit_code($error){
   global $g;
   if(isset($error)){
@@ -65,51 +164,26 @@ if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
 /* End Config Setup */
 
 /* Start processing Rows */
-while (($row = fgetcsv($g->in_handle)) !== false) {
-  $g->write_debug = false;
-  $g->write_contact = false;
-  $g->write_event = false;
-  $g->write_supplement = false;
-  $results_debug = json_decode("[]");
-  $results_contact = json_decode("[]");
-  $results_event = json_decode("[]");
-  $results_supplement = json_decode("[]");
+while (($g->row = fgetcsv($g->in_handle)) !== false) {
+  clearWriteFlags();
+  resetWriteArrays();
   if(!$g->have_read_header){
     $g->have_read_header = true;
-    if($g->debug){
-      if($g->mappings_keys_count !== count($row)){
-        exit_code('key counts in input file does not match mappings row count: ' . count($row));
-      }
-      foreach($row as $column){
-        if(!isset($g->mappings->$column)){ // is the column in the mapping? 
-          exit_code('key found in input file does not match mappings', $g);
-        }
-      }
-      foreach($g->mappings_keys as $header){
-        $g->write_debug = true;
-        $results_debug = getHeader($row, "map_debug");
-      }
-    }  
+    checkHeader();
+    debugHeader();
+    contactHeader();
+    eventHeader();
+    supplementHeader();
   }else{
-    if($g->debug){
-      $g->write_debug = true;
-      foreach($row as $column){
-        array_push($results_debug, trim($column));
-      }
-    } 
+    debugRow();
+    contactRow();
+    eventRow();
+    supplementRow();
   }
-  if($g->write_debug){
-    fputcsv($g->out_debug_handle, $results_debug);
-  }
-  if($g->write_contact){
-    fputcsv($g->out_contact_handle, $results_contact);
-  }
-  if($g->write_event){
-    fputcsv($g->out_event_handle, $results_event);
-  }
-  if($g->write_supplement){
-    fputcsv($g->out_supplement_handle, $results_supplement);
-  }
+  debugWrite();
+  contactWrite();
+  eventWrite();
+  supplementWrite();
 }
 /* End processing rows */
 
