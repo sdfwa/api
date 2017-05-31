@@ -27,6 +27,7 @@ function exit_code($error, $g){
     print_r($g);
     echo "</pre>";
   }
+  exit();
 }
 /* End helper funstions */
 
