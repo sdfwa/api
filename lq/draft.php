@@ -71,11 +71,11 @@ while (($row = fgetcsv($g->in_handle)) !== false) {
   if(!$g->have_read_header){
     $g->have_read_header = true;
     if($g->debug){
-      if($g->mappings_keys_count === count($row)){
+      if($g->mappings_keys_count !== count($row)){
         exit_code('key counts in input file does not match mappings row count: ' . count($row), $g);
       }
       foreach($row as $column){
-        if(isset($g->mappings->$column)){ // is the column in the mapping? 
+        if(!isset($g->mappings->$column)){ // is the column in the mapping? 
           exit_code('key found in input file does not match mappings', $g);
         }
       }
