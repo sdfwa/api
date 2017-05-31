@@ -11,17 +11,20 @@ while (($row = fgetcsv($g->in_handle)) !== false) {
   $results_supplement = json_decode("[]");
   if(!$g->have_read_header){
     $g->have_read_header = true;
-    $g->write_debug = true;
-    $g->write_contact = true;
-    $g->write_event = true;
-    $g->write_supplement = true;
-    $g->header = getHeader($row);
-  }
-  foreach($row as $column){
+    $g->read_header = getHeader($row);
     if($g->debug){
       $g->write_debug = true;
-      array_push($results_debug, trim($column));
-    }
+      foreach($row as $column){
+        array_push($results_debug, trim($column));
+      }
+    }  
+  }else{
+    if($g->debug){
+      $g->write_debug = true;
+      foreach($row as $column){
+        array_push($results_debug, trim($column));
+      }
+    } 
   }
   if($g->write_debug){
     fputcsv($g->out_debug_handle, $results_debug);
