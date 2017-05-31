@@ -171,12 +171,12 @@ function exit_code($error){
 /* End helper funstions */
 
 /* Start Config Setup */
+$g = json_decode("{}");
 if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
   $g->debug = true;
 }else{
   $g->debug = false;
 }
-$g = json_decode("{}");
 $g->out_dir = "/var/lq/";
 $g->in_server_file = "/incoming/Clairvoyix/20170531_trigger.csv";
 $g->in_file = "/var/lq/20170531_trigger.csv";
