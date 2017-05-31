@@ -11,7 +11,7 @@ while (($row = fgetcsv($g->in_handle)) !== false) {
   $results_supplement = json_decode("[]");
   if(!$g->have_read_header){
     $g->have_read_header = true;
-    $g->read_header = getHeader($row);
+    // $g->read_header = getHeader($row);
     if($g->debug){
       $g->write_debug = true;
       foreach($row as $column){
