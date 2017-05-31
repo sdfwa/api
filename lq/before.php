@@ -14,7 +14,7 @@ if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
   $g->debug = true;
 }
 
-getHeader = function($row){
+function getHeader($row){
   $results = json_decode("[]");
   foreach($row as $column){
     array_push($results, trim($column));
