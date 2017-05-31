@@ -14,8 +14,7 @@ $g->out_contact_handle = fopen($g->out_dir . $g->out_contact, "w");
 $g->out_event_handle = fopen($g->out_dir . $g->out_event, "w");
 $g->out_supplement_handle = fopen($g->out_dir . $g->out_supplement, "w");
 $g->have_read_header = false;
-$g->map_contact = json_decode("{}");
-$g->map_contact->foo = "bar";
+$g->map_contact = json_decode('{foo = "bar"}');
 if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
   $g->debug = true;
 }
