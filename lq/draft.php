@@ -10,7 +10,7 @@ function getHeader($row){
   return $results;
 }
 
-function exit_with_error($error){
+function exit_with_error($error, $g){
   $g->error = $error;
   if($g->debug === true){
     echo "<pre>";
@@ -61,11 +61,11 @@ while (($row = fgetcsv($g->in_handle)) !== false) {
     $g->have_read_header = true;
     if($g->debug){
       if($g->mappings_keys_count === count($row)){
-        exit_with_error('key counts in input file does not match mappings');
+        exit_with_error('key counts in input file does not match mappings', $g);
       }
       foreach($row as $column){
         if(isset($g->mappings->$column)){ // is the column in the mapping? 
-          exit_with_error('key found in input file does not match mappings');
+          exit_with_error('key found in input file does not match mappings', $g);
         }
       }
       foreach($g->mappings_keys as $header){
