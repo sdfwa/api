@@ -139,7 +139,8 @@ function closeFiles(){
 function downloadSFTP(){
   global $g;
   $connection = ssh2_connect($g->in_ftp_creds->in_ftp_server, 22);
-  ssh2_auth_password($connection, $g->in_ftp_creds->in_ftp_username, $g->in_ftp_creds->in_ftp_passwor, array('hostkey'=>'ssh-rsa, ssh-dss'));
+  ssh2_auth_password($connection, $g->in_ftp_creds->in_ftp_username, $g->in_ftp_creds->in_ftp_password);
+  // array('hostkey'=>'ssh-rsa,ssh-dss')
   $sftp = ssh2_sftp($connection);
   $g->in_ftp_handle = fopen("ssh2.sftp://$sftp/".$g->in_server_file, 'r');
   $g->in_handle = fopen($g->in_file, "w");
