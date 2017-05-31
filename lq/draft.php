@@ -144,7 +144,7 @@ function downloadSFTP(){
   $sftp = ssh2_sftp($connection);
   $g->in_ftp_handle = fopen("ssh2.sftp://$sftp/".$g->in_server_file, 'r');
   $g->in_handle = fopen($g->in_file, "w");
-  $writtenBytes = stream_copy_to_stream($g->in_file, $g->in_handle);
+  $writtenBytes = stream_copy_to_stream($g->in_ftp_handle, $g->in_handle);
   fclose($g->in_ftp_handle);
   fclose($g->in_handle);
 }
