@@ -1,11 +1,9 @@
 <?php
 /* Start helper funstions */
 function getHeader($row){
-  $results = json_decode("{}");
-  $i = 0;
+  $results = json_decode("[]");
   foreach($row as $column){
-    $results->$column = $i;
-    $i++;
+    array_push($results, $column);
   }
   return $results;
 }
