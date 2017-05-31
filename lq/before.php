@@ -1,6 +1,7 @@
 <?php
 $g = json_decode("{}");
 $g->debug = false;
+$g->in_config_dir = "/var/github/shop/lq/";
 $g->in_dir = "/var/lq/";
 $g->out_dir = "/var/lq/";
 $g->in_file = "20170531_trigger_first_100.csv";
@@ -15,7 +16,7 @@ $g->out_contact_handle = fopen($g->out_dir . $g->out_contact, "w");
 $g->out_event_handle = fopen($g->out_dir . $g->out_event, "w");
 $g->out_supplement_handle = fopen($g->out_dir . $g->out_supplement, "w");
 $g->have_read_header = false;
-$g->read_header = json_decode(file_get_contents($g->in_dir . $g->in_mapping_file));
+$g->read_header = json_decode(file_get_contents($g->in_config_dir . $g->in_mapping_file));
 if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
   $g->debug = true;
 }
