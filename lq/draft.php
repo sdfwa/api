@@ -127,6 +127,15 @@ function supplementWrite(){
   }
 }
 
+function closeFiles(){
+  global $g;
+  foreach($g as $key => $value){
+    if (preg_match("/_handle$/", $key)){
+      fclose($g->$key);
+    }
+  }
+}
+
 function exit_code($error){
   global $g;
   if(isset($error)){
@@ -189,11 +198,7 @@ while (($g->row = fgetcsv($g->in_handle)) !== false) {
 /* End processing rows */
 
 /* Start Cleanup and Send */
-fclose($g->in_handle);
-fclose($g->out_debug_handle);
-fclose($g->out_contact_handle);
-fclose($g->out_event_handle);
-fclose($g->out_supplement_handle);
+closeFiles();
 exit_code(null);
 /* End Cleanup and Send */
 ?>
