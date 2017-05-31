@@ -40,6 +40,7 @@ function resetWriteArrays(){
 }
 
 function checkHeader(){
+  global $g;
   if($g->mappings_keys_count !== count($g->row)){
     exit_code('key counts in input file does not match mappings row count: ' . count($g->row));
   }
@@ -102,24 +103,24 @@ function debugWrite(){
 }
 
 function contactWrite(){
-  global $g
+  global $g;
   if($g->write_contact){
     fputcsv($g->out_contact_handle, $g->results_contact);
   }
 }
 
 function eventWrite(){
-  global $g
+  global $g;
   if($g->write_event){
     fputcsv($g->out_event_handle, $g->results_event);
   }
 }
 
 function supplementWrite(){
+  global $g;
   if($g->write_supplement){
     fputcsv($g->out_supplement_handle, $g->results_supplement);
   }
-  global $g
 }
 
 function exit_code($error){
