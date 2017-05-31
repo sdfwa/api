@@ -2,6 +2,7 @@
 require_once('./before.php');
 while (($row = fgetcsv($g->read_file)) !== false) {
   if(!$g->haveHeader){
+    $g->haveHeader = true;
     $g->header = getHeader($row);
   }
   $results = json_decode("[]");
