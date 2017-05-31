@@ -9,7 +9,7 @@ function getHeader($data, $map){
   return $results;
 }
 
-getMap function($key, $map){
+function getMap($key, $map){
   global $g;
   return $g->mappings->$key->$map
 }
