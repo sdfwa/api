@@ -18,7 +18,7 @@ function getHeader($row){
   $results = json_decode("{}");
   $i = 0;
   foreach($row as $column){
-    $results[$column] = $i;
+    $results->$column = $i;
     $i++;
   }
   return $results;
