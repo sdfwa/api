@@ -1,0 +1,93 @@
+{
+  "EMAIL": {
+    "column": 0,
+    "map_debug": "EMAIL",
+    "map_contact": "",
+    "map_event": "",
+    "map_supplement": ""
+  },
+  "FIRSTNAME": {
+    "column": 1,
+    "map_debug": "FIRSTNAME",
+    "map_contact": "",
+    "map_event": "",
+    "map_supplement": ""
+  },
+  "LASTNAME": {
+    "column": 2,
+    "map_debug": "LASTNAME",
+    "map_contact": "",
+    "map_event": "",
+    "map_supplement": ""
+  },
+  "ADDRESS": {
+    "column": 3,
+    "map_debug": "ADDRESS",
+    "map_contact": "",
+    "map_event": "",
+    "map_supplement": ""
+  },
+  "CITY": {
+    "column": 4,
+    "map_debug": "CITY",
+    "map_contact": "",
+    "map_event": "",
+    "map_supplement": ""
+  },
+  "STATE": {
+    "column": 5,
+    "map_debug": "STATE",
+    "map_contact": "",
+    "map_event": "",
+    "map_supplement": ""
+  },
+  "COUNTRY": {
+    "column": 6,
+    "map_debug": "COUNTRY",
+    "map_contact": "",
+    "map_event": "",
+    "map_supplement": ""
+  },
+  "POSTAL_CODE": {
+    "column": 7,
+    "map_debug": "POSTAL_CODE",
+    "map_contact": "",
+    "map_event": "",
+    "map_supplement": ""
+  },
+  "GENDER": {
+    "column": 8,
+    "map_debug": "GENDER",
+    "map_contact": "",
+    "map_event": "",
+    "map_supplement": ""
+  },
+  "ARRIVAL": {
+    "column": 9,
+    "map_debug": "ARRIVAL",
+    "map_contact": "",
+    "map_event": "",
+    "map_supplement": ""
+  },
+  "CHILDREN": {
+    "column": 10,
+    "map_debug": "CHILDREN",
+    "map_contact": "",
+    "map_event": "",
+    "map_supplement": ""
+  },
+  "PROPERTY": {
+    "column": 11,
+    "map_debug": "PROPERTY",
+    "map_contact": "",
+    "map_event": "",
+    "map_supplement": ""
+  },
+  "GRP": {
+    "column": 12,
+    "map_debug": "GRP",
+    "map_contact": "",
+    "map_event": "",
+    "map_supplement": ""
+  }
+}
