@@ -19,7 +19,7 @@ function getKeyNames($json){
 }
 
 function exit_code($error, $g){
-  if(isset($error){
+  if(isset($error)){
     $g->error = $error;
   }
   if($g->debug === true){
