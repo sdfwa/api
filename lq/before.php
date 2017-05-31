@@ -19,7 +19,7 @@ $g->map_contact_str = <<<JSON
   foo:"bar";
 }
 JSON;
-$g->map_contact = json_decode($map_contact_str);
+$g->map_contact = json_encode($map_contact_str);
 if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
   $g->debug = true;
 }
