@@ -132,6 +132,7 @@ function closeFiles(){
   foreach($g as $key => $value){
     if (preg_match("/_handle$/", $key)){
       fclose($g->$key);
+      unset($g->$key);
     }
   }
 }
@@ -146,7 +147,9 @@ function downloadSFTP(){
   $g->in_handle = fopen($g->in_file, "w");
   $writtenBytes = stream_copy_to_stream($g->in_ftp_handle, $g->in_handle);
   fclose($g->in_ftp_handle);
+  unset($g->in_ftp_handle);
   fclose($g->in_handle);
+  unset($g->in_handle);
 }
 
 
