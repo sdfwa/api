@@ -193,7 +193,7 @@ function contactImportsAPI(){
     "Content-Type: application/json",
     "Accept: application/json"
   ));
-  $g->api_result = curl_exec($curl);
+  $g->api_result = curl_exec($g->api_curl);
   curl_close($g->api_curl);
 }
 
