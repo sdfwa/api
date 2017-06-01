@@ -194,7 +194,7 @@ function contactImportsAPI(){
     "Content-Type: application/json",
     "Accept: application/json"
   ));
-  $result = curl_exec($curl);
+  $g_contact_imports_api_result = curl_exec($curl);
   curl_close($curl);
 }
 
