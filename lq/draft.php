@@ -159,7 +159,7 @@ function uploadSFTP(){
   // array('hostkey'=>'ssh-rsa,ssh-dss')
   $sftp = ssh2_sftp($connection);
   $g->ftp_handle = fopen("ssh2.sftp://$sftp/".$g->out_server_file, 'w');
-  $g->out_handle = fopen($g->in_file, "r");
+  $g->out_handle = fopen($g->out_debug, "r");
   $writtenBytes = stream_copy_to_stream($g->out_handle, $g->ftp_handle);
   fclose($g->ftp_handle);
   unset($g->ftp_handle);
