@@ -45,7 +45,7 @@ function checkHeader(){
     exit_code('key counts in input file does not match mappings row count: ' . count($g->row));
   }
   foreach($g->row as $column){
-    if(!isset($g->mappings->$column)){ // is the column in the mapping? 
+    if(!isset($g->mappings->$column)){ // is the column in the mapping?
       exit_code('key found in input file does not match mappings', $g);
     }
   }
@@ -85,7 +85,7 @@ function debugRow(){
     foreach($g->row as $column){
       array_push($g->results_debug, trim($column));
     }
-  } 
+  }
 }
 
 function contactRow(){
@@ -142,8 +142,21 @@ function downloadSFTP(){
   global $g;
   $connection = ssh2_connect($g->creds->ftp_server, 22);
   ssh2_auth_password($connection, $g->creds->ftp_username, $g->creds->ftp_password);
-  // array('hostkey'=>'ssh-rsa,ssh-dss')
   $sftp = ssh2_sftp($connection);
+   if ($handle = opendir("ssh2.sftp://$sftp_fd/" . $g->in_dir))) {
+    // find new files
+    while (false !== ($file = readdir($handle))) {
+      if ('.' === $file) continue;
+      if ('..' === $file) continue;
+      if(preg_match($g->file_name_match, $file)){
+        if(!($g->in_processed->$file === 1)){
+          $g->in_processed->$file = 1;
+          $g->in_server_file = $g->in_processed->$file;
+        }
+      }
+    }
+    closedir($handle);
+  }
   $g->ftp_handle = fopen("ssh2.sftp://$sftp/".$g->in_server_file, 'r');
   $g->in_handle = fopen($g->in_zip_file, "w");
   $writtenBytes = stream_copy_to_stream($g->ftp_handle, $g->in_handle);
@@ -167,13 +180,14 @@ function uploadSFTP(){
   unset($g->out_handle);
 }
 
-function unZipFiles(){
+function unZipFile(){
   global $g;
   $zip = new ZipArchive;
   $res = $zip->open($g->in_zip_file);
   if ($res === TRUE) {
     $zip->extractTo($g->out_dir);
     $zip->close();
+    unlink($g->in_zip_file);
   } else {
     exit_code("failed to extract file");
   }
@@ -208,6 +222,25 @@ function contactImportsAPI(){
   curl_close($g->api_curl);
 }
 
+function checkDir(){
+  global $g;
+  if (!file_exists($g->out_dir)) {
+    mkdir($g->out_dir, 0755, true);
+  }
+}
+
+function getProcessedFiles(){
+  global $g;
+  if(!file_exists($g->in_processed_file)){
+    $handle = fopen($g->in_processed_file, "w");
+    fwrite($handle, "{}");
+    fclose($handle);
+  }
+  $g->in_processed = json_decode(file_get_contents($g->in_processed_file));
+}
+
+
+
 function exit_code($error){
   global $g;
   if(isset($error)){
@@ -229,14 +262,18 @@ if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
 }else{
   $g->debug = false;
 }
-$g->out_dir = "/var/lq/";
+
+$g->out_dir = "/var/lq/estatement/";
+$g->file_name_match = "/LAQ_STMT_ESUM_\d+ESTMT.*\.zip/"
 // $g->in_server_file = "/incoming/Clairvoyix/20170531_trigger.csv";
 // $g->in_server_file = "/Trendline_Cordial/20170531_trigger_in.csv";
-$g->in_server_file = "/Trendline_Cordial/LAQ_STMT_ESUM_0617ESTMT_Spanish_in.zip";
+// $g->in_server_file = "/Trendline_Cordial/LAQ_STMT_ESUM_0617ESTMT_Spanish_in.zip";
+$g->in_dir = "/Trendline_Cordial/";
 $g->out_server_file = "/Trendline_Cordial/20170531_trigger.csv";
 $g->in_file = "/var/lq/EVT_LAQ_STMT_ESUM_0617ESTMT_File_E_all_spa_mbrs.txt";
 $g->in_zip_file = "/var/lq/LAQ_STMT_ESUM_0617ESTMT_Spanish_in.zip";
 $g->in_mapping_file = "/var/github/shop/lq/mapping.json";
+$g->in_processed_file = "/var/lq/estatement/processed.json";
 $g->creds_file = "/var/lq/creds.json";
 $g->out_debug = "20170531_trigger_first_100_debug.out";
 $g->out_contact = "20170531_trigger_first_100_contact.out";
@@ -248,7 +285,8 @@ $g->mappings = json_decode(file_get_contents($g->in_mapping_file));
 /* End Config Setup */
 
 /* Start Before process Rows */
-
+checkDir();
+getProcessedFiles();
 downloadSFTP();
 unZipFiles();
 $g->in_handle = fopen($g->in_file, "r");
