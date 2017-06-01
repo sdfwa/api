@@ -264,7 +264,7 @@ if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
 }
 
 $g->out_dir = "/var/lq/estatement/";
-$g->file_name_match = "/LAQ_STMT_ESUM_\d+ESTMT.*\.zip/"
+$g->file_name_match = "/LAQ_STMT_ESUM_\d+ESTMT.*\.zip/";
 // $g->in_server_file = "/incoming/Clairvoyix/20170531_trigger.csv";
 // $g->in_server_file = "/Trendline_Cordial/20170531_trigger_in.csv";
 // $g->in_server_file = "/Trendline_Cordial/LAQ_STMT_ESUM_0617ESTMT_Spanish_in.zip";
