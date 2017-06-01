@@ -185,13 +185,12 @@ function contactImportsAPI(){
   $g->api_payload->suppressTriggers = true;
   $g->api_curl = curl_init();
   curl_setopt($g->api_curl, CURLOPT_POST, 1);
-  curl_setopt($g->api_curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-  curl_setopt($g->api_curl, CURLOPT_USERPWD, $g->creds->api_key);
   curl_setopt($g->api_curl, CURLOPT_URL, "https://api.cordial.io/docs/v1/contactimports");
   curl_setopt($g->api_curl, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($g->api_curl, CURLOPT_HTTPHEADER, array(
     "Content-Type: application/json",
-    "Accept: application/json"
+    "Accept: application/json",
+    "Authorization: Basic " . $g->creds->api_key
   ));
   $g->api_result = curl_exec($g->api_curl);
   curl_close($g->api_curl);
