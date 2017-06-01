@@ -143,7 +143,7 @@ function downloadSFTP(){
   $connection = ssh2_connect($g->creds->ftp_server, 22);
   ssh2_auth_password($connection, $g->creds->ftp_username, $g->creds->ftp_password);
   $sftp = ssh2_sftp($connection);
-   if($handle = opendir("ssh2.sftp://$sftp_fd/" . $g->in_dir)){
+   if($handle = opendir("ssh2.sftp://$sftp/" . $g->in_dir)){
     // find new files
     while(false !== ($file = readdir($handle))){
       if('.' === $file) continue;
