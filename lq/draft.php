@@ -185,6 +185,7 @@ function contactImportsAPI(){
   $g->api_payload->suppressTriggers = true;
   $g->api_curl = curl_init();
   curl_setopt($g->api_curl, CURLOPT_POST, 1);
+  curl_setopt($g->api_curl, CURLOPT_POSTFIELDS, json_encode($g->api_payload));
   curl_setopt($g->api_curl, CURLOPT_URL, "https://api.cordial.io/v1/contactimports");
   curl_setopt($g->api_curl, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($g->api_curl, CURLOPT_HTTPHEADER, array(
