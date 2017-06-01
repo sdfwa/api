@@ -145,7 +145,7 @@ function downloadSFTP(){
   // array('hostkey'=>'ssh-rsa,ssh-dss')
   $sftp = ssh2_sftp($connection);
   $g->ftp_handle = fopen("ssh2.sftp://$sftp/".$g->in_server_file, 'r');
-  $g->in_handle = fopen($g->in_file, "w");
+  $g->in_handle = fopen($g->in_zip_file, "w");
   $writtenBytes = stream_copy_to_stream($g->ftp_handle, $g->in_handle);
   fclose($g->ftp_handle);
   unset($g->ftp_handle);
@@ -157,7 +157,6 @@ function uploadSFTP(){
   global $g;
   $connection = ssh2_connect($g->creds->ftp_server, 22);
   ssh2_auth_password($connection, $g->creds->ftp_username, $g->creds->ftp_password);
-  // array('hostkey'=>'ssh-rsa,ssh-dss')
   $sftp = ssh2_sftp($connection);
   $g->ftp_handle = fopen("ssh2.sftp://$sftp/".$g->out_server_file, 'w');
   $g->out_handle = fopen($g->out_dir . $g->out_debug, "r");
@@ -166,6 +165,18 @@ function uploadSFTP(){
   unset($g->ftp_handle);
   fclose($g->out_handle);
   unset($g->out_handle);
+}
+
+unZipFiles(){
+  global $g;
+  $zip = new ZipArchive;
+  $res = $zip->open($g->in_zip_file);
+  if ($res === TRUE) {
+    $zip->extractTo($g->out_dir);
+    $zip->close();
+  } else {
+    exit_code("failed to extract file");
+  }
 }
 
 function contactImportsAPI(){
@@ -220,9 +231,11 @@ if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
 }
 $g->out_dir = "/var/lq/";
 // $g->in_server_file = "/incoming/Clairvoyix/20170531_trigger.csv";
-$g->in_server_file = "/Trendline_Cordial/20170531_trigger_in.csv";
+// $g->in_server_file = "/Trendline_Cordial/20170531_trigger_in.csv";
+$g->in_server_file = "/Trendline_Cordial/LAQ_STMT_ESUM_0617ESTMT_Spanish_in.zip";
 $g->out_server_file = "/Trendline_Cordial/20170531_trigger.csv";
 $g->in_file = "/var/lq/20170531_trigger.csv";
+$g->in_zip_file = "/var/lq/LAQ_STMT_ESUM_0617ESTMT_Spanish_in.zip";
 $g->in_mapping_file = "/var/github/shop/lq/mapping.json";
 $g->creds_file = "/var/lq/creds.json";
 $g->out_debug = "20170531_trigger_first_100_debug.out";
@@ -237,6 +250,7 @@ $g->mappings = json_decode(file_get_contents($g->in_mapping_file));
 /* Start Before process Rows */
 
 downloadSFTP();
+unZipFiles();
 $g->in_handle = fopen($g->in_file, "r");
 $g->mappings_keys = getKeyNames($g->mappings);
 $g->mappings_keys_count = count($g->mappings_keys);
