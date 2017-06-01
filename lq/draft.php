@@ -199,7 +199,7 @@ $g->out_contact = "20170531_trigger_first_100_contact.out";
 $g->out_event = "20170531_trigger_first_100_event.out";
 $g->out_supplement = "20170531_trigger_first_100_supplement.out";
 $g->have_read_header = false;
-$g->in_ftp_creds = json_decode(file_get_contents($g->in_creds_file));
+$g->ftp_creds = json_decode(file_get_contents($g->ftp_creds_file));
 $g->mappings = json_decode(file_get_contents($g->in_mapping_file));
 /* End Config Setup */
 
