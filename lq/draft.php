@@ -57,7 +57,8 @@ function debugHeader(){
   if($g->debug){
     foreach($g->mappings_keys as $header){
       $g->write_debug = true;
-      $g->results_debug = getHeader($g->row, "map_debug");
+      $g->debug_header = getHeader($g->row, "map_debug");
+      $g->results_debug = $g->debug_header;
     }
   }
 }
@@ -167,6 +168,23 @@ function uploadSFTP(){
   unset($g->out_handle);
 }
 
+callCordialAPI(){
+  global $g;
+  $g->api_payload = json_decode("{}");
+  $g->api_payload->source = json_decode("{}");
+  $g->api_payload->source->transport = "sftp";
+  $g->api_payload->source->server = $g->ftp_creds->ftp_server;
+  $g->api_payload->source->path = "." . $g->out_server_file;
+  $g->api_payload->source->port = "22";
+  $g->api_payload->source->username = $g->ftp_creds->ftp_username;
+  $g->api_payload->source->password = $g->ftp_creds->ftp_password;
+  $g->api_payload->hasHeader = true;
+  $g->api_payload->columns = $g->debug_header;
+  $g->api_payload->delimiter = ",";
+  $g->api_payload->strategy = "updateOnly";
+  $g->api_payload->suppressTriggers = true;
+}
+
 function exit_code($error){
   global $g;
   if(isset($error)){
@@ -189,7 +207,8 @@ if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
   $g->debug = false;
 }
 $g->out_dir = "/var/lq/";
-$g->in_server_file = "/incoming/Clairvoyix/20170531_trigger.csv";
+// $g->in_server_file = "/incoming/Clairvoyix/20170531_trigger.csv";
+$g->in_server_file = "/Trendline_Cordial/20170531_trigger_in.csv";
 $g->out_server_file = "/Trendline_Cordial/20170531_trigger.csv";
 $g->in_file = "/var/lq/20170531_trigger.csv";
 $g->in_mapping_file = "/var/github/shop/lq/mapping.json";
@@ -238,6 +257,7 @@ while (($g->row = fgetcsv($g->in_handle)) !== false) {
 /* Start Cleanup and Send */
 closeFiles();
 uploadSFTP();
+callCordialAPI();
 exit_code(null);
 /* End Cleanup and Send */
 ?>
