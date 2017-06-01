@@ -140,8 +140,8 @@ function closeFiles(){
 
 function downloadSFTP(){
   global $g;
-  $connection = ssh2_connect($g->ftp_creds->ftp_server, 22);
-  ssh2_auth_password($connection, $g->ftp_creds->ftp_username, $g->ftp_creds->ftp_password);
+  $connection = ssh2_connect($g->creds->ftp_server, 22);
+  ssh2_auth_password($connection, $g->creds->ftp_username, $g->creds->ftp_password);
   // array('hostkey'=>'ssh-rsa,ssh-dss')
   $sftp = ssh2_sftp($connection);
   $g->ftp_handle = fopen("ssh2.sftp://$sftp/".$g->in_server_file, 'r');
@@ -155,8 +155,8 @@ function downloadSFTP(){
 
 function uploadSFTP(){
   global $g;
-  $connection = ssh2_connect($g->ftp_creds->ftp_server, 22);
-  ssh2_auth_password($connection, $g->ftp_creds->ftp_username, $g->ftp_creds->ftp_password);
+  $connection = ssh2_connect($g->creds->ftp_server, 22);
+  ssh2_auth_password($connection, $g->creds->ftp_username, $g->creds->ftp_password);
   // array('hostkey'=>'ssh-rsa,ssh-dss')
   $sftp = ssh2_sftp($connection);
   $g->ftp_handle = fopen("ssh2.sftp://$sftp/".$g->out_server_file, 'w');
@@ -168,21 +168,26 @@ function uploadSFTP(){
   unset($g->out_handle);
 }
 
-function callCordialAPI(){
+function contactImports(){
   global $g;
   $g->api_payload = json_decode("{}");
   $g->api_payload->source = json_decode("{}");
   $g->api_payload->source->transport = "sftp";
-  $g->api_payload->source->server = $g->ftp_creds->ftp_server;
+  $g->api_payload->source->server = $g->creds->ftp_server;
   $g->api_payload->source->path = "." . $g->out_server_file;
   $g->api_payload->source->port = "22";
-  $g->api_payload->source->username = $g->ftp_creds->ftp_username;
-  $g->api_payload->source->password = $g->ftp_creds->ftp_password;
+  $g->api_payload->source->username = $g->creds->ftp_username;
+  $g->api_payload->source->password = $g->creds->ftp_password;
   $g->api_payload->hasHeader = true;
   $g->api_payload->columns = $g->debug_header;
   $g->api_payload->delimiter = ",";
   $g->api_payload->strategy = "updateOnly";
   $g->api_payload->suppressTriggers = true;
+  $g->api_curl = json_decode("{}");
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_POST, 1);
+  curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+  curl_setopt($curl, CURLOPT_USERPWD, $g->creds->api_key);
 }
 
 function exit_code($error){
@@ -212,13 +217,13 @@ $g->in_server_file = "/Trendline_Cordial/20170531_trigger_in.csv";
 $g->out_server_file = "/Trendline_Cordial/20170531_trigger.csv";
 $g->in_file = "/var/lq/20170531_trigger.csv";
 $g->in_mapping_file = "/var/github/shop/lq/mapping.json";
-$g->ftp_creds_file = "/var/lq/creds.json";
+$g->creds_file = "/var/lq/creds.json";
 $g->out_debug = "20170531_trigger_first_100_debug.out";
 $g->out_contact = "20170531_trigger_first_100_contact.out";
 $g->out_event = "20170531_trigger_first_100_event.out";
 $g->out_supplement = "20170531_trigger_first_100_supplement.out";
 $g->have_read_header = false;
-$g->ftp_creds = json_decode(file_get_contents($g->ftp_creds_file));
+$g->creds = json_decode(file_get_contents($g->creds_file));
 $g->mappings = json_decode(file_get_contents($g->in_mapping_file));
 /* End Config Setup */
 
