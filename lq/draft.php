@@ -168,7 +168,7 @@ function uploadSFTP(){
   unset($g->out_handle);
 }
 
-callCordialAPI(){
+function callCordialAPI(){
   global $g;
   $g->api_payload = json_decode("{}");
   $g->api_payload->source = json_decode("{}");
