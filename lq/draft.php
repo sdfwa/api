@@ -167,7 +167,7 @@ function uploadSFTP(){
   unset($g->out_handle);
 }
 
-unZipFiles(){
+function unZipFiles(){
   global $g;
   $zip = new ZipArchive;
   $res = $zip->open($g->in_zip_file);
