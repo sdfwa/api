@@ -181,7 +181,7 @@ function contactImportsAPI(){
   $g->api_payload->hasHeader = true;
   $g->api_payload->columns = $g->debug_header;
   $g->api_payload->delimiter = ",";
-  $g->api_payload->strategy = "updateOnly";
+  // $g->api_payload->strategy = "updateOnly";
   $g->api_payload->suppressTriggers = true;
   $g->api_curl = json_decode("{}");
   $curl = curl_init();
