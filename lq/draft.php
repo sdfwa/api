@@ -183,19 +183,18 @@ function contactImportsAPI(){
   $g->api_payload->delimiter = ",";
   // $g->api_payload->strategy = "updateOnly";
   $g->api_payload->suppressTriggers = true;
-  $g->api_curl = json_decode("{}");
-  $curl = curl_init();
-  curl_setopt($curl, CURLOPT_POST, 1);
-  curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-  curl_setopt($curl, CURLOPT_USERPWD, $g->creds->api_key);
-  curl_setopt($curl, CURLOPT_URL, $url);
-  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-  curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+  $g->api_curl = curl_init();
+  curl_setopt($g->api_curl, CURLOPT_POST, 1);
+  curl_setopt($g->api_curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+  curl_setopt($g->api_curl, CURLOPT_USERPWD, $g->creds->api_key);
+  curl_setopt($g->api_curl, CURLOPT_URL, "https://api.cordial.io/docs/v1/contactimports");
+  curl_setopt($g->api_curl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($g->api_curl, CURLOPT_HTTPHEADER, array(
     "Content-Type: application/json",
     "Accept: application/json"
   ));
-  $g_contact_imports_api_result = curl_exec($curl);
-  curl_close($curl);
+  $g->api_result = curl_exec($curl);
+  curl_close($g->api_curl);
 }
 
 function exit_code($error){
