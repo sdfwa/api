@@ -139,20 +139,33 @@ function closeFiles(){
 
 function downloadSFTP(){
   global $g;
-  $connection = ssh2_connect($g->in_ftp_creds->in_ftp_server, 22);
-  ssh2_auth_password($connection, $g->in_ftp_creds->in_ftp_username, $g->in_ftp_creds->in_ftp_password);
+  $connection = ssh2_connect($g->ftp_creds->ftp_server, 22);
+  ssh2_auth_password($connection, $g->ftp_creds->ftp_username, $g->ftp_creds->ftp_password);
   // array('hostkey'=>'ssh-rsa,ssh-dss')
   $sftp = ssh2_sftp($connection);
-  $g->in_ftp_handle = fopen("ssh2.sftp://$sftp/".$g->in_server_file, 'r');
+  $g->ftp_handle = fopen("ssh2.sftp://$sftp/".$g->in_server_file, 'r');
   $g->in_handle = fopen($g->in_file, "w");
-  $writtenBytes = stream_copy_to_stream($g->in_ftp_handle, $g->in_handle);
-  fclose($g->in_ftp_handle);
-  unset($g->in_ftp_handle);
+  $writtenBytes = stream_copy_to_stream($g->ftp_handle, $g->in_handle);
+  fclose($g->ftp_handle);
+  unset($g->ftp_handle);
   fclose($g->in_handle);
   unset($g->in_handle);
 }
 
-
+function downloadSFTP(){
+  global $g;
+  $connection = ssh2_connect($g->ftp_creds->ftp_server, 22);
+  ssh2_auth_password($connection, $g->ftp_creds->ftp_username, $g->ftp_creds->ftp_password);
+  // array('hostkey'=>'ssh-rsa,ssh-dss')
+  $sftp = ssh2_sftp($connection);
+  $g->ftp_handle = fopen("ssh2.sftp://$sftp/".$g->out_server_file, 'w');
+  $g->out_handle = fopen($g->in_file, "r");
+  $writtenBytes = stream_copy_to_stream($g->out_handle, $g->ftp_handle);
+  fclose($g->ftp_handle);
+  unset($g->ftp_handle);
+  fclose($g->out_handle);
+  unset($g->out_handle);
+}
 
 function exit_code($error){
   global $g;
@@ -177,9 +190,10 @@ if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
 }
 $g->out_dir = "/var/lq/";
 $g->in_server_file = "/incoming/Clairvoyix/20170531_trigger.csv";
+$g->out_server_file = "/Trendline_Cordial/20170531_trigger.csv"
 $g->in_file = "/var/lq/20170531_trigger.csv";
 $g->in_mapping_file = "/var/github/shop/lq/mapping.json";
-$g->in_creds_file = "/var/lq/creds.json";
+$g->ftp_creds_file = "/var/lq/creds.json";
 $g->out_debug = "20170531_trigger_first_100_debug.out";
 $g->out_contact = "20170531_trigger_first_100_contact.out";
 $g->out_event = "20170531_trigger_first_100_event.out";
@@ -223,6 +237,7 @@ while (($g->row = fgetcsv($g->in_handle)) !== false) {
 
 /* Start Cleanup and Send */
 closeFiles();
+uploadSFTP();
 exit_code(null);
 /* End Cleanup and Send */
 ?>
