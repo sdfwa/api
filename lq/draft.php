@@ -190,7 +190,7 @@ if(isset($_GET["debug"]) && $_GET["debug"] === "true"){
 }
 $g->out_dir = "/var/lq/";
 $g->in_server_file = "/incoming/Clairvoyix/20170531_trigger.csv";
-$g->out_server_file = "/Trendline_Cordial/20170531_trigger.csv"
+$g->out_server_file = "/Trendline_Cordial/20170531_trigger.csv";
 $g->in_file = "/var/lq/20170531_trigger.csv";
 $g->in_mapping_file = "/var/github/shop/lq/mapping.json";
 $g->ftp_creds_file = "/var/lq/creds.json";
