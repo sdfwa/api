@@ -152,7 +152,7 @@ function downloadSFTP(){
   unset($g->in_handle);
 }
 
-function downloadSFTP(){
+function uploadSFTP(){
   global $g;
   $connection = ssh2_connect($g->ftp_creds->ftp_server, 22);
   ssh2_auth_password($connection, $g->ftp_creds->ftp_username, $g->ftp_creds->ftp_password);
