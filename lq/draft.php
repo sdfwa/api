@@ -3,30 +3,30 @@
 function getHeader($data, $map){
   global $g;
   $results = json_decode("[]");
-  $g->debug_allowed = json_decode("{}");
+  $allowed_key = $map . "_allowed";
+  $g->$allowed_key = json_decode("{}");
   $i = 0;
   foreach($data as $column){
-    if(getMap($column, $map) !== ""){
-      array_push($results, getMap($column, $map));
-      $g->debug_allowed->$i = 1;
+    if(getMapValue($column, $map) !== ""){
+      array_push($results, getMapValue($column, $map));
+      $g->$allowed_key->$i = 1;
     }
     $i++;
   }
   return $results;
 }
 
-function getMap($key, $map){
+function getMapValue($key, $map){
   global $g;
   return $g->mappings->$key->$map;
 }
 
-function getKeyNames($json){
+function getKeyNames(){
   global $g;
-  $results = json_decode("[]");
-  foreach($json as $key => $value){
-    array_push($results, $key);
+  $g->mappings_keys = json_decode("[]");
+  foreach($g->mappings as $key => $value){
+    array_push($g->mappings_keys, $key);
   }
-  return $results;
 }
 
 function clearWriteFlags(){
@@ -89,8 +89,9 @@ function debugRow(){
   if($g->debug){
     $g->write_debug = true;
     $i = 0;
+    $allowed_key = "map_debug_allowed";
     foreach($g->row as $column){
-      if($g->debug_allowed->$i === 1){
+      if($g->$allowed_key->$i === 1){
         array_push($g->results_debug, trim($column));
       }
       $i++;
@@ -300,7 +301,7 @@ getProcessedFiles();
 downloadSFTP();
 unZipFile();
 $g->in_handle = fopen($g->in_file, "r");
-$g->mappings_keys = getKeyNames($g->mappings);
+getKeyNames();
 $g->mappings_keys_count = count($g->mappings_keys);
 /* End Before Process Rows */
 
