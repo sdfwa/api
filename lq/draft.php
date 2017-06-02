@@ -250,6 +250,13 @@ function getProcessedFiles(){
   $g->in_processed = json_decode(file_get_contents($g->in_processed_file));
 }
 
+function writeProcessedFiles(){
+  global $g;
+    $handle = fopen($g->in_processed_file, "w");
+    fwrite($handle, json_encode($g->in_processed));
+    fclose($handle);
+  }
+}
 
 
 function exit_code($error){
@@ -286,10 +293,10 @@ $g->in_zip_file = $g->process_dir. "LAQ_STMT_ESUM_0617ESTMT_Spanish_in.zip";
 $g->in_mapping_file = "/var/github/shop/lq/mapping.json";
 $g->in_processed_file = "/var/lq/estatement/processed.json";
 $g->creds_file = "/var/lq/creds.json";
-$g->out_debug = $g->process_dir . "20170531_trigger_first_100_debug.out";
-$g->out_contact = $g->process_dir . "20170531_trigger_first_100_contact.out";
-$g->out_event = $g->process_dir . "20170531_trigger_first_100_event.out";
-$g->out_supplement = $g->process_dir . "20170531_trigger_first_100_supplement.out";
+$g->out_debug = str_replace(".txt", "debug_out.txt", $g->in_file);
+$g->out_contact = str_replace(".txt", "contact_out.txt", $g->in_file);
+$g->out_event = str_replace(".txt", "event_out.txt", $g->in_file);
+=$g->out_supplement = str_replace(".txt", "supplement_out.txt", $g->in_file);
 $g->have_read_header = false;
 $g->creds = json_decode(file_get_contents($g->creds_file));
 $g->mappings = json_decode(file_get_contents($g->in_mapping_file));
@@ -333,6 +340,7 @@ while (($g->row = fgetcsv($g->in_handle, 0, "\t")) !== false) {
 closeFiles();
 // uploadSFTP();
 // contactImportsAPI();
+writeProcessedFiles();
 exit_code(null);
 /* End Cleanup and Send */
 ?>
