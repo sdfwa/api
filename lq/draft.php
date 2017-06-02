@@ -59,7 +59,7 @@ function checkHeader(){
 
 function debugHeader(){
   global $g;
-  $g->out_debug_handle = fopen($g->process_dir . $g->out_debug, "w");
+  $g->out_debug_handle = fopen($g->out_debug, "w");
   if($g->debug){
     $g->write_debug = true;
     foreach($g->mappings_keys as $header){
@@ -71,17 +71,17 @@ function debugHeader(){
 
 function contactHeader(){
   global $g;
-  // $g->out_contact_handle = fopen($g->process_dir . $g->out_contact, "w");
+  // $g->out_contact_handle = fopen($g->out_contact, "w");
 }
 
 function eventHeader(){
   global $g;
-  // $g->out_event_handle = fopen($g->process_dir . $g->out_event, "w");
+  // $g->out_event_handle = fopen($g->out_event, "w");
 }
 
 function supplementHeader(){
   global $g;
-  // $g->out_supplement_handle = fopen($g->process_dir . $g->out_supplement, "w");
+  // $g->out_supplement_handle = fopen($g->out_supplement, "w");
 }
 
 function debugRow(){
@@ -182,7 +182,7 @@ function uploadSFTP(){
   ssh2_auth_password($connection, $g->creds->ftp_username, $g->creds->ftp_password);
   $sftp = ssh2_sftp($connection);
   $g->ftp_handle = fopen("ssh2.sftp://$sftp/".$g->out_server_file, 'w');
-  $g->out_handle = fopen($g->process_dir . $g->out_debug, "r");
+  $g->out_handle = fopen($g->out_debug, "r");
   $writtenBytes = stream_copy_to_stream($g->out_handle, $g->ftp_handle);
   fclose($g->ftp_handle);
   unset($g->ftp_handle);
