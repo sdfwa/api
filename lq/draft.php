@@ -288,7 +288,7 @@ $g->mappings = json_decode(file_get_contents($g->in_mapping_file));
 checkDir();
 getProcessedFiles();
 downloadSFTP();
-unZipFiles();
+unZipFile();
 $g->in_handle = fopen($g->in_file, "r");
 $g->mappings_keys = getKeyNames($g->mappings);
 $g->mappings_keys_count = count($g->mappings_keys);
