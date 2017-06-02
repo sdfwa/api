@@ -3,24 +3,30 @@
 function getHeader($data, $map){
   global $g;
   $results = json_decode("[]");
+  $g->debug_allowed = json_decode("{}");
+  $i = 0;
   foreach($data as $column){
-    $name = $g->mappings->$column->$map;
-    if($name !== ""){
-      array_push($results, $name);
-      $g->mappings_keys->$name = 1;
+    if(getMap($column, $map) !== ""){
+      array_push($results, getMap($column, $map));
+      $g->debug_allowed->$i = 1;
     }
+    $i++;
   }
   return $results;
 }
 
-function getKeyNames(){
+function getMap($key, $map){
   global $g;
-  $g->mappings_keys_array = json_decode("[]");
-  $g->mappings_keys = json_decode("{}");
-  foreach($g->mappings as $key => $value){
-    array_push($g->mappings_keys_array, $key);
+  return $g->mappings->$key->$map;
+}
+
+function getKeyNames($json){
+  global $g;
+  $results = json_decode("[]");
+  foreach($json as $key => $value){
+    array_push($results, $key);
   }
-  $g->mappings_keys_count = count($g->mappings_keys_array);
+  return $results;
 }
 
 function clearWriteFlags(){
@@ -82,8 +88,12 @@ function debugRow(){
   global $g;
   if($g->debug){
     $g->write_debug = true;
+    $i = 0;
     foreach($g->row as $column){
-      array_push($g->results_debug, trim($column));
+      if($g->debug_allowed->$i === 1){
+        array_push($g->results_debug, trim($column));
+      }
+      $i++;
     }
   }
 }
@@ -269,16 +279,16 @@ $g->file_name_match = "/LAQ_STMT_ESUM_\d+ESTMT.*\.zip/";
 // $g->in_server_file = "/Trendline_Cordial/20170531_trigger_in.csv";
 // $g->in_server_file = "/Trendline_Cordial/LAQ_STMT_ESUM_0617ESTMT_Spanish_in.zip";
 $g->in_dir = "/Trendline_Cordial/";
-$g->out_server_file = "/Trendline_Cordial/20170531_trigger.csv";
-$g->in_file = $g->process_dir . "EVT_LAQ_STMT_ESUM_0617ESTMT_File_E_all_spa_mbrs.txt";
-$g->in_zip_file = $g->process_dir . "LAQ_STMT_ESUM_0617ESTMT_Spanish_in.zip";
+$g->out_server_file = $g->in_dir . "20170531_trigger.csv";
+$g->in_file = $g->process_dir . "/EVT_LAQ_STMT_ESUM_0617ESTMT_File_E_all_spa_mbrs.txt";
+$g->in_zip_file = $g->process_dir. "LAQ_STMT_ESUM_0617ESTMT_Spanish_in.zip";
 $g->in_mapping_file = "/var/github/shop/lq/mapping.json";
-$g->in_processed_file = $g->process_dir . "processed.json";
+$g->in_processed_file = "/var/lq/estatement/processed.json";
 $g->creds_file = "/var/lq/creds.json";
-$g->out_debug = "20170531_trigger_first_100_debug.out";
-$g->out_contact = "20170531_trigger_first_100_contact.out";
-$g->out_event = "20170531_trigger_first_100_event.out";
-$g->out_supplement = "20170531_trigger_first_100_supplement.out";
+$g->out_debug = $g->process_dir . "20170531_trigger_first_100_debug.out";
+$g->out_contact = $g->process_dir . "20170531_trigger_first_100_contact.out";
+$g->out_event = $g->process_dir . "20170531_trigger_first_100_event.out";
+$g->out_supplement = $g->process_dir . "20170531_trigger_first_100_supplement.out";
 $g->have_read_header = false;
 $g->creds = json_decode(file_get_contents($g->creds_file));
 $g->mappings = json_decode(file_get_contents($g->in_mapping_file));
@@ -290,11 +300,12 @@ getProcessedFiles();
 downloadSFTP();
 unZipFile();
 $g->in_handle = fopen($g->in_file, "r");
-getKeyNames();
+$g->mappings_keys = getKeyNames($g->mappings);
+$g->mappings_keys_count = count($g->mappings_keys);
 /* End Before Process Rows */
 
 /* Start processing Rows */
-while (($g->row = fgetcsv($g->in_handle, 0, "\t")) !== false) {
+while (($g->row = fgetcsv($g->in_handle)) !== false) {
   clearWriteFlags();
   resetWriteArrays();
   if(!$g->have_read_header){
@@ -319,8 +330,8 @@ while (($g->row = fgetcsv($g->in_handle, 0, "\t")) !== false) {
 
 /* Start Cleanup and Send */
 closeFiles();
-uploadSFTP();
-contactImportsAPI();
+// uploadSFTP();
+// contactImportsAPI();
 exit_code(null);
 /* End Cleanup and Send */
 ?>
