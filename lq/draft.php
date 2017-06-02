@@ -294,7 +294,7 @@ getKeyNames();
 /* End Before Process Rows */
 
 /* Start processing Rows */
-while (($g->row = fgetcsv($g->in_handle)) !== false) {
+while (($g->row = fgetcsv($g->in_handle, 0, "\t")) !== false) {
   clearWriteFlags();
   resetWriteArrays();
   if(!$g->have_read_header){
