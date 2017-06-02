@@ -252,12 +252,10 @@ function getProcessedFiles(){
 
 function writeProcessedFiles(){
   global $g;
-    $handle = fopen($g->in_processed_file, "w");
-    fwrite($handle, json_encode($g->in_processed));
-    fclose($handle);
-  }
+  $handle = fopen($g->in_processed_file, "w");
+  fwrite($handle, json_encode($g->in_processed));
+  fclose($handle);
 }
-
 
 function exit_code($error){
   global $g;
