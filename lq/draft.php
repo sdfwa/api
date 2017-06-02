@@ -294,7 +294,7 @@ $g->creds_file = "/var/lq/creds.json";
 $g->out_debug = str_replace(".txt", "debug_out.txt", $g->in_file);
 $g->out_contact = str_replace(".txt", "contact_out.txt", $g->in_file);
 $g->out_event = str_replace(".txt", "event_out.txt", $g->in_file);
-=$g->out_supplement = str_replace(".txt", "supplement_out.txt", $g->in_file);
+$g->out_supplement = str_replace(".txt", "supplement_out.txt", $g->in_file);
 $g->have_read_header = false;
 $g->creds = json_decode(file_get_contents($g->creds_file));
 $g->mappings = json_decode(file_get_contents($g->in_mapping_file));
