@@ -151,7 +151,7 @@ function downloadSFTP(){
       if(preg_match($g->file_name_match, $file)){
         if(!($g->in_processed->$file === 1)){
           $g->in_processed->$file = 1;
-          $g->in_server_file = $file;
+          $g->in_server_file = $g->in_dir . $file;
         }
       }
     }
@@ -233,7 +233,7 @@ function getProcessedFiles(){
   global $g;
   if(!file_exists($g->in_processed_file)){
     $handle = fopen($g->in_processed_file, "w");
-    fwrite($handle, '"{}"');
+    fwrite($handle, "{}");
     fclose($handle);
   }
   $g->in_processed = json_decode(file_get_contents($g->in_processed_file));
