@@ -168,13 +168,17 @@ function downloadSFTP(){
     }
     closedir($handle);
   }
-  $g->ftp_handle = fopen("ssh2.sftp://$sftp/".$g->in_server_file, 'r');
-  $g->in_handle = fopen($g->in_zip_file, "w");
-  $writtenBytes = stream_copy_to_stream($g->ftp_handle, $g->in_handle);
-  fclose($g->ftp_handle);
-  unset($g->ftp_handle);
-  fclose($g->in_handle);
-  unset($g->in_handle);
+  if(isset($g->in_server_file)){
+    $g->ftp_handle = fopen("ssh2.sftp://$sftp/".$g->in_server_file, 'r');
+    $g->in_handle = fopen($g->in_zip_file, "w");
+    $writtenBytes = stream_copy_to_stream($g->ftp_handle, $g->in_handle);
+    fclose($g->ftp_handle);
+    unset($g->ftp_handle);
+    fclose($g->in_handle);
+    unset($g->in_handle);    
+  }else{
+    exit_code(null);
+  }
 }
 
 function uploadSFTP(){
