@@ -1,93 +1,242 @@
 {
-  "EMAIL": {
+  "1-Member ID": {
     "column": 0,
-    "map_debug": "channels.email.address",
-    "map_contact": "",
-    "map_event": "",
-    "map_supplement": ""
+    "map_debug": ""
   },
-  "FIRSTNAME": {
+  "2-Prefix": {
     "column": 1,
-    "map_debug": "first_name",
-    "map_contact": "",
-    "map_event": "",
-    "map_supplement": ""
+    "map_debug": ""
   },
-  "LASTNAME": {
+  "3-First Name": {
     "column": 2,
-    "map_debug": "last_name",
-    "map_contact": "",
-    "map_event": "",
-    "map_supplement": ""
+    "map_debug": "first_name"
   },
-  "ADDRESS": {
+  "4-Middle Name": {
     "column": 3,
-    "map_debug": "home.street_address",
-    "map_contact": "",
-    "map_event": "",
-    "map_supplement": ""
+    "map_debug": ""
   },
-  "CITY": {
+  "5-Last Name": {
     "column": 4,
-    "map_debug": "home.city",
-    "map_contact": "",
-    "map_event": "",
-    "map_supplement": ""
+    "map_debug": "last_name"
   },
-  "STATE": {
+  "6-Suffix": {
     "column": 5,
-    "map_debug": "home.state",
-    "map_contact": "",
-    "map_event": "",
-    "map_supplement": ""
+    "map_debug": ""
   },
-  "COUNTRY": {
+  "7-Email Address": {
     "column": 6,
-    "map_debug": "home.country",
-    "map_contact": "",
-    "map_event": "",
-    "map_supplement": ""
+    "map_debug": "channels.email.address"
   },
-  "POSTAL_CODE": {
+  "8-Address 1": {
     "column": 7,
-    "map_debug": "home.postal_code",
-    "map_contact": "",
-    "map_event": "",
-    "map_supplement": ""
+    "map_debug": ""
   },
-  "GENDER": {
+  "9-Address 2": {
     "column": 8,
-    "map_debug": "gender",
-    "map_contact": "",
-    "map_event": "",
-    "map_supplement": ""
+    "map_debug": ""
   },
-  "ARRIVAL": {
+  "10-City": {
     "column": 9,
-    "map_debug": "last_arrival",
-    "map_contact": "",
-    "map_event": "",
-    "map_supplement": ""
+    "map_debug": ""
   },
-  "CHILDREN": {
+  "11-State Code": {
     "column": 10,
-    "map_debug": "children",
-    "map_contact": "",
-    "map_event": "",
-    "map_supplement": ""
+    "map_debug": ""
   },
-  "PROPERTY": {
+  "12-Postal Code": {
     "column": 11,
-    "map_debug": "last_property",
-    "map_contact": "",
-    "map_event": "",
-    "map_supplement": ""
+    "map_debug": "home.postal_code"
   },
-  "GRP": {
+  "13-Postal Code Extension": {
     "column": 12,
-    "map_debug": "group",
-    "map_contact": "",
-    "map_event": "",
-    "map_supplement": ""
+    "map_debug": ""
+  },
+  "14-Country": {
+    "column": 13,
+    "map_debug": ""
+  },
+  "15-Tier": {
+    "column": 14,
+    "map_debug": ""
+  },
+  "16-Enrollment Date": {
+    "column": 15,
+    "map_debug": ""
+  },
+  "17-Segment": {
+    "column": 16,
+    "map_debug": ""
+  },
+  "18-Offer Code": {
+    "column": 17,
+    "map_debug": ""
+  },
+  "19-Chase Mbr Ind": {
+    "column": 18,
+    "map_debug": ""
+  },
+  "20-C Msg Ind": {
+    "column": 19,
+    "map_debug": ""
+  },
+  "21-D Msg Ind": {
+    "column": 20,
+    "map_debug": ""
+  },
+  "22-Current Balance": {
+    "column": 21,
+    "map_debug": ""
+  },
+  "23-Nights to Next Tier": {
+    "column": 22,
+    "map_debug": ""
+  },
+  "24-Nights to Maintain Tier": {
+    "column": 23,
+    "map_debug": ""
+  },
+  "25-Beginning Month Point Balance": {
+    "column": 24,
+    "map_debug": ""
+  },
+  "26-MTD Base Points": {
+    "column": 25,
+    "map_debug": ""
+  },
+  "27-MTD Bonus Points": {
+    "column": 26,
+    "map_debug": ""
+  },
+  "28-MTD Adjustment Points": {
+    "column": 27,
+    "map_debug": ""
+  },
+  "29-MTD Redeemed Points": {
+    "column": 28,
+    "map_debug": ""
+  },
+  "30-MTD Points Earned": {
+    "column": 29,
+    "map_debug": ""
+  },
+  "31-Beginning Qtr Point Balance": {
+    "column": 30,
+    "map_debug": ""
+  },
+  "32-QTD Base Points": {
+    "column": 31,
+    "map_debug": ""
+  },
+  "33-QTD Bonus Points": {
+    "column": 32,
+    "map_debug": ""
+  },
+  "34-QTD Adjustment Points": {
+    "column": 33,
+    "map_debug": ""
+  },
+  "35-QTD Redeemed Points": {
+    "column": 34,
+    "map_debug": ""
+  },
+  "36-QTD Points Earned": {
+    "column": 35,
+    "map_debug": ""
+  },
+  "37-MMI Code": {
+    "column": 36,
+    "map_debug": ""
+  },
+  "38-Cancellation Date": {
+    "column": 37,
+    "map_debug": ""
+  },
+  "39-RecencyDate": {
+    "column": 38,
+    "map_debug": ""
+  },
+  "40-Comm Code": {
+    "column": 39,
+    "map_debug": ""
+  },
+  "41-Start Date": {
+    "column": 40,
+    "map_debug": ""
+  },
+  "42-Focus State": {
+    "column": 41,
+    "map_debug": ""
+  },
+  "43-Target": {
+    "column": 42,
+    "map_debug": ""
+  },
+  "44-Split Assign": {
+    "column": 43,
+    "map_debug": ""
+  },
+  "45-Max Bonus": {
+    "column": 44,
+    "map_debug": ""
+  },
+  "46-DPM": {
+    "column": 45,
+    "map_debug": ""
+  },
+  "47-Company": {
+    "column": 46,
+    "map_debug": ""
+  },
+  "48-Alt Bonus Code": {
+    "column": 47,
+    "map_debug": ""
+  },
+  "49-Map ": {
+    "column": 48,
+    "map_debug": ""
+  },
+  "50-Language Indicator": {
+    "column": 49,
+    "map_debug": ""
+  },
+  "51-InnType": {
+    "column": 50,
+    "map_debug": ""
+  },
+  "52-Primary Market": {
+    "column": 51,
+    "map_debug": ""
+  },
+  "53-Secondary Market": {
+    "column": 52,
+    "map_debug": ""
+  },
+  "54-FNB Mbr Ind": {
+    "column": 53,
+    "map_debug": ""
+  },
+  "55-Military Ind": {
+    "column": 54,
+    "map_debug": ""
+  },
+  "56-Message": {
+    "column": 55,
+    "map_debug": ""
+  },
+  "57-WS End Date": {
+    "column": 56,
+    "map_debug": ""
+  },
+  "58-Total spent": {
+    "column": 57,
+    "map_debug": ""
+  },
+  "59-Total points not earned": {
+    "column": 58,
+    "map_debug": ""
+  },
+  "60-Total 2016 Nights": {
+    "column": 59,
+    "map_debug": ""
   }
 }
