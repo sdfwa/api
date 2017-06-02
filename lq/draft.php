@@ -4,7 +4,7 @@ function getHeader($data, $map){
   global $g;
   $results = json_decode("[]");
   foreach($data as $column){
-    $name = $g->mappings->$column->$map
+    $name = $g->mappings->$column->$map;
     if($name !== ""){
       array_push($results, $name);
       $g->mappings_keys->$name = 1;
