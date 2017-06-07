@@ -14,7 +14,7 @@ function debounce(func, wait, immediate) {
 };
 waiting = "To Access Member Shop<br><br>Enter Member ID";
 error = "Please try your Member ID again or ask the shift supervisor for assistance."
-open = "Door is unlocked, pull to open."
+open = "Door is unlocked, push to open."
 $( "#PINcode" ).html(
 	"<div id='helpText' class='waiting'>"+waiting+"</div><div id='pin'><form action='' method='' name='PINform' id='PINform' autocomplete='off' >" +
 		"<input id='PINbox' type='password' value='' name='PINbox' autofocus/>" +
