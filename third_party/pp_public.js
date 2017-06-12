@@ -413,17 +413,17 @@ if(typeof jQuery === 'undefined'){
               ';
               s.checklist_body += '\
                 <h4>\
-                  3) Download and read our Member Shop Safety Manual {link coming soon}\
+                  3) Download and read our <a href="http://www.sdfwa.org/member-shop-training/">Member Shop Safety Manual<a/>\
                 </h4>\
               ';
               s.checklist_body += '\
                 <h4>\
-                  4) Register for a Shop Safety Training via the calendar.\
+                  4) Pass the Shop Safety Exam and the Hands On Safety Training (HOST).\
                 </h4>\
               ';
               s.checklist_body += '\
                 <h4>\
-                  5) Pass the Shop Safety Exam taken during the Shop Safety Training.\
+                  5) Register for a Shop Safety Training via the calendar.\
                 </h4>\
               ';
               s.checklist_body += '\
