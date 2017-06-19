@@ -42,9 +42,7 @@ if(isset($_COOKIE['user']) && $_COOKIE['user'] !== ''){
 </html>
 
 <?php exit(); } ?>
- 
 <?php
-
 if($count_inputs > 1){
   debug('can only use one input query string parameter');
   exit();
