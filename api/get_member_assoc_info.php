@@ -44,7 +44,7 @@ if(isset($_COOKIE['user']) && $_COOKIE['user'] !== ''){
 <?php exit(); } ?>
  
 <?php
-header("Content-Type: application/json");
+
 if($count_inputs > 1){
   debug('can only use one input query string parameter');
   exit();
