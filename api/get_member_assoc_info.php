@@ -41,7 +41,7 @@ if(isset($_COOKIE['user']) && $_COOKIE['user'] !== ''){
 </body>
 </html>
 
-<?php } exit();?>
+<?php exit(); } ?>
 <?php
 
 if($count_inputs > 1){
