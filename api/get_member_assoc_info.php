@@ -30,7 +30,7 @@ if(isset($_COOKIE['user']) && $_COOKIE['user'] !== ''){
 <!DOCTYPE html>
 <html>
 <body>
-  <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post">
+  <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="GET">
       Search Last Name: <input type="text" name="last_name"<br>
       OR<br>
       Search Email: <input type="text" name="email"<br>
