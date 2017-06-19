@@ -16,7 +16,7 @@ if(isset($_GET['last_name']) && $_GET['last_name'] !== ''){
   $last_name= $_GET['last_name'];
   $count_inputs++;
 }
-$user = false
+$user = false;
 if(isset($_GET['user']) && $_GET['user'] !== ''){
   $user=true;
   setcookie("user", $_GET['user'], time()+60*60*24*365);
