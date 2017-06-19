@@ -27,15 +27,21 @@ if(isset($_COOKIE['user']) && $_COOKIE['user'] !== ''){
 
 ?>
 <?php if($count_inputs === 0){ ?>
-    <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post">
-        Search Last Name: <input type="text" name="last_name"<br>
-        OR<br>
-        Search Email: <input type="text" name="email"<br>
-        OR<br>
-        Search Member ID: <input type="text" name="member_id"<br>
-        <input type="submit">
-    </form>
-<?php } ?>
+<!DOCTYPE html>
+<html>
+<body>
+  <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="post">
+      Search Last Name: <input type="text" name="last_name"<br>
+      OR<br>
+      Search Email: <input type="text" name="email"<br>
+      OR<br>
+      Search Member ID: <input type="text" name="member_id"<br>
+      <input type="submit">
+  </form>
+</body>
+</html>
+
+<?php } exit();?>
 <?php
 
 if($count_inputs > 1){
