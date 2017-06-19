@@ -42,6 +42,7 @@ if(isset($_COOKIE['user']) && $_COOKIE['user'] !== ''){
 </html>
 
 <?php exit(); } ?>
+header("Content-Type: application/json"); 
 <?php
 
 if($count_inputs > 1){
