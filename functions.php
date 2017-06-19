@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 //Setup headers
 header("Cache-Control: no-cache, must-revalidate"); // Make it so the file can't be cached
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
-if($GLOBALS['debug'] == true){
+if($GLOBALS['debug'] == true || preg_match("/get_member_assoc_info\.php/i", $_SERVER["PHP_SELF"])){
   header("Content-Type: text/html"); //Set that the returned file is JS
   debug('debug on', $current_time);
 }else{
