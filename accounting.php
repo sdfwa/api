@@ -1,5 +1,5 @@
 <?php
-require('../functions.php');
+require('./functions.php');
 
 $count_inputs = 0;
 if(isset($_GET['member_id']) && $_GET['member_id'] !== ''){
