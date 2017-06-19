@@ -70,9 +70,9 @@ mssql_select_db('SDFWA')
 
 $SQL = <<<QUERY_END
 SELECT TOP 10
-fldLastName
-, fldFirstName
+fldFirstName
 , fldMiddleInit
+, fldLastName
 , fldPrefix
 , fldSuffix
 , fldSpouse
@@ -82,17 +82,14 @@ fldLastName
 , fldZipCode
 , fldPhone
 , fldYr
-, fldShare
 , fldEMail
-, fldMail
 , fldJoined
 , fldCarded
-, fldComments
 , fldLifeMember
-, fldDate
-, fldEmail2
-, fldPhone2
 , MemberID
+, fldShopExpire
+, fldShopFounder
+, fldMilitaryRank
 FROM davism.tblSDFWAMembers
 {{WHERE}}
 ;
@@ -126,7 +123,6 @@ if($row_count > 0){
     $output = json_decode('{}');
     $output->success = 'true';
     $output->message = 'results found';
-    $output->host = $host;
     $output->last_name = trim($Row['fldLastName']);
     $output->first_name = trim($Row['fldFirstName']);
     $output->middle_initial = trim($Row['fldMiddleInit']);
@@ -139,18 +135,14 @@ if($row_count > 0){
     $output->zip_code = trim($Row['fldZipCode']);
     $output->phone = trim($Row['fldPhone']);
     $output->year = trim($Row['fldYr']);
-    $output->shop_expire = $Row['fldShopExpire'];
-    $output->share = trim($Row['fldShare']);
     $output->email = trim($Row['fldEMail']);
-    $output->mail = trim($Row['fldMail']);
     $output->date_joined = $Row['fldJoined'];
     $output->date_carded = $Row['fldCarded'];
-    $output->comments = trim($Row['fldComments']);
     $output->life_member = trim($Row['fldLifeMember']);
-    $output->date = $Row['fldDate'];
-    $output->email2 = trim($Row['fldEmail2']);
-    $output->phone2 = trim($Row['fldPhone2']);
     $output->member_id = trim(substr("0000" . $Row['MemberID'], -4));
+    $output->shop_expire= trim($Row['fldShopExpire']);
+    $output->shop_founder= trim($Row['fldShopFounder']);
+    $output->military_rank= trim($Row['fldMilitaryRank']);
     array_push($array_out, $output);
   }
 }else{
