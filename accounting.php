@@ -69,7 +69,7 @@ mssql_select_db('SDFWA')
     or die('Could not select a database.');
 
 $SQL = <<<QUERY_END
-SELECT TOP 1
+SELECT TOP 10
 fldLastName
 , fldFirstName
 , fldMiddleInit
