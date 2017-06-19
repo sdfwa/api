@@ -75,13 +75,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 //Setup headers
 header("Cache-Control: no-cache, must-revalidate"); // Make it so the file can't be cached
 header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
-if($GLOBALS['debug'] == true || preg_match("/get_member_assoc_info\.php/i", $_SERVER["PHP_SELF"])){
-  header("Content-Type: text/html"); //Set that the returned file is JS
-  debug('debug on', $current_time);
-}else{
-  header("Content-Type: application/json"); //Set that the returned file is JS
-  // header("Content-Type:text/javascript"); //Set that the returned file is JS
+if(!preg_match("/accounting\.php/i", $_SERVER["PHP_SELF"])){
+  if($GLOBALS['debug'] == true){
+    header("Content-Type: text/html"); //Set that the returned file is JS
+    debug('debug on', $current_time);
+  }else{
+    header("Content-Type: application/json"); //Set that the returned file is JS
+    // header("Content-Type:text/javascript"); //Set that the returned file is JS
+  }  
 }
+
 if("OPTIONS" == $_SERVER['REQUEST_METHOD']) {
     exit(0);
 }

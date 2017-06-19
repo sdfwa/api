@@ -1,52 +1,21 @@
 <?php
 require('../functions.php');
 
-$count_inputs = 0;
 if(isset($_GET['member_id']) && $_GET['member_id'] !== ''){
   $member_id = $_GET['member_id'];
-  $count_inputs++;
 }
 
 if(isset($_GET['email']) && $_GET['email'] !== ''){
   $email= $_GET['email'];
-  $count_inputs++;
 }
 
-if(isset($_GET['last_name']) && $_GET['last_name'] !== ''){
-  $last_name= $_GET['last_name'];
-  $count_inputs++;
-}
-$user = false;
-if(isset($_GET['user']) && $_GET['user'] !== ''){
-  $user=true;
-  setcookie("user", $_GET['user'], time()+60*60*24*365);
-}
-if(isset($_COOKIE['user']) && $_COOKIE['user'] !== ''){
-  $user=true;
+if(!isset($member_id) && !isset($email)){
+  debug('no member id OR email');
+  exit();
 }
 
-?>
-<?php if($count_inputs === 0){ ?>
-<!DOCTYPE html>
-<html>
-<body>
-  <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?> method="GET">
-      Search Last Name: <input type="text" name="last_name"<br>
-      OR<br>
-      Search Email: <input type="text" name="email"<br>
-      OR<br>
-      Search Member ID: <input type="text" name="member_id"<br>
-      <input type="submit">
-  </form>
-</body>
-</html>
-
-<?php exit(); } ?>
- 
-<?php
-
-if($count_inputs > 1){
-  debug('can only use one input query string parameter');
+if(isset($member_id) && isset($email)){
+  debug('both member id and email');
   exit();
 }
 $host = '';
@@ -59,10 +28,8 @@ if(isset($_GET['host']) && $_GET['host'] !== '' && preg_match("/punchpass/i", $_
 }
 
 if (!preg_match("/punchpass\.net/i", $host)) {
-  if(!$user){
-    debug('wrong host');
-    exit();
-  }
+  debug('wrong host');
+  exit();
 }
 
 $con = mssql_connect($MSSQLServer, $MSSQLUser, $MSSQLPass) or die("Could not connect to database: ".mssql_get_last_message()); 
@@ -105,10 +72,6 @@ if(isset($member_id)){
 
 if(isset($email)){
   $SQL = str_replace("{{WHERE}}",  "WHERE fldEMail LIKE '%" . $email . "%'", $SQL);
-}
-
-if(isset($last_name)){
-  $SQL = str_replace("{{WHERE}}",  "WHERE fldLastName LIKE '%" . $last_name. "%'", $SQL);
 }
 
 
