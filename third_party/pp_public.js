@@ -221,8 +221,8 @@ if(typeof jQuery === 'undefined'){
 		});
 		$('#member_remember_me').prop('checked', true);
 		if(s.readCookie('watched_video') === null){
-		  s.showVideo(s);
-		  s.createCookie('watched_video', 'true', 365);
+		  // s.showVideo(s);
+		  // s.createCookie('watched_video', 'true', 365);
 		}
         if(/@/.test(s.local.email) && $('#member_email').val() === ''){
           $('#member_email').val(s.local.email);
