@@ -436,13 +436,13 @@ if(typeof jQuery === 'undefined'){
                 (function($, s){
                   setTimeout(function(){
                     if((data.shop_expire || '1970-01-01').replace(/-/, '') < s.getDate().replace(/-/, '')){
-                      s.showModal({body:s.checklist_body});
+                      // s.showModal({body:s.checklist_body});
                     }
                   }, 500);
                 }($, s))
               }else{
                 if((data.shop_expire || '1970-01-01').replace(/-/, '') < s.getDate().replace(/-/, '')){
-                  s.showModal({body:s.checklist_body});
+                  // s.showModal({body:s.checklist_body});
                 }
               }
               // $('a:contains("Home")').text('Home - Checklist');
