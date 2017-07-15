@@ -9,7 +9,7 @@
 // @version       1.03
 // @description   Addons to Punchpass
 // @include       https://app.punchpass.net*
-// @updateURL     https://shop.briankranson.com/pp_tampermonkey.user.js
+// @updateURL     https://shop.sdfwa.org/third_party/pp_tampermonkey.user.js
 // ==/UserScript==
 console.log('Started Punchpass enhancements');
 
@@ -157,7 +157,7 @@ console.log('Started Punchpass enhancements');
   if(currentURLMatches(['app.punchpass.net\/customers\/([0-9]+)\/edit'])){
     s.update_user = function(){
       s.tmp.email = $('#customer_email').val();
-      $.getJSON('https://shop.briankranson.com/api/get_member_assoc_info.php?email=' + s.tmp.email).done(function(data){
+      $.getJSON('https://shop.sdfwa.org/api/get_member_assoc_info.php?email=' + s.tmp.email).done(function(data){
         if(data.success === 'true' && s.tmp.email.toLowerCase().trim() === data.email.toLowerCase().trim() && /^\d{4}$/.test(data.member_id)){
           // add dashes to 10 digit phone number
           s.tmp.phone = ('0000000000' + data.phone.replace(/(\ |\.|\-|\(|\))/g, '')).substr(-10);
