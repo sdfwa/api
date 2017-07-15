@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name          Punchpass Updates
 // @namespace     pp_tampermonkey
-// @require       http://code.jquery.com/jquery-2.1.1.min.js
+// @require       https://code.jquery.com/jquery-2.1.1.min.js
 // @require       https://raw.githubusercontent.com/ccampbell/mousetrap/master/mousetrap.min.js
 // @require       https://raw.github.com/ccampbell/mousetrap/master/plugins/global-bind/mousetrap-global-bind.min.js
 // @require       https://code.jquery.com/ui/1.11.2/jquery-ui.js
 // @run-at        document-end
-// @version       1.03
+// @version       1.04
 // @description   Addons to Punchpass
 // @include       https://app.punchpass.net*
 // @updateURL     https://shop.sdfwa.org/third_party/pp_tampermonkey.user.js
