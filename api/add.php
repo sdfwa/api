@@ -10,6 +10,7 @@ if(isset($_GET['member_id']) && $_GET['member_id'] !== ''){
   debug('no member id or user id or token');
   exit();
 }
+$shift_supervisors = array("5455","5481","2579","3606","0169","4396","4310","2490","4153","3129","4339");
 
 // function check_token($token, $user_id, $current_time){
 //   $query = $select_token_query = "SELECT *, '{{current_time}}' AS `current_time` FROM users WHERE token = '{{token}}' AND user_id = '{{user_id}}' ORDER BY start_time DESC limit 1;";
@@ -83,7 +84,10 @@ debug('row count', $row_count);
 
   $start_time = date('Y-m-d H:i:s');
   // $end_time = date('Y-m-d H:i:s', strtotime("$start_time + 4 hours"));
-  $end_time = date('Y-m-d 23:23:59');;
+  $end_time = date('Y-m-d 23:23:59');
+  if(in_array($member_id, $shift_supervisors)){
+    $end_time = date('Y-m-d H:i:s', strtotime("$start_time + 365 days"));
+  }
   $query = $insert_query;
   $query = str_replace('{{member_id}}', $member_id, $query);
   $query = str_replace('{{start_time}}', $start_time, $query);
