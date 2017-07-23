@@ -105,7 +105,7 @@ console.log('Started Punchpass enhancements');
           return p;
       }, []);
   };
-  
+
   var getDate = function(){
     var a = new Date();
     var b = ('0000'+a.getFullYear()).slice(-4);
@@ -114,7 +114,7 @@ console.log('Started Punchpass enhancements');
     b += "-";
     b += ('00'+a.getDate()).slice(-2);
     return b;
-  }
+  };
 
   /* start next url */
   s.tmp.next_url = unsafe.localStorage.getItem('next_url') || '';
@@ -222,7 +222,7 @@ console.log('Started Punchpass enhancements');
                   <button type="button" class="close" data-dismiss="alert">×</button>\
                   <strong>The member record is in sync with the assocaion database.</string>\
                 </div>'
-              )
+              );
               if(s.tmp.all_user_status !== 'loop_urls'){
                 unsafe.localStorage.removeItem('all_user_status');
               }
@@ -248,14 +248,14 @@ console.log('Started Punchpass enhancements');
                 <button type="button" class="close" data-dismiss="alert">×</button>\
                 <strong>The member record is in sync with the assocaion database.</string>\
               </div>'
-            )
+            );
             if(s.tmp.all_user_status !== 'loop_urls'){
               unsafe.localStorage.removeItem('all_user_status');
             }
           }
         }
       });
-    }
+    };
     console.log('start update user');
     $('ul.nav-pills').append('<li><a id="sdfwa_update_user" style="cursor: pointer;"><i class="fa fa-download"></i> Pull Assoc Info</a></li>').click(function(){s.update_user();});
     if(s.tmp.all_user_status !== 'do_nothing'){
@@ -327,4 +327,15 @@ console.log('Started Punchpass enhancements');
     });
   }
   /* end check for update of single user */
+
+  /* start add user to lock */
+    console.log('here');
+  if(currentURLMatches(['app.\punchpass\.net\/instances\/[0-9]+\/attendances\/cust_checkin.cust\=[0-9]+'])){
+      console.log('there');
+    jQuery('input[name=commit]').mousedown(function(){
+      member_id = jQuery('div.span5.well h3:contains("(")').text().split("(")[1].split(")")[0];
+      jQuery.getJSON("https://shop.sdfwa.org/api/add.php?user_id=api_user&member_id="+member_id).done(function(data) {console.log(data);});
+    });
+  }
+  /* end add user to lock */
 })(unsafeWindow);
