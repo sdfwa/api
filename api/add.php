@@ -10,7 +10,7 @@ if(isset($_GET['member_id']) && $_GET['member_id'] !== ''){
   debug('no member id or user id or token');
   exit();
 }
-$shift_supervisors = array("5455","5481","2579","3606","0169","4396","4310","2490","4153","3129","4339");
+$shift_supervisors = array(3818,4873,2810,1867,4274,5501,0027,2282,3741,2362,3840,5442,2541,2147,2905,2502,2955,4514,2547,3711,2369,3142,5543,1695,2349,3407,3537,5475,4263,5481,2579,0169,4396,4310,2490,4153,3606,4339);
 
 // function check_token($token, $user_id, $current_time){
 //   $query = $select_token_query = "SELECT *, '{{current_time}}' AS `current_time` FROM users WHERE token = '{{token}}' AND user_id = '{{user_id}}' ORDER BY start_time DESC limit 1;";
